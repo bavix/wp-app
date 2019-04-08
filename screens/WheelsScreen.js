@@ -1,12 +1,19 @@
 import React from 'react';
-import { Text, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
+import { Text, Button, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
 import { View, FlatList } from 'react-native';
 import Colors from '../constants/Colors'
 
-export default class WheelsScreen extends React.PureComponent {
+export default class WheelsScreen extends React.Component {
 
   static navigationOptions = {
     title: 'Wheels',
+    headerRight: (
+      <Button
+        onPress={() => alert('Hello, ReactNative!')}
+        title="Info"
+        color={Colors.tintColor}
+      />
+    ),
   };
 
   state = {
@@ -64,7 +71,7 @@ export default class WheelsScreen extends React.PureComponent {
 
   render() {
     return (
-      <FlatList
+      <FlatList style={styles.constructor}
         data={this.state.dataSource}
         showsVerticalScrollIndicator={false}
         renderItem={({item}) =>

@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  AppState,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -14,8 +15,24 @@ import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   state = {
-    counter: 0
+    counter: 0,
+    appState: AppState.currentState
   };
+
+  componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange);
+  }
+
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this._handleAppStateChange);
+  }
+
+  _handleAppStateChange = (nextAppState) => {
+    if (this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
+      console.log('App has come to the foreground!')
+    }
+    this.setState({appState: nextAppState});
+  }
 
   static navigationOptions = {
     header: null,
@@ -38,7 +55,8 @@ export default class HomeScreen extends React.Component {
 
           <View style={styles.getStartedContainer}>
             {this._maybeRenderDevelopmentModeWarning()}
-
+            
+            <Text>Current state is: {this.state.appState}</Text>
             <Text style={styles.getStartedText}>Get started by opening</Text>
 
             <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
