@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "WheelPro",
-    "slug": "wheelpro.mobile",
+    "slug": "wheelpro-mobile",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
