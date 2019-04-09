@@ -1,3 +1,3 @@
 export default {
-  baseUri: 'https://wp.babichev.net/api/'
+  baseURL: 'https://wp.babichev.net/'
 }

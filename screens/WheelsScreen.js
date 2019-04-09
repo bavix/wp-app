@@ -3,6 +3,7 @@ import {Text, Button, ActivityIndicator, ScrollView, StyleSheet, Image} from 're
 import { View, FlatList } from 'react-native';
 import Colors from '../constants/Colors';
 import { Icon } from 'expo';
+import api from '../kit/api';
 
 export default class WheelsScreen extends React.Component {
 
@@ -28,57 +29,15 @@ export default class WheelsScreen extends React.Component {
   };
 
   state = {
-    dataSource: [
-      {
-        "id": 2,
-        "name": "CV3-R",
-        "brand_id": 1,
-        "collection_id": 1,
-        "style_id": 85,
-        "image_id": 125,
-        "popular": 20869,
-        "customized": false,
-        "enabled": true,
-        "retired": false,
-        "created_at": "2019-02-12 19:27:47",
-        "updated_at": "2019-02-12 19:27:47",
-        "likes_count": 9,
-        "favorites_count": 11
-      },
-      {
-        "id": 1,
-        "name": "CVT",
-        "brand_id": 1,
-        "collection_id": 1,
-        "style_id": 152,
-        "image_id": 124,
-        "popular": 17600,
-        "customized": false,
-        "enabled": true,
-        "retired": false,
-        "created_at": "2019-02-12 19:27:46",
-        "updated_at": "2019-02-12 19:27:46",
-        "likes_count": 7,
-        "favorites_count": 10
-      },
-      {
-        "id": 6,
-        "name": "VFS/1",
-        "brand_id": 1,
-        "collection_id": 2,
-        "style_id": 187,
-        "image_id": 129,
-        "popular": 13647,
-        "customized": false,
-        "enabled": true,
-        "retired": false,
-        "created_at": "2019-02-12 19:27:47",
-        "updated_at": "2019-02-12 19:27:47",
-        "likes_count": 7,
-        "favorites_count": 6
-      }
-    ]
+    dataSource: []
   };
+
+  componentDidMount() {
+    fetch('https://wp.babichev.net/api/wheels?include=image,brand')
+      .then(res => res.json())
+      .then(res => this.setState({ dataSource: res.data }))
+      .catch(console.log)
+  }
 
   render() {
     return (
@@ -91,7 +50,7 @@ export default class WheelsScreen extends React.Component {
               <Image
                 source={{ uri: 'https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png' }}
                 style={{ width: 128, height: 128 }}
-                resizeMode="cover"
+                resizeMode='cover'
               />
             </View>
 
@@ -101,7 +60,7 @@ export default class WheelsScreen extends React.Component {
               </Text>
 
               <Text style={styles.slugText} numberOfLines={1}>
-                {item.name} {item.brand_id}
+                {item.brand.name}
               </Text>
 
               <Text style={styles.descriptionText}>
