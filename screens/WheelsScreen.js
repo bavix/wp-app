@@ -41,40 +41,42 @@ export default class WheelsScreen extends React.Component {
 
   render() {
     return (
-      <FlatList style={styles.constructor}
-        data={this.state.dataSource}
-        showsVerticalScrollIndicator={false}
-        renderItem={({item}) =>
-          <View style={styles.titleContainer}>
-            <View style={styles.titleIconContainer}>
-              <Image
-                source={{ uri: 'https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png' }}
-                style={{ width: 128, height: 128 }}
-                resizeMode='cover'
-              />
+      <ScrollView style={styles.constructor}>
+        {!this.state.dataSource.length && <ActivityIndicator size='large' />}
+        <FlatList data={this.state.dataSource}
+          showsVerticalScrollIndicator={false}
+          renderItem={({item}) =>
+            <View style={styles.titleContainer}>
+              <View style={styles.titleIconContainer}>
+                <Image
+                  source={{ uri: `https://cdn.wheelpro.ru/wheel/thumbs/${item.image.uuid}/default.png` }}
+                  style={{ width: 160, height: 160 }}
+                  resizeMode='contain'
+                />
+              </View>
+
+              <View>
+                <Text style={styles.nameText} numberOfLines={1}>
+                  {item.name}
+                </Text>
+
+                <Text style={styles.slugText} numberOfLines={1}>
+                  {item.brand.name}
+                </Text>
+
+                <Text style={styles.descriptionText} numberOfLines={25}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                  dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                  aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                  culpa qui officia deserunt mollit anim id est laborum.
+                </Text>
+              </View>
             </View>
-
-            <View>
-              <Text style={styles.nameText} numberOfLines={1}>
-                {item.name}
-              </Text>
-
-              <Text style={styles.slugText} numberOfLines={1}>
-                {item.brand.name}
-              </Text>
-
-              <Text style={styles.descriptionText}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                culpa qui officia deserunt mollit anim id est laborum.
-              </Text>
-            </View>
-          </View>
-        }
-        keyExtractor={item => item.id}
-      />
+          }
+          keyExtractor={item => item.id}
+        />
+      </ScrollView>
     );
   }
 
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
   },
   nameText: {
     fontWeight: '600',
-    fontSize: 18,
+    fontSize: 22,
   },
   slugText: {
     color: '#a39f9f',
