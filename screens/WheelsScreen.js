@@ -1,31 +1,22 @@
 import React from 'react';
-import {Text, Button, ActivityIndicator, ScrollView, StyleSheet, Image} from 'react-native';
+import { Text, Button, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
 import { View, FlatList } from 'react-native';
 import Colors from '../constants/Colors';
-import { Icon } from 'expo';
 import api from '../kit/api';
+import { Image, Divider, Icon } from 'react-native-elements';
 
 export default class WheelsScreen extends React.Component {
 
   static navigationOptions = {
     title: 'Wheels',
-    // headerRight: (
-    //   <Button
-    //     onPress={() => alert('Hello, ReactNative!')}
-    //     // title="Info"
-    //     color={Colors.tintColor}
-    //   >
-    //     <Icon
-    //       name="quote-right"
-    //       backgroundColor="transparent"
-    //       underlayColor="transparent"
-    //       color="black"
-    //       onPress={() => alert('Hello, ReactNative!')}
-    //     >
-    //       <Text style={{fontSize: 15}} />
-    //     </Icon>
-    //   </Button>
-    // ),
+    headerRight: (
+      <Icon
+        raised
+        name='quote-right'
+        // type='font-awesome'
+        color={Colors.tintColor}
+        onPress={() => alert('Hello, ReactNative!')} />
+    ),
   };
 
   state = {
@@ -52,6 +43,8 @@ export default class WheelsScreen extends React.Component {
                   <Image
                     source={{ uri: `https://cdn.wheelpro.ru/wheel/thumbs/${item.image.uuid}/default.png` }}
                     style={{ width: 160, height: 160 }}
+                    PlaceholderContent={<ActivityIndicator />}
+                    placeholderStyle={{backgroundColor: 'white'}}
                     resizeMode='contain'
                   />
                 </View>
@@ -77,9 +70,10 @@ export default class WheelsScreen extends React.Component {
 
                 </View>
               </View>
-              <View style={{backgroundColor: '#ccc'}}>
+              <View>
                 <Text>Like: {item.likes_count}, Favorites: {item.favorites_count}</Text>
               </View>
+              <Divider />
             </View>
           }
           keyExtractor={item => item.id}
