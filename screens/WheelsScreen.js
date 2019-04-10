@@ -41,36 +41,44 @@ export default class WheelsScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.constructor}>
+      <ScrollView>
         {!this.state.dataSource.length && <ActivityIndicator size='large' />}
         <FlatList data={this.state.dataSource}
           showsVerticalScrollIndicator={false}
           renderItem={({item}) =>
-            <View style={styles.titleContainer}>
-              <View style={styles.titleIconContainer}>
-                <Image
-                  source={{ uri: `https://cdn.wheelpro.ru/wheel/thumbs/${item.image.uuid}/default.png` }}
-                  style={{ width: 160, height: 160 }}
-                  resizeMode='contain'
-                />
+            <View>
+              <View style={styles.titleContainer}>
+                <View style={styles.titleIconContainer}>
+                  <Image
+                    source={{ uri: `https://cdn.wheelpro.ru/wheel/thumbs/${item.image.uuid}/default.png` }}
+                    style={{ width: 160, height: 160 }}
+                    resizeMode='contain'
+                  />
+                </View>
+
+                <View>
+                  <View>
+                    <Text style={styles.nameText}>
+                      {item.name}
+                    </Text>
+
+                    <Text style={styles.slugText}>
+                      {item.brand.name}
+                    </Text>
+                  </View>
+
+                  <View style={{flexDirection: 'row'}}>
+                    <Text style={{flexWrap: 'wrap'}}>
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                      dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                      aliquip ex ea commodo consequat.
+                    </Text>
+                  </View>
+
+                </View>
               </View>
-
-              <View>
-                <Text style={styles.nameText} numberOfLines={1}>
-                  {item.name}
-                </Text>
-
-                <Text style={styles.slugText} numberOfLines={1}>
-                  {item.brand.name}
-                </Text>
-
-                <Text style={styles.descriptionText} numberOfLines={25}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                  aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                  culpa qui officia deserunt mollit anim id est laborum.
-                </Text>
+              <View style={{backgroundColor: '#ccc'}}>
+                <Text>Like: {item.likes_count}, Favorites: {item.favorites_count}</Text>
               </View>
             </View>
           }
@@ -107,24 +115,5 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     fontSize: 14,
     color: '#4d4d4d',
-  },
-
-  container: {
-    flex: 1,
-    marginTop: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  flatView: {
-    justifyContent: 'center',
-    paddingTop: 30,
-    borderRadius: 2,
-    paddingRight: 10,
-    paddingLeft: 10,
-  },
-  name: {
-    fontFamily: 'Verdana',
-    fontSize: 18
   }
 });
