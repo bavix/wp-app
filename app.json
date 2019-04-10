@@ -2,13 +2,21 @@
   "expo": {
     "name": "WheelPro",
     "slug": "wheelpro-mobile",
+    "description": "",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "ios": {
+      "bundleIdentifier": "ru.wheelpro.app",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "ru.wheelpro.app"
+    },
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -21,10 +29,6 @@
     },
     "assetBundlePatterns": [
       "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "description": ""
+    ]
   }
 }
