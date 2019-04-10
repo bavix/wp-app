@@ -11,9 +11,9 @@ export default class WheelsScreen extends React.Component {
     title: 'Wheels',
     headerRight: (
       <Icon
-        raised
-        name='quote-right'
-        // type='font-awesome'
+        containerStyle={{paddingRight: 15}}
+        name='ios-options'
+        type='ionicon'
         color={Colors.tintColor}
         onPress={() => alert('Hello, ReactNative!')} />
     ),
@@ -24,9 +24,8 @@ export default class WheelsScreen extends React.Component {
   };
 
   componentDidMount() {
-    fetch('https://wp.babichev.net/api/wheels?include=image,brand')
-      .then(res => res.json())
-      .then(res => this.setState({ dataSource: res.data }))
+    api.get('/api/wheels?include=image,brand')
+      .then(res => this.setState({ dataSource: res.data.data }))
       .catch(console.log)
   }
 

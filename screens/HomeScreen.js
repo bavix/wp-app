@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
+import { BASE_URL } from '../constants/Config';
+
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
@@ -55,7 +57,8 @@ export default class HomeScreen extends React.Component {
 
           <View style={styles.getStartedContainer}>
             {this._maybeRenderDevelopmentModeWarning()}
-            
+
+            <Text>BASE_URL: {BASE_URL}</Text>
             <Text>Current state is: {this.state.appState}</Text>
             <Text style={styles.getStartedText}>Get started by opening</Text>
 
