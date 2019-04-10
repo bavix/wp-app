@@ -1,5 +1,4 @@
 import React from 'react';
-import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
@@ -17,11 +16,7 @@ HomeStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
+      name='information-circle-outline'
     />
   ),
 };
@@ -35,7 +30,7 @@ LinksStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name='link'
     />
   ),
 };
@@ -45,12 +40,12 @@ const WheelsStack = createStackNavigator({
 });
 
 WheelsStack.navigationOptions = {
-  tabBarLabel: 'Catalogue',
+  tabBarLabel: ' ', // 'Catalogue',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
+      raised
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-list' : 'md-list'}
-    />
+      name='list' />
   ),
 };
 
@@ -63,14 +58,17 @@ SettingsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'}
+      name='cog'
     />
   ),
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  WheelsStack,
-  SettingsStack,
+  Home: HomeStack,
+  Links: LinksStack,
+  Wheels: WheelsStack,
+  Settings: SettingsStack,
+  Debug: SettingsStack,
+}, {
+  initialRouteName: 'Wheels',
 });

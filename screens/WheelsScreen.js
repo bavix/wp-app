@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, Button, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
+import { Text, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
 import { View, FlatList } from 'react-native';
 import Colors from '../constants/Colors';
 import api from '../kit/api';
@@ -20,7 +20,7 @@ export default class WheelsScreen extends React.Component {
   };
 
   state = {
-    dataSource: []
+    dataSource: [],
   };
 
   componentDidMount() {
@@ -32,7 +32,11 @@ export default class WheelsScreen extends React.Component {
   render() {
     return (
       <ScrollView>
-        {!this.state.dataSource.length && <ActivityIndicator size='large' />}
+        {!this.state.dataSource.length &&
+          <View>
+            <ActivityIndicator size='large' />
+          </View>
+        }
         <FlatList data={this.state.dataSource}
           showsVerticalScrollIndicator={false}
           renderItem={({item}) =>
@@ -75,7 +79,7 @@ export default class WheelsScreen extends React.Component {
               <Divider />
             </View>
           }
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.id.toString()}
         />
       </ScrollView>
     );
