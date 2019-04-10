@@ -14,6 +14,7 @@ export default class WheelsScreen extends React.Component {
         containerStyle={{paddingRight: 15}}
         name='ios-options'
         type='ionicon'
+        size={26}
         color={Colors.tintColor}
         onPress={() => alert('Hello, ReactNative!')} />
     ),
@@ -73,10 +74,10 @@ export default class WheelsScreen extends React.Component {
 
                 </View>
               </View>
-              <View>
-                <Text>Like: {item.likes_count}, Favorites: {item.favorites_count}</Text>
+              <View style={{paddingLeft: 14, paddingRight: 14}}>
+                <Text>Like: {item.likes_count}; Favorites: {item.favorites_count}</Text>
               </View>
-              <Divider />
+              <Divider style={{backgroundColor: Colors.tintColor}} />
             </View>
           }
           keyExtractor={item => item.id.toString()}

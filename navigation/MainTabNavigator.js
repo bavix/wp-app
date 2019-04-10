@@ -44,6 +44,8 @@ WheelsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       raised
+      reverse
+      size={32}
       focused={focused}
       name='list' />
   ),
@@ -58,17 +60,31 @@ SettingsStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name='cog'
+      name='settings'
+    />
+  ),
+};
+
+const DebugStack = createStackNavigator({
+  Settings: SettingsScreen,
+});
+
+DebugStack.navigationOptions = {
+  tabBarLabel: 'Debug',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name='bug'
     />
   ),
 };
 
 export default createBottomTabNavigator({
-  Home: HomeStack,
-  Links: LinksStack,
-  Wheels: WheelsStack,
-  Settings: SettingsStack,
-  Debug: SettingsStack,
+  HomeStack,
+  LinksStack,
+  WheelsStack,
+  SettingsStack,
+  DebugStack,
 }, {
-  initialRouteName: 'Wheels',
+  initialRouteName: 'WheelsStack',
 });
