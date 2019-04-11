@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
+import { Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { View, FlatList } from 'react-native';
 import Colors from '../constants/Colors';
 import api from '../kit/api';
@@ -21,68 +21,97 @@ export default class WheelsScreen extends React.Component {
   };
 
   state = {
+    url: '/api/wheels?include=image,brand&page=',
+    page: 1,
+    loading: false,
     dataSource: [],
   };
 
   componentDidMount() {
-    api.get('/api/wheels?include=image,brand')
-      .then(res => this.setState({ dataSource: res.data.data }))
-      .catch(console.log)
+    this.handleLoadMore()
   }
+
+  loadingComponent = () => {
+    console.log(this.state.loading)
+    if (this.state.loading) {
+      return <View style={{ paddingVertical: 20 }} >
+        <ActivityIndicator animating size='large' />
+      </View>
+    }
+
+    return null;
+  };
+
+  handleLoadMore = () => {
+    if (!this.state.loading && this.state.page) {
+      this.setState({ loading: true });
+      api.get(`${this.state.url}${this.state.page}`)
+        .then(res => {
+          let page = null
+          if (this.state.page < res.data.meta.last_page) {
+            page = this.state.page + 1
+          }
+
+          this.setState({
+            dataSource: [...this.state.dataSource, ...res.data.data],
+            loading: false,
+            page,
+          })
+        })
+        .catch(err => {
+          this.setState({ loading: false });
+        })
+    }
+  };
 
   render() {
     return (
-      <ScrollView>
-        {!this.state.dataSource.length &&
+      <FlatList data={this.state.dataSource}
+        ListFooterComponent={this.loadingComponent}
+        onEndReached={this.handleLoadMore}
+        onEndReachedThreshold={0}
+        renderItem={({item}) =>
           <View>
-            <ActivityIndicator size='large' />
+            <View style={styles.titleContainer}>
+              <View style={styles.titleIconContainer}>
+                <Image
+                  source={{ uri: `https://cdn.wheelpro.ru/wheel/thumbs/${item.image.uuid}/default.png` }}
+                  style={{ width: 160, height: 160 }}
+                  PlaceholderContent={<ActivityIndicator />}
+                  placeholderStyle={{backgroundColor: 'white'}}
+                  resizeMode='contain'
+                />
+              </View>
+
+              <View>
+                <View>
+                  <Text style={styles.nameText}>
+                    {item.name}
+                  </Text>
+
+                  <Text style={styles.slugText}>
+                    {item.brand.name}
+                  </Text>
+                </View>
+
+                <View style={{flexDirection: 'row'}}>
+                  <Text style={{flexWrap: 'wrap'}}>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                    aliquip ex ea commodo consequat.
+                  </Text>
+                </View>
+
+              </View>
+            </View>
+            <View style={{paddingLeft: 14, paddingRight: 14}}>
+              <Text>Like: {item.likes_count}; Favorites: {item.favorites_count}</Text>
+            </View>
+            <Divider style={{backgroundColor: Colors.tintColor}} />
           </View>
         }
-        <FlatList data={this.state.dataSource}
-          showsVerticalScrollIndicator={false}
-          renderItem={({item}) =>
-            <View>
-              <View style={styles.titleContainer}>
-                <View style={styles.titleIconContainer}>
-                  <Image
-                    source={{ uri: `https://cdn.wheelpro.ru/wheel/thumbs/${item.image.uuid}/default.png` }}
-                    style={{ width: 160, height: 160 }}
-                    PlaceholderContent={<ActivityIndicator />}
-                    placeholderStyle={{backgroundColor: 'white'}}
-                    resizeMode='contain'
-                  />
-                </View>
-
-                <View>
-                  <View>
-                    <Text style={styles.nameText}>
-                      {item.name}
-                    </Text>
-
-                    <Text style={styles.slugText}>
-                      {item.brand.name}
-                    </Text>
-                  </View>
-
-                  <View style={{flexDirection: 'row'}}>
-                    <Text style={{flexWrap: 'wrap'}}>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                      dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                      aliquip ex ea commodo consequat.
-                    </Text>
-                  </View>
-
-                </View>
-              </View>
-              <View style={{paddingLeft: 14, paddingRight: 14}}>
-                <Text>Like: {item.likes_count}; Favorites: {item.favorites_count}</Text>
-              </View>
-              <Divider style={{backgroundColor: Colors.tintColor}} />
-            </View>
-          }
-          keyExtractor={item => item.id.toString()}
-        />
-      </ScrollView>
+        keyExtractor={item => item.id.toString()}
+      />
     );
   }
 
