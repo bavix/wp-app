@@ -5,7 +5,7 @@ import Colors from '../constants/Colors';
 import api from '../kit/api';
 import { Image, Divider, Icon } from 'react-native-elements';
 
-export default class WheelsScreen extends React.Component {
+export default class WheelsScreen extends React.PureComponent {
 
   static navigationOptions = {
     title: 'Wheels',
@@ -32,7 +32,6 @@ export default class WheelsScreen extends React.Component {
   }
 
   loadingComponent = () => {
-    console.log(this.state.loading)
     if (this.state.loading) {
       return <View style={{ paddingVertical: 20 }} >
         <ActivityIndicator animating size='large' />
@@ -52,9 +51,17 @@ export default class WheelsScreen extends React.Component {
             page = this.state.page + 1
           }
 
+          const dataSource = this.state.dataSource;
+          for (const item of res.data.data) {
+            const index = dataSource.findIndex(datum => datum.id === item.id);
+            if (index === -1) {
+              dataSource.push(item)
+            }
+          }
+
           this.setState({
-            dataSource: [...this.state.dataSource, ...res.data.data],
             loading: false,
+            dataSource,
             page,
           })
         })
@@ -64,53 +71,56 @@ export default class WheelsScreen extends React.Component {
     }
   };
 
+  renderItem = ({item}) => {
+    return <View>
+      <View style={styles.titleContainer}>
+        <View style={styles.titleIconContainer}>
+          <Image
+            source={{ uri: `https://cdn.wheelpro.ru/wheel/thumbs/${item.image.uuid}/default.png` }}
+            style={{ width: 176, height: 176 }}
+            PlaceholderContent={<ActivityIndicator />}
+            placeholderStyle={{backgroundColor: 'white'}}
+            resizeMode='contain'
+          />
+        </View>
+
+        <View>
+          <View>
+            <Text style={styles.nameText}>
+              {item.name}
+            </Text>
+
+            <Text style={styles.slugText}>
+              {item.brand.name}
+            </Text>
+          </View>
+
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{flexWrap: 'wrap'}}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+              aliquip ex ea commodo consequat.
+            </Text>
+          </View>
+
+        </View>
+      </View>
+      <View style={{paddingLeft: 14, paddingRight: 14}}>
+        <Text>Like: {item.likes_count}; Favorites: {item.favorites_count}</Text>
+      </View>
+      <Divider style={{backgroundColor: Colors.tintColor}} />
+    </View>
+  };
+
   render() {
     return (
       <FlatList data={this.state.dataSource}
+        extraData={this.state}
+        keyExtractor={(item, index) => item.id.toString()}
         ListFooterComponent={this.loadingComponent}
         onEndReached={this.handleLoadMore}
-        onEndReachedThreshold={0}
-        renderItem={({item}) =>
-          <View>
-            <View style={styles.titleContainer}>
-              <View style={styles.titleIconContainer}>
-                <Image
-                  source={{ uri: `https://cdn.wheelpro.ru/wheel/thumbs/${item.image.uuid}/default.png` }}
-                  style={{ width: 160, height: 160 }}
-                  PlaceholderContent={<ActivityIndicator />}
-                  placeholderStyle={{backgroundColor: 'white'}}
-                  resizeMode='contain'
-                />
-              </View>
-
-              <View>
-                <View>
-                  <Text style={styles.nameText}>
-                    {item.name}
-                  </Text>
-
-                  <Text style={styles.slugText}>
-                    {item.brand.name}
-                  </Text>
-                </View>
-
-                <View style={{flexDirection: 'row'}}>
-                  <Text style={{flexWrap: 'wrap'}}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat.
-                  </Text>
-                </View>
-
-              </View>
-            </View>
-            <View style={{paddingLeft: 14, paddingRight: 14}}>
-              <Text>Like: {item.likes_count}; Favorites: {item.favorites_count}</Text>
-            </View>
-            <Divider style={{backgroundColor: Colors.tintColor}} />
-          </View>
-        }
-        keyExtractor={item => item.id.toString()}
+        onEndReachedThreshold={3}
+        renderItem={this.renderItem}
       />
     );
   }
