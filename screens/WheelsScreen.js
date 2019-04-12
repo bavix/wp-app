@@ -1,9 +1,11 @@
 import React from 'react';
-import { Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import { View, FlatList } from 'react-native';
 import Colors from '../constants/Colors';
-import api from '../kit/api';
-import { Image, Divider, Icon } from 'react-native-elements';
+import api from '../helpers/api';
+import concat from '../helpers/concat';
+import { Icon } from 'react-native-elements';
+import WheelCell from '../components/cells/WheelCell'
 
 export default class WheelsScreen extends React.PureComponent {
 
@@ -21,10 +23,12 @@ export default class WheelsScreen extends React.PureComponent {
   };
 
   state = {
-    url: '/api/wheels?include=image,brand&page=',
-    page: 1,
+    include: 'image,brand',
+    path: '/api/wheels',
     loading: false,
     dataSource: [],
+    filter: [],
+    page: 69,
   };
 
   componentDidMount() {
@@ -42,115 +46,68 @@ export default class WheelsScreen extends React.PureComponent {
   };
 
   handleLoadMore = () => {
-    if (!this.state.loading && this.state.page) {
-      this.setState({ loading: true });
-      api.get(`${this.state.url}${this.state.page}`)
-        .then(res => {
-          let page = null
-          if (this.state.page < res.data.meta.last_page) {
-            page = this.state.page + 1
-          }
-
-          const dataSource = this.state.dataSource;
-          for (const item of res.data.data) {
-            const index = dataSource.findIndex(datum => datum.id === item.id);
-            if (index === -1) {
-              dataSource.push(item)
-            }
-          }
-
-          this.setState({
-            loading: false,
-            dataSource,
-            page,
-          })
-        })
-        .catch(err => {
-          this.setState({ loading: false });
-        })
+    if (this.state.loading || !this.state.page) {
+      return;
     }
+
+    this.setState({ loading: true });
+    api.get(this.state.path, {
+      params: {
+        include: this.state.include,
+        filter: this.state.filter,
+        page: this.state.page,
+      }
+    })
+      .then(res => res.data)
+      .then(({ data, meta }) => {
+        let page = null
+        if (this.state.page < meta.last_page) {
+          page = this.state.page + 1
+        }
+
+        this.setState({
+          dataSource: concat(this.state.dataSource, data),
+          loading: false,
+          page,
+        })
+      })
+      .catch(err => {
+        this.setState({ loading: false });
+      })
+  };
+
+  getImage = (item) => {
+    if (item.image) {
+      return {
+        uri: `https://cdn.wheelpro.ru/wheel/thumbs/${item.image.uuid}/default.png`
+      }
+    }
+
+    return require('../assets/images/default.png');
   };
 
   renderItem = ({item}) => {
-    return <View>
-      <View style={styles.titleContainer}>
-        <View style={styles.titleIconContainer}>
-          <Image
-            source={{ uri: `https://cdn.wheelpro.ru/wheel/thumbs/${item.image.uuid}/default.png` }}
-            style={{ width: 176, height: 176 }}
-            PlaceholderContent={<ActivityIndicator />}
-            placeholderStyle={{backgroundColor: 'white'}}
-            resizeMode='contain'
-          />
-        </View>
-
-        <View>
-          <View>
-            <Text style={styles.nameText}>
-              {item.name}
-            </Text>
-
-            <Text style={styles.slugText}>
-              {item.brand.name}
-            </Text>
-          </View>
-
-          <View style={{flexDirection: 'row'}}>
-            <Text style={{flexWrap: 'wrap'}}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-              aliquip ex ea commodo consequat.
-            </Text>
-          </View>
-
-        </View>
-      </View>
-      <View style={{paddingLeft: 14, paddingRight: 14}}>
-        <Text>Like: {item.likes_count}; Favorites: {item.favorites_count}</Text>
-      </View>
-      <Divider style={{backgroundColor: Colors.tintColor}} />
-    </View>
+    return <WheelCell
+        title={item.name}
+        subtitle={item.brand.name}
+        likes={item.likes_count}
+        favorites={item.favorites_count}
+        imageSource={this.getImage(item)}
+    />
   };
 
   render() {
     return (
-      <FlatList data={this.state.dataSource}
+      <FlatList
         extraData={this.state}
+        data={this.state.dataSource}
         keyExtractor={(item, index) => item.id.toString()}
         ListFooterComponent={this.loadingComponent}
         onEndReached={this.handleLoadMore}
-        onEndReachedThreshold={3}
         renderItem={this.renderItem}
+        onEndReachedThreshold={3}
       />
     );
   }
 
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    paddingHorizontal: 15,
-    paddingTop: 15,
-    paddingBottom: 15,
-    flexDirection: 'row',
-  },
-  titleIconContainer: {
-    marginRight: 15,
-    paddingTop: 2,
-  },
-  nameText: {
-    fontWeight: '600',
-    fontSize: 22,
-  },
-  slugText: {
-    color: '#a39f9f',
-    fontSize: 14,
-    backgroundColor: 'transparent',
-  },
-  descriptionText: {
-    flex: 1,
-    flexWrap: 'wrap',
-    fontSize: 14,
-    color: '#4d4d4d',
-  }
-});

@@ -83,9 +83,8 @@ export default createBottomTabNavigator({
   HomeStack,
   LinksStack,
   WheelsStack,
-  InfoStack :SettingsStack,
-  SettingsStack,
   DebugStack,
+  SettingsStack,
 }, {
   initialRouteName: 'WheelsStack',
 });
