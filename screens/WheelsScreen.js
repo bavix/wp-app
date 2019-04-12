@@ -83,7 +83,7 @@ export default class WheelsScreen extends React.PureComponent {
       }
     }
 
-    return require('../assets/images/default.png');
+    return require('../assets/images/wheels/placeholder.png');
   };
 
   renderItem = ({item}) => {
