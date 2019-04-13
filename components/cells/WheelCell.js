@@ -1,5 +1,6 @@
 import React from 'react'
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { TouchableWithoutFeedback } from 'react-native';
 import { Divider, Image } from 'react-native-elements';
 import Colors from '../../constants/Colors';
 
@@ -8,31 +9,36 @@ export default class extends React.PureComponent {
   render() {
     return (
       <View style={styles.cell}>
-        <View style={[styles.row, styles.cellBody]}>
-          <View style={styles.cellImage}>
-            <Image
-              source={this.props.imageSource}
-              style={styles.cellImageSize}
-              PlaceholderContent={<ActivityIndicator />}
-              placeholderStyle={{backgroundColor: 'white'}}
-              resizeMode='contain'
-            />
-          </View>
 
-          <View style={styles.meta}>
-            <View>
-              <Text style={styles.title}>{this.props.title}</Text>
-              <Text style={styles.subtitle}>{this.props.subtitle}</Text>
+        <TouchableWithoutFeedback onPress={this.props.pressItem}>
+
+          <View style={[styles.row, styles.cellBody]}>
+            <View style={styles.cellImage}>
+              <Image
+                source={this.props.imageSource}
+                style={styles.cellImageSize}
+                PlaceholderContent={<ActivityIndicator />}
+                placeholderStyle={{backgroundColor: 'white'}}
+                resizeMode='contain'
+              />
             </View>
 
-            <View style={styles.row}>
-              <Text style={styles.wrap}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua.
-              </Text>
+            <View style={styles.meta}>
+              <View>
+                <Text style={styles.title}>{this.props.title}</Text>
+                <Text style={styles.subtitle}>{this.props.subtitle}</Text>
+              </View>
+
+              <View style={styles.row}>
+                <Text style={styles.wrap}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                  dolore magna aliqua.
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
+
+        </TouchableWithoutFeedback>
 
         <View style={[styles.row, styles.cellFooter]}>
           <Text>Like: {this.props.likes}</Text>

@@ -4,11 +4,14 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
-import WheelsScreen from '../screens/WheelsScreen';
+import WheelsScreen from '../screens/catalogue/wheels/WheelsScreen';
+import WheelDetailScreen from '../screens/catalogue/wheels/DetailScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import GalleryScreen from '../screens/GalleryScreen'
+import LoginScreen from '../screens/auth/LoginScreen'
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+  LoginScreen,
 });
 
 HomeStack.navigationOptions = {
@@ -22,7 +25,7 @@ HomeStack.navigationOptions = {
 };
 
 const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+  LinksScreen,
 });
 
 LinksStack.navigationOptions = {
@@ -36,7 +39,9 @@ LinksStack.navigationOptions = {
 };
 
 const WheelsStack = createStackNavigator({
-  Settings: WheelsScreen,
+  WheelsScreen,
+  WheelDetailScreen,
+  GalleryScreen,
 });
 
 WheelsStack.navigationOptions = {
@@ -52,7 +57,7 @@ WheelsStack.navigationOptions = {
 };
 
 const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+  SettingsScreen,
 });
 
 SettingsStack.navigationOptions = {
@@ -66,7 +71,7 @@ SettingsStack.navigationOptions = {
 };
 
 const DebugStack = createStackNavigator({
-  Settings: SettingsScreen,
+  SettingsScreen,
 });
 
 DebugStack.navigationOptions = {

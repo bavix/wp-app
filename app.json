@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "WheelPro",
+    "scheme": "wp",
     "slug": "wheelpro-mobile",
     "description": "",
     "privacy": "public",
