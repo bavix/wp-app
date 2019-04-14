@@ -2,7 +2,8 @@ import React from 'react';
 import { View, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import Colors from "../../constants/Colors";
-import { client } from '../../helpers/AppAuth'
+import { client } from '../../helpers/AppAuth';
+import TokenRegister  from '../../helpers/TokenRegister';
 
 export default class LoginScreen extends React.PureComponent {
 
@@ -13,6 +14,7 @@ export default class LoginScreen extends React.PureComponent {
   state = {
     username: '',
     password: '',
+    message: '',
     loading: false,
   };
 
@@ -20,14 +22,19 @@ export default class LoginScreen extends React.PureComponent {
   register = () => alert('Register');
 
   login = async () => {
-    this.setState({ loading: true });
+    this.setState({ loading: true, message: '' });
     const { username, password } = this.state;
     await client.authAsync(username, password).then(({ data }) => {
-      console.log(JSON.stringify(data));
+      TokenRegister.setToken(data);
       this.setState({ loading: false });
     }).catch(({ response }) => {
-      console.log(JSON.stringify(response.data))
-      this.setState({ loading: false });
+      console.log(response.data)
+      this.setState({
+        loading: false,
+        message: response.data.hint ?
+          response.data.hint :
+          response.data.message,
+      });
     })
   };
 
@@ -40,6 +47,8 @@ export default class LoginScreen extends React.PureComponent {
       <Input containerStyle={styles.password}
              label='Password'
              secureTextEntry={true}
+             errorMessage={this.state.message}
+             errorStyle={styles.error}
              onChangeText={(password) => this.setState({ password })}
              rightIcon={<Button
                titleStyle={styles.btn}
@@ -76,5 +85,8 @@ const styles = StyleSheet.create({
   },
   btn: {
     color: Colors.tintColor
+  },
+  error: {
+    fontSize: 16
   }
 });

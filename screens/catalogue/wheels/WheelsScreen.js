@@ -28,6 +28,7 @@ export default class WheelsScreen extends React.PureComponent {
     include: 'image,brand',
     path: '/api/wheels',
     loading: false,
+    refresh: false,
     dataSource: [],
     filter: [],
     page: 1,
@@ -38,13 +39,26 @@ export default class WheelsScreen extends React.PureComponent {
   }
 
   loadingComponent = () => {
-    if (this.state.loading) {
+    if (this.state.loading && !this.state.refresh) {
       return <View style={{ paddingVertical: 20 }} >
         <ActivityIndicator animating size='large' />
       </View>
     }
 
     return null;
+  };
+
+  handleRefresh = async () => {
+    if (this.state.refresh) {
+      return;
+    }
+
+    await this.setState({
+      refresh: true,
+      page: 1,
+    });
+
+    this.handleLoadMore();
   };
 
   handleLoadMore = () => {
@@ -62,19 +76,25 @@ export default class WheelsScreen extends React.PureComponent {
     })
       .then(res => res.data)
       .then(({ data, meta }) => {
-        let page = null
+        let page = null;
         if (this.state.page < meta.last_page) {
           page = this.state.page + 1
         }
 
+        let dataSource = data;
+        if (!this.state.refresh) {
+          dataSource = concat(this.state.dataSource, data);
+        }
+
         this.setState({
-          dataSource: concat(this.state.dataSource, data),
           loading: false,
+          refresh: false,
+          dataSource,
           page,
         })
       })
       .catch(err => {
-        this.setState({ loading: false });
+        this.setState({ loading: false, refresh: false });
       })
   };
 
@@ -112,6 +132,8 @@ export default class WheelsScreen extends React.PureComponent {
         onEndReached={this.handleLoadMore}
         renderItem={this.renderItem}
         onEndReachedThreshold={3}
+        onRefresh={this.handleRefresh}
+        refreshing={this.state.refresh}
       />
     );
   }
