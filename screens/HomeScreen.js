@@ -9,11 +9,11 @@ import {
   View,
   AppState,
 } from 'react-native';
-import { WebBrowser } from 'expo';
+import {WebBrowser} from 'expo';
 
-import { BASE_URL } from '../constants/Config';
+import {BASE_URL} from '../constants/Config';
 
-import { MonoText } from '../components/StyledText';
+import {MonoText} from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   state = {
@@ -117,7 +117,7 @@ export default class HomeScreen extends React.Component {
   };
 
   _handleHelpPress = () => {
-    this.setState({ counter: this.state.counter + 1 })
+    this.setState({counter: this.state.counter + 1})
     // WebBrowser.openBrowserAsync(
     //   'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
     // );
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         shadowColor: 'black',
-        shadowOffset: { height: -3 },
+        shadowOffset: {height: -3},
         shadowOpacity: 0.1,
         shadowRadius: 3,
       },

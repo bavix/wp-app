@@ -1,6 +1,6 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
-import { Text, Tile } from 'react-native-elements';
+import {ScrollView} from 'react-native';
+import {Text, Tile} from 'react-native-elements';
 
 export default class DetailScreen extends React.Component {
 
@@ -9,7 +9,7 @@ export default class DetailScreen extends React.Component {
   };
 
   render() {
-    const { navigation } = this.props;
+    const {navigation} = this.props;
 
     return (
       <ScrollView>

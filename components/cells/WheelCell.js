@@ -1,7 +1,7 @@
 import React from 'react'
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native';
-import { Divider, Image } from 'react-native-elements';
+import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {TouchableWithoutFeedback} from 'react-native';
+import {Divider, Image} from 'react-native-elements';
 import Colors from '../../constants/Colors';
 
 export default class extends React.PureComponent {
@@ -17,7 +17,7 @@ export default class extends React.PureComponent {
               <Image
                 source={this.props.imageSource}
                 style={styles.cellImageSize}
-                PlaceholderContent={<ActivityIndicator />}
+                PlaceholderContent={<ActivityIndicator/>}
                 placeholderStyle={{backgroundColor: 'white'}}
                 resizeMode='contain'
               />
@@ -45,7 +45,7 @@ export default class extends React.PureComponent {
           <Text>Favorites: {this.props.favorites}</Text>
         </View>
 
-        <Divider style={styles.divider} />
+        <Divider style={styles.divider}/>
 
       </View>
     );

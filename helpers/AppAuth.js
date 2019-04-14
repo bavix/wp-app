@@ -1,5 +1,5 @@
 import axio from './Axio'
-import { CLIENT_ID, CLIENT_SECRET } from '../constants/Config'
+import {CLIENT_ID, CLIENT_SECRET} from '../constants/Config'
 
 const authAsync = async (config) => {
   return await axio.post('oauth/token', {
@@ -38,4 +38,4 @@ export const client = {
   },
 };
 
-export default { app, client }
+export default {app, client}

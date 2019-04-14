@@ -1,9 +1,9 @@
 import React from 'react';
 import Colors from '../constants/Colors';
-import { Icon } from 'react-native-elements';
-import { Platform } from 'react-native';
+import {Icon} from 'react-native-elements';
+import {Platform} from 'react-native';
 
-const ICON_PREFIX = Platform.OS === 'ios' ? 'ios-' : 'md-';
+export const ICON_PREFIX = Platform.OS === 'ios' ? 'ios-' : 'md-';
 
 export default class TabBarIcon extends React.Component {
   render() {

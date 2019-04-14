@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import {View} from 'react-native';
 import api from '../helpers/Api';
 import {Avatar, Text} from "react-native-elements";
 
@@ -15,8 +15,8 @@ export default class ProfileScreen extends React.PureComponent {
 
 
   componentDidMount() {
-    api.get('api/profile').then(({ data }) => data).then(({ data }) => {
-      this.setState({ profile: data })
+    api.get('api/profile').then(({data}) => data).then(({data}) => {
+      this.setState({profile: data})
     })
   }
 
@@ -26,7 +26,7 @@ export default class ProfileScreen extends React.PureComponent {
         rounded
         title='WP'
         size={240}
-        placeholderStyle={{ backgroundColor: '#cdc' }}
+        placeholderStyle={{backgroundColor: '#cdc'}}
         showEditButton
       />
 

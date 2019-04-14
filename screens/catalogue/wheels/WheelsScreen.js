@@ -1,21 +1,22 @@
 import React from 'react';
-import { ActivityIndicator } from 'react-native';
-import { View, FlatList } from 'react-native';
+import {ActivityIndicator} from 'react-native';
+import {View, FlatList} from 'react-native';
 import Colors from '../../../constants/Colors';
 import api from '../../../helpers/Api';
 import concat from '../../../helpers/Concat';
-import { Icon } from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 import WheelCell from '../../../components/cells/WheelCell'
+import {ICON_PREFIX} from '../../../components/TabBarIcon'
 
 export default class WheelsScreen extends React.PureComponent {
 
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({navigation}) => {
     return {
       title: 'Wheels',
       headerRight: (
         <Icon
           containerStyle={{paddingRight: 15}}
-          name='ios-options'
+          name={ICON_PREFIX + 'options'}
           type='ionicon'
           size={26}
           color={Colors.tintColor}
@@ -40,8 +41,8 @@ export default class WheelsScreen extends React.PureComponent {
 
   loadingComponent = () => {
     if (this.state.loading && !this.state.refresh) {
-      return <View style={{ paddingVertical: 20 }} >
-        <ActivityIndicator animating size='large' />
+      return <View style={{paddingVertical: 20}}>
+        <ActivityIndicator animating size='large'/>
       </View>
     }
 
@@ -53,7 +54,7 @@ export default class WheelsScreen extends React.PureComponent {
       return;
     }
 
-    this.setState({ refresh: true, page: 1 }, this.handleLoadMore);
+    this.setState({refresh: true, page: 1}, this.handleLoadMore);
   };
 
   handleLoadMore = () => {
@@ -61,7 +62,7 @@ export default class WheelsScreen extends React.PureComponent {
       return;
     }
 
-    this.setState({ loading: true }, () => {
+    this.setState({loading: true}, () => {
 
       api.get(this.state.path, {
         params: {
@@ -71,7 +72,7 @@ export default class WheelsScreen extends React.PureComponent {
         }
       })
         .then(res => res.data)
-        .then(({ data, meta }) => {
+        .then(({data, meta}) => {
           let page = null;
           if (this.state.page < meta.last_page) {
             page = this.state.page + 1
@@ -90,7 +91,7 @@ export default class WheelsScreen extends React.PureComponent {
           })
         })
         .catch(err => {
-          this.setState({ loading: false, refresh: false });
+          this.setState({loading: false, refresh: false});
         })
 
     });
@@ -108,15 +109,15 @@ export default class WheelsScreen extends React.PureComponent {
 
   renderItem = ({item}) => {
     return <WheelCell
-        title={item.name}
-        subtitle={item.brand.name}
-        likes={item.likes_count}
-        favorites={item.favorites_count}
-        imageSource={this.getImage(item, 'thumbs')}
-        pressItem={() => this.props.navigation.navigate('WheelDetailScreen', {
-          item,
-          image: this.getImage(item, 'normal')
-        })}
+      title={item.name}
+      subtitle={item.brand.name}
+      likes={item.likes_count}
+      favorites={item.favorites_count}
+      imageSource={this.getImage(item, 'thumbs')}
+      pressItem={() => this.props.navigation.navigate('WheelDetailScreen', {
+        item,
+        image: this.getImage(item, 'normal')
+      })}
     />
   };
 

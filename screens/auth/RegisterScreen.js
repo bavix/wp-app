@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import {View} from 'react-native';
 
 export default class RegisterScreen extends React.PureComponent {
 
@@ -8,7 +8,7 @@ export default class RegisterScreen extends React.PureComponent {
   };
 
   render() {
-    return <View />
+    return <View/>
   }
 
 }

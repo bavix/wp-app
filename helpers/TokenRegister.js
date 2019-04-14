@@ -1,5 +1,5 @@
-import { AsyncStorage } from 'react-native';
-import { app } from './AppAuth'
+import {AsyncStorage} from 'react-native';
+import {app} from './AppAuth'
 
 const TOKEN = '@token';
 
@@ -39,7 +39,7 @@ export default {
   async getAccessToken() {
     let token = await this.getToken();
     if (token === null) {
-      token = await app.authAsync().then(({ data }) => data);
+      token = await app.authAsync().then(({data}) => data);
       await this.setToken(token)
     }
     return token.access_token
