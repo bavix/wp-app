@@ -34,7 +34,7 @@ export default class HomeScreen extends React.Component {
       console.log('App has come to the foreground!')
     }
     this.setState({appState: nextAppState});
-  }
+  };
 
   static navigationOptions = {
     header: null,

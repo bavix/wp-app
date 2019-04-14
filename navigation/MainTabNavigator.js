@@ -2,14 +2,12 @@ import React from 'react';
 import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import WheelsScreen from '../screens/catalogue/wheels/WheelsScreen';
 import WheelDetailScreen from '../screens/catalogue/wheels/DetailScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import GalleryScreen from '../screens/GalleryScreen'
-import LoginScreen from '../screens/auth/LoginScreen'
+import GalleryScreen from '../screens/GalleryScreen';
+import LoginScreen from '../screens/auth/LoginScreen';
 
 const HomeStack = createStackNavigator({
   LoginScreen,
