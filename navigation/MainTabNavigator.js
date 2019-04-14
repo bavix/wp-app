@@ -4,6 +4,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import WheelsScreen from '../screens/catalogue/wheels/WheelsScreen';
 import WheelDetailScreen from '../screens/catalogue/wheels/DetailScreen';
 import SettingsScreen from '../screens/SettingsScreen';
@@ -25,7 +26,7 @@ HomeStack.navigationOptions = {
 };
 
 const LinksStack = createStackNavigator({
-  LinksScreen,
+  ProfileScreen,
 });
 
 LinksStack.navigationOptions = {

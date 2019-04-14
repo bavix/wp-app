@@ -48,17 +48,12 @@ export default class WheelsScreen extends React.PureComponent {
     return null;
   };
 
-  handleRefresh = async () => {
+  handleRefresh = () => {
     if (this.state.refresh) {
       return;
     }
 
-    await this.setState({
-      refresh: true,
-      page: 1,
-    });
-
-    this.handleLoadMore();
+    this.setState({ refresh: true, page: 1 }, this.handleLoadMore);
   };
 
   handleLoadMore = () => {
@@ -66,36 +61,39 @@ export default class WheelsScreen extends React.PureComponent {
       return;
     }
 
-    this.setState({ loading: true });
-    api.get(this.state.path, {
-      params: {
-        include: this.state.include,
-        filter: this.state.filter,
-        page: this.state.page,
-      }
-    })
-      .then(res => res.data)
-      .then(({ data, meta }) => {
-        let page = null;
-        if (this.state.page < meta.last_page) {
-          page = this.state.page + 1
-        }
+    this.setState({ loading: true }, () => {
 
-        let dataSource = data;
-        if (!this.state.refresh) {
-          dataSource = concat(this.state.dataSource, data);
+      api.get(this.state.path, {
+        params: {
+          include: this.state.include,
+          filter: this.state.filter,
+          page: this.state.page,
         }
+      })
+        .then(res => res.data)
+        .then(({ data, meta }) => {
+          let page = null;
+          if (this.state.page < meta.last_page) {
+            page = this.state.page + 1
+          }
 
-        this.setState({
-          loading: false,
-          refresh: false,
-          dataSource,
-          page,
+          let dataSource = data;
+          if (!this.state.refresh) {
+            dataSource = concat(this.state.dataSource, data);
+          }
+
+          this.setState({
+            loading: false,
+            refresh: false,
+            dataSource,
+            page,
+          })
         })
-      })
-      .catch(err => {
-        this.setState({ loading: false, refresh: false });
-      })
+        .catch(err => {
+          this.setState({ loading: false, refresh: false });
+        })
+
+    });
   };
 
   getImage = (item, type) => {
