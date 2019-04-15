@@ -16,6 +16,8 @@ export default class ProfileScreen extends React.PureComponent {
   componentDidMount() {
     api.get('api/profile').then(({data}) => data).then(({data}) => {
       this.setState({profile: data})
+    }).catch((e) => {
+
     })
   }
 

@@ -27,6 +27,7 @@ export default class LoginScreen extends React.PureComponent {
     await client.authAsync(username, password).then(({data}) => {
       TokenRegister.setToken(data);
       this.setState({loading: false});
+      this.props.navigation.navigate('App');
     }).catch(({response}) => {
       console.log(response.data)
       this.setState({

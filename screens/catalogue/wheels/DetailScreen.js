@@ -31,7 +31,7 @@ const images = [
   },
 ];
 
-export default class DetailScreen extends React.Component {
+export default class DetailScreen extends React.PureComponent {
 
   static navigationOptions = {
     title: 'Wheel Detail',

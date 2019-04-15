@@ -31,6 +31,15 @@ export default {
   },
 
   /**
+   * Удаляем токен
+   *
+   * @returns {Promise<*>}
+   */
+  async removeToken() {
+    return await AsyncStorage.removeItem(TOKEN);
+  },
+
+  /**
    * Access Token
    * Результатом будет App Token или Client Token
    *

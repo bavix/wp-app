@@ -1,6 +1,5 @@
 import React from 'react';
-import {createStackNavigator, createBottomTabNavigator, createSwitchNavigator, createAppContainer} from 'react-navigation';
-
+import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
 import ProfileScreen from '../screens/ProfileScreen';
 import WheelsScreen from '../screens/catalogue/wheels/WheelsScreen';
@@ -8,13 +7,11 @@ import WheelDetailScreen from '../screens/catalogue/wheels/DetailScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
 import HomeScreen from "../screens/HomeScreen";
-import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 
-const HomeStack = createAppContainer(createSwitchNavigator({
-  Home: AuthLoadingScreen,
+const HomeStack = createStackNavigator({
   Auth: LoginScreen,
   App: HomeScreen,
-}));
+});
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
@@ -27,7 +24,8 @@ HomeStack.navigationOptions = {
 };
 
 const LinksStack = createStackNavigator({
-  ProfileScreen,
+  Auth: LoginScreen,
+  App: ProfileScreen,
 });
 
 LinksStack.navigationOptions = {
@@ -54,7 +52,7 @@ WheelsStack.navigationOptions = {
       size={32}
       focused={focused}
       name='list'/>
-  ),
+  )
 };
 
 const SettingsStack = createStackNavigator({
@@ -93,4 +91,5 @@ export default createBottomTabNavigator({
   SettingsStack,
 }, {
   initialRouteName: 'WheelsStack',
+  // tabBarOptions: { showLabel: false }
 });

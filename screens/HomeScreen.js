@@ -12,10 +12,10 @@ import {
 import {WebBrowser} from 'expo';
 
 import {BASE_URL} from '../constants/Config';
-
 import {MonoText} from '../components/StyledText';
+import TokenRegister from '../helpers/TokenRegister';
 
-export default class HomeScreen extends React.Component {
+export default class HomeScreen extends React.PureComponent {
   state = {
     counter: 0,
     appState: AppState.currentState
@@ -113,7 +113,9 @@ export default class HomeScreen extends React.Component {
   }
 
   _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
+    TokenRegister.removeToken();
+    this.props.navigation.navigate('Auth');
+    // WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
   };
 
   _handleHelpPress = () => {
