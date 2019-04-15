@@ -1,17 +1,20 @@
 import React from 'react';
-import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
+import {createStackNavigator, createBottomTabNavigator, createSwitchNavigator, createAppContainer} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import ProfileScreen from '../screens/ProfileScreen';
 import WheelsScreen from '../screens/catalogue/wheels/WheelsScreen';
 import WheelDetailScreen from '../screens/catalogue/wheels/DetailScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import GalleryScreen from '../screens/GalleryScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
+import HomeScreen from "../screens/HomeScreen";
+import AuthLoadingScreen from '../screens/AuthLoadingScreen';
 
-const HomeStack = createStackNavigator({
-  LoginScreen,
-});
+const HomeStack = createAppContainer(createSwitchNavigator({
+  Home: AuthLoadingScreen,
+  Auth: LoginScreen,
+  App: HomeScreen,
+}));
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
@@ -40,7 +43,6 @@ LinksStack.navigationOptions = {
 const WheelsStack = createStackNavigator({
   WheelsScreen,
   WheelDetailScreen,
-  GalleryScreen,
 });
 
 WheelsStack.navigationOptions = {
