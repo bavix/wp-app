@@ -15,6 +15,7 @@ import {BASE_URL} from '../constants/Config';
 import {MonoText} from '../components/StyledText';
 import TokenRegister from '../helpers/TokenRegister';
 import AuthPureComponent from "../components/AuthPureComponent";
+import AppAuth from '../helpers/AppAuth';
 
 export default class HomeScreen extends AuthPureComponent {
   state = {
@@ -114,9 +115,13 @@ export default class HomeScreen extends AuthPureComponent {
     }
   }
 
-  _handleLearnMorePress = () => {
-    TokenRegister.removeToken();
-    this.props.navigation.navigate('Auth');
+  _handleLearnMorePress = async () => {
+    const oldToken = await TokenRegister.getToken();
+    const newToken = await AppAuth.client.refreshAsync(await TokenRegister.getRefreshToken()).then(({data}) => data);
+    console.log(oldToken, newToken);
+
+    //TokenRegister.removeToken();
+    //this.props.navigation.navigate('Auth');
     // WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
   };
 
