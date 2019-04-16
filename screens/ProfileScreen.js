@@ -2,8 +2,9 @@ import React from 'react';
 import {View} from 'react-native';
 import api from '../helpers/Api';
 import {Avatar, Text} from "react-native-elements";
+import AuthPureComponent from "../components/AuthPureComponent";
 
-export default class ProfileScreen extends React.PureComponent {
+export default class ProfileScreen extends AuthPureComponent {
 
   static navigationOptions = {
     title: 'Profile'
@@ -14,11 +15,12 @@ export default class ProfileScreen extends React.PureComponent {
   };
 
   componentDidMount() {
+    super.componentDidMount();
     api.get('api/profile').then(({data}) => data).then(({data}) => {
       this.setState({profile: data})
     }).catch((e) => {
 
-    })
+    });
   }
 
   render() {

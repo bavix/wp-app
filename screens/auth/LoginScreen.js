@@ -4,8 +4,10 @@ import {Button, Input} from 'react-native-elements';
 import Colors from "../../constants/Colors";
 import {client} from '../../helpers/AppAuth';
 import TokenRegister from '../../helpers/TokenRegister';
+import AuthStatus from "../../helpers/AuthStatus";
+import AuthPureComponent from "../../components/AuthPureComponent";
 
-export default class LoginScreen extends React.PureComponent {
+export default class LoginScreen extends AuthPureComponent {
 
   static navigationOptions = {
     title: 'Login'
@@ -18,8 +20,13 @@ export default class LoginScreen extends React.PureComponent {
     loading: false,
   };
 
-  forgot = () => alert('Forgot');
-  register = () => alert('Register');
+  forgot = () => {
+    this.props.navigation.navigate('Forgot');
+  };
+
+  register = () => {
+    this.props.navigation.navigate('Register');
+  };
 
   login = async () => {
     this.setState({loading: true, message: ''});

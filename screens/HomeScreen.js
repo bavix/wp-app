@@ -14,14 +14,16 @@ import {WebBrowser} from 'expo';
 import {BASE_URL} from '../constants/Config';
 import {MonoText} from '../components/StyledText';
 import TokenRegister from '../helpers/TokenRegister';
+import AuthPureComponent from "../components/AuthPureComponent";
 
-export default class HomeScreen extends React.PureComponent {
+export default class HomeScreen extends AuthPureComponent {
   state = {
     counter: 0,
     appState: AppState.currentState
   };
 
   componentDidMount() {
+    super.componentDidMount();
     AppState.addEventListener('change', this._handleAppStateChange);
   }
 

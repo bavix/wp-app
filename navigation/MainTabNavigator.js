@@ -7,11 +7,22 @@ import WheelDetailScreen from '../screens/catalogue/wheels/DetailScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
 import HomeScreen from "../screens/HomeScreen";
+import AuthLoadingScreen from '../screens/AuthLoadingScreen';
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import RegisterScreen from "../screens/auth/RegisterScreen";
+import ForgotScreen from "../screens/auth/ForgotScreen";
 
-const HomeStack = createStackNavigator({
-  Auth: LoginScreen,
-  App: HomeScreen,
+const AuthStack = createStackNavigator({
+  Login: LoginScreen,
+  Register: RegisterScreen,
+  Forgot: ForgotScreen,
 });
+
+const HomeStack = createAppContainer(createSwitchNavigator({
+  ALS: AuthLoadingScreen,
+  Auth: AuthStack,
+  App: HomeScreen,
+}));
 
 HomeStack.navigationOptions = {
   tabBarLabel: 'Home',
@@ -23,10 +34,11 @@ HomeStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Auth: LoginScreen,
+const LinksStack = createAppContainer(createSwitchNavigator({
+  ALS: AuthLoadingScreen,
+  Auth: AuthStack,
   App: ProfileScreen,
-});
+}));
 
 LinksStack.navigationOptions = {
   tabBarLabel: 'Links',

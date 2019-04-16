@@ -2,10 +2,10 @@ import React from 'react';
 import {View} from 'react-native';
 import AuthPureComponent from "../../components/AuthPureComponent";
 
-export default class RegisterScreen extends AuthPureComponent {
+export default class ForgotScreen extends AuthPureComponent {
 
   static navigationOptions = {
-    title: 'Register'
+    title: 'Forgot'
   };
 
   render() {
