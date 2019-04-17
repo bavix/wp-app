@@ -39,8 +39,7 @@ export default class extends React.PureComponent {
 
               <View style={styles.row}>
                 <Text style={styles.wrap}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                  dolore magna aliqua.
+                  ADV.1 produces premiere custom-made one-piece, two-piece and three-piece forged aluminum and carbon fiber wheels ...
                 </Text>
               </View>
             </View>
