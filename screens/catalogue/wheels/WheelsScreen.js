@@ -109,10 +109,12 @@ export default class WheelsScreen extends React.PureComponent {
 
   renderItem = ({item}) => {
     return <WheelCell
+      id={item.id}
       title={item.name}
       subtitle={item.brand.name}
       likes={item.likes_count}
       favorites={item.favorites_count}
+      favorited={item.favorited}
       imageSource={this.getImage(item, 'thumbs')}
       pressItem={() => this.props.navigation.navigate('WheelDetailScreen', {
         item,

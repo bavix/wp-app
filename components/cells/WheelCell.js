@@ -1,8 +1,9 @@
 import React from 'react'
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native';
-import {Divider, Image} from 'react-native-elements';
+import {Button, Divider, Icon, Image} from 'react-native-elements';
 import Colors from '../../constants/Colors';
+import {ICON_PREFIX} from "../TabBarIcon";
 
 export default class extends React.PureComponent {
 
@@ -25,7 +26,14 @@ export default class extends React.PureComponent {
 
             <View style={styles.meta}>
               <View>
-                <Text style={styles.title}>{this.props.title}</Text>
+                <View style={styles.titleContainer}>
+                  <Text style={styles.title}>{this.props.title}</Text>
+                  <Icon
+                    name={ICON_PREFIX + 'star' + (this.props.favorited ? '' : '-outline')}
+                    type='ionicon'
+                    color={Colors.tintColor}
+                    onPress={() => alert(`ID: ${this.props.id}`)}/>
+                </View>
                 <Text style={styles.subtitle}>{this.props.subtitle}</Text>
               </View>
 
@@ -41,8 +49,31 @@ export default class extends React.PureComponent {
         </TouchableWithoutFeedback>
 
         <View style={[styles.row, styles.cellFooter]}>
-          <Text>Like: {this.props.likes}</Text>
-          <Text>Favorites: {this.props.favorites}</Text>
+          <Button
+            type="clear"
+            icon={
+              <Icon
+                name={ICON_PREFIX + 'heart' + (this.props.liked ? '' : '-empty')}
+                type='ionicon'
+                color={Colors.tintColor} />
+            }
+            title={this.props.likes.toString()}
+            titleStyle={styles.btnLike}
+            onPress={() => alert(`ID: ${this.props.id}`)}
+          />
+
+          <Button
+            type="clear"
+            icon={
+              <Icon
+                name={ICON_PREFIX + 'text'}
+                type='ionicon'
+                color={Colors.tintColor} />
+            }
+            title={this.props.likes.toString()}
+            titleStyle={styles.btnLike}
+            onPress={() => alert(`ID: ${this.props.id}`)}
+          />
         </View>
 
         <Divider style={styles.divider}/>
@@ -56,7 +87,7 @@ export default class extends React.PureComponent {
 const styles = StyleSheet.create({
   cell: {
     paddingTop: 5,
-    paddingBottom: 15,
+    paddingBottom: 5,
   },
   cellImage: {
     marginRight: 15,
@@ -68,11 +99,14 @@ const styles = StyleSheet.create({
   },
   cellFooter: {
     paddingHorizontal: 15,
-    backgroundColor: '#e2e2e2',
   },
   cellImageSize: {
     width: 160,
     height: 160,
+  },
+  titleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
   row: {
     flexDirection: 'row',
@@ -96,5 +130,11 @@ const styles = StyleSheet.create({
     color: '#a39f9f',
     fontSize: 14,
     backgroundColor: 'transparent',
+  },
+  btnLike: {
+    justifyContent: 'center',
+    alignItems:'center',
+    paddingLeft: 5,
+    color: Colors.tintColor,
   },
 });
