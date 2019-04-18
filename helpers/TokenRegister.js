@@ -1,5 +1,5 @@
 import {AsyncStorage} from 'react-native';
-import {app} from './AppAuth'
+import {app} from './OAuth'
 
 const TOKEN = '@token';
 

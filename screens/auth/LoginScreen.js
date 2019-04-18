@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, KeyboardAvoidingView} from 'react-native';
 import {Button, Input} from 'react-native-elements';
 import Colors from "../../constants/Colors";
-import {client} from '../../helpers/AppAuth';
+import {client} from '../../helpers/OAuth';
 import TokenRegister from '../../helpers/TokenRegister';
 import AuthStatus from "../../helpers/AuthStatus";
 import AuthPureComponent from "../../components/AuthPureComponent";

@@ -15,7 +15,7 @@ import {BASE_URL} from '../constants/Config';
 import {MonoText} from '../components/StyledText';
 import TokenRegister from '../helpers/TokenRegister';
 import AuthPureComponent from "../components/AuthPureComponent";
-import AppAuth from '../helpers/AppAuth';
+import AppAuth from '../helpers/OAuth';
 
 export default class HomeScreen extends AuthPureComponent {
   state = {

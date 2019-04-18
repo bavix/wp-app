@@ -21,7 +21,7 @@ const AuthStack = createStackNavigator({
 const HomeStack = createAppContainer(createSwitchNavigator({
   ALS: AuthLoadingScreen,
   Auth: AuthStack,
-  App: HomeScreen,
+  App: createStackNavigator({HomeScreen}),
 }));
 
 HomeStack.navigationOptions = {
@@ -37,7 +37,7 @@ HomeStack.navigationOptions = {
 const LinksStack = createAppContainer(createSwitchNavigator({
   ALS: AuthLoadingScreen,
   Auth: AuthStack,
-  App: ProfileScreen,
+  App: createStackNavigator({ProfileScreen}),
 }));
 
 LinksStack.navigationOptions = {
