@@ -1,13 +1,13 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, Alert} from 'react-native';
 import api from '../helpers/Api';
 import {Avatar, Icon, Text} from "react-native-elements";
 import AuthPureComponent from "../components/AuthPureComponent";
 import TokenRegister from "../helpers/TokenRegister";
-import {client} from "../helpers/OAuth";
-import {ICON_PREFIX} from "../components/TabBarIcon";
 import Colors from "../constants/Colors";
 import AuthStatus from "../helpers/AuthStatus";
+import {ICON_PREFIX} from "../components/TabBarIcon";
+import {client} from "../helpers/OAuth";
 
 export default class ProfileScreen extends AuthPureComponent {
 
@@ -21,23 +21,45 @@ export default class ProfileScreen extends AuthPureComponent {
           type='ionicon'
           size={26}
           color={Colors.tintColor}
-          onPress={async () => {
-            if (await AuthStatus.isUser()) {
-              const accessToken = await TokenRegister.getAccessToken();
-              TokenRegister.removeToken().then(async () => {
-                await client.revokeAsync(accessToken);
-                navigation.navigate('Auth');
-              }).catch(() => {
-                alert('Error!');
-              });
-            }
-          }}/>
+          onPress={() => {
+            AuthStatus.isUser().then((authorized) => {
+              if (!authorized) {
+                return;
+              }
+
+              Alert.alert(
+                'Logout',
+                'Are you sure you want to logout?',
+                [
+                  {
+                    text: 'No',
+                    style: 'cancel',
+                  },
+                  {
+                    text: 'Yes',
+                    style: 'destructive',
+                    onPress: async () => {
+                      const accessToken = await TokenRegister.getAccessToken();
+                      TokenRegister.removeToken().then(async () => {
+                        await client.revokeAsync(accessToken);
+                        navigation.navigate('Auth');
+                      }).catch(() => {
+                        alert('Error!');
+                      });
+                    }
+                  },
+                ]
+              );
+            });
+          }}
+        />
       ),
     }
   };
 
   state = {
-    profile: {}
+    profile: {},
+    text: ''
   };
 
   componentDidMount() {
@@ -45,7 +67,7 @@ export default class ProfileScreen extends AuthPureComponent {
     api.get('api/profile').then(({data}) => data).then(({data}) => {
       this.setState({profile: data})
     }).catch((e) => {
-
+      // todo: check auth... -> logout
     });
   }
 
@@ -54,7 +76,7 @@ export default class ProfileScreen extends AuthPureComponent {
       <Avatar
         rounded
         title='WP'
-        size={240}
+        size={160}
         placeholderStyle={{backgroundColor: '#cdc'}}
         showEditButton
       />
