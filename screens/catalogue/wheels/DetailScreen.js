@@ -63,6 +63,7 @@ export default class DetailScreen extends React.PureComponent {
 
   render() {
     const {navigation} = this.props;
+    const getImage = navigation.getParam('getImage');
 
     return (
       <ScrollView>
@@ -89,11 +90,12 @@ export default class DetailScreen extends React.PureComponent {
 
           <FlatList
             horizontal
-            data={images}
-            renderItem={({ item: rowData }) => {
+            data={this.state.similar}
+            renderItem={({ item: similar }) => {
               return (
                 <Image
-                  source={rowData.source}
+                  resizeMode='contain'
+                  source={getImage(similar, 'thumbs')}
                   style={{ height: 160, width: 160, margin: 3, borderRadius: 5 }}
                  />
               );

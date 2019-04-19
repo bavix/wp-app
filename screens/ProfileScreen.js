@@ -59,13 +59,12 @@ export default class ProfileScreen extends AuthPureComponent {
 
   state = {
     profile: {},
-    text: ''
   };
 
   componentDidMount() {
     super.componentDidMount();
-    api.get('api/profile').then(({data}) => data).then(({data}) => {
-      this.setState({profile: data})
+    api.get('api/profile').then(({data}) => data).then(({data: profile}) => {
+      this.setState({profile})
     }).catch((e) => {
       // todo: check auth... -> logout
     });

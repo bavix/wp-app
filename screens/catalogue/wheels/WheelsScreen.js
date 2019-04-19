@@ -118,7 +118,8 @@ export default class WheelsScreen extends React.PureComponent {
       imageSource={this.getImage(item, 'thumbs')}
       pressItem={() => this.props.navigation.navigate('WheelDetailScreen', {
         item,
-        image: this.getImage(item, 'normal')
+        image: this.getImage(item, 'normal'),
+        getImage: this.getImage,
       })}
     />
   };
