@@ -1,15 +1,16 @@
 import React from 'react';
-import {ActivityIndicator} from 'react-native';
-import {View, FlatList} from 'react-native';
 import Colors from '../../../constants/Colors';
-import api from '../../../helpers/Api';
-import concat from '../../../helpers/Concat';
 import {Icon} from 'react-native-elements';
 import WheelCell from '../../../components/cells/WheelCell'
-import {ICON_PREFIX} from '../../../components/TabBarIcon'
+import TableView from "../../../components/TableView";
+import {ICON_PREFIX} from "../../../components/TabBarIcon";
 
 export default class WheelsScreen extends React.PureComponent {
 
+  /**
+   * @param navigation
+   * @return {{headerRight: *, title: string}}
+   */
   static navigationOptions = ({navigation}) => {
     return {
       title: 'Wheels',
@@ -26,77 +27,17 @@ export default class WheelsScreen extends React.PureComponent {
   };
 
   state = {
-    include: 'image,brand',
-    path: '/api/wheels',
-    loading: false,
-    refresh: false,
-    dataSource: [],
-    filter: [],
-    page: 1,
-  };
-
-  componentDidMount() {
-    this.handleLoadMore()
-  }
-
-  loadingComponent = () => {
-    if (this.state.loading && !this.state.refresh) {
-      return <View style={{paddingVertical: 20}}>
-        <ActivityIndicator animating size='large'/>
-      </View>
+    apiUrl: '/api/wheels',
+    apiParams: {
+      include: 'image,brand',
     }
-
-    return null;
   };
 
-  handleRefresh = () => {
-    if (this.state.refresh) {
-      return;
-    }
-
-    this.setState({refresh: true, page: 1}, this.handleLoadMore);
-  };
-
-  handleLoadMore = () => {
-    if (this.state.loading || !this.state.page) {
-      return;
-    }
-
-    this.setState({loading: true}, () => {
-
-      api.get(this.state.path, {
-        params: {
-          include: this.state.include,
-          filter: this.state.filter,
-          page: this.state.page,
-        }
-      })
-        .then(res => res.data)
-        .then(({data, meta}) => {
-          let page = null;
-          if (this.state.page < meta.last_page) {
-            page = this.state.page + 1
-          }
-
-          let dataSource = data;
-          if (!this.state.refresh) {
-            dataSource = concat(this.state.dataSource, data);
-          }
-
-          this.setState({
-            loading: false,
-            refresh: false,
-            dataSource,
-            page,
-          })
-        })
-        .catch(err => {
-          this.setState({loading: false, refresh: false});
-        })
-
-    });
-  };
-
+  /**
+   * @param item
+   * @param type
+   * @return {{uri: string}}
+   */
   getImage = (item, type) => {
     if (item.image) {
       return {
@@ -107,7 +48,11 @@ export default class WheelsScreen extends React.PureComponent {
     return require('../../../assets/images/wheels/placeholder.png');
   };
 
-  renderItem = ({item}) => {
+  /**
+   * @param item
+   * @return {*}
+   */
+  renderItem = (item) => {
     return <WheelCell
       id={item.id}
       title={item.name}
@@ -124,19 +69,16 @@ export default class WheelsScreen extends React.PureComponent {
     />
   };
 
+  /**
+   * @return {*}
+   */
   render() {
     return (
-      <FlatList
-        extraData={this.state}
-        data={this.state.dataSource}
-        keyExtractor={(item, index) => item.id.toString()}
-        ListFooterComponent={this.loadingComponent}
-        onEndReached={this.handleLoadMore}
-        renderItem={this.renderItem}
-        onEndReachedThreshold={3}
-        onRefresh={this.handleRefresh}
-        refreshing={this.state.refresh}
-      />
+      <TableView
+        apiUrl={this.state.apiUrl}
+        apiParams={this.state.apiParams}
+        renderItem={({item}) => this.renderItem(item)}
+        onEndReachedThreshold={3} />
     );
   }
 

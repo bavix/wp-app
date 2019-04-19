@@ -3,6 +3,7 @@ import {View, ScrollView, StyleSheet, FlatList, ActivityIndicator, ImageBackgrou
 import {Image, Text, Tile} from 'react-native-elements';
 import ImageView from 'react-native-image-view';
 import api from "../../../helpers/Api";
+import TableView from "../../../components/TableView";
 
 const images = [
   {
@@ -39,26 +40,16 @@ export default class DetailScreen extends React.PureComponent {
   };
 
   state = {
-    modal: false,
-    similar: [],
+    apiUrl: '',
+    apiParams: {
+      include: 'image,brand',
+    }
   };
 
   componentDidMount() {
     const {navigation} = this.props;
     const {id} = navigation.getParam('item');
-    api.get(`/api/wheels/${id}/similar`, {
-      params: {
-        include: 'image,brand',
-      }
-    }).then(({data}) => data).then((data) => {
-      const similar = this.state.similar
-      similar.push(...data.data);
-      this.setState({similar});
-      console.log(similar);
-    }).catch((e) => {
-      // todo
-      console.log(e)
-    })
+    this.setState({apiUrl: `/api/wheels/${id}/similar`});
   }
 
   render() {
@@ -90,10 +81,13 @@ export default class DetailScreen extends React.PureComponent {
             <Text>We recommend you to pay attention</Text>
           </View>
 
-          <FlatList
+          <TableView
             horizontal
-            data={this.state.similar}
+            apiUrl={this.state.apiUrl}
+            apiParams={this.state.apiParams}
+            onEndReachedThreshold={3}
             renderItem={({ item: similar }) => {
+              console.log(similar);
               return (
                 <ImageBackground
                   resizeMode='contain'
@@ -118,7 +112,6 @@ export default class DetailScreen extends React.PureComponent {
                 </ImageBackground>
               );
             }}
-            keyExtractor={(item, index) => index.toString()}
           />
 
         </View>
