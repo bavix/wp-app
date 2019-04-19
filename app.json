@@ -15,9 +15,11 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "ru.wheelpro.app"
+      "package": "ru.wheelpro.app",
+      "publishBundlePath": "android/app/src/main/assets/shell-app.bundle",
+      "publishManifestPath": "android/app/src/main/assets/shell-app-manifest.json"
     },
-    "version": "2.0.0",
+    "version": "2.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "splash": {
@@ -30,6 +32,10 @@
     },
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "isDetached": true,
+    "detach": {
+      "androidExpoViewUrl": "https://s3.amazonaws.com/exp-exponent-view-code/android-v2.10.8-sdk32.0.0-bca0f957-de78-44c8-91ed-f3151372d79d.tar.gz"
+    }
   }
 }
