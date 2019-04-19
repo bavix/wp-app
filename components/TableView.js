@@ -10,7 +10,6 @@ export default class TableView extends React.PureComponent {
     loading: false,
     refresh: false,
     dataSource: [],
-    filter: [],
     page: 1,
   };
 

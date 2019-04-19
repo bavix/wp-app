@@ -21,11 +21,16 @@ export default class LoginScreen extends AuthPureComponent {
   };
 
   forgot = () => {
-    this.props.navigation.navigate('Forgot');
+    this.props.navigation.navigate('Forgot', {
+      username: this.state.username,
+    });
   };
 
   register = () => {
-    this.props.navigation.navigate('Register');
+    this.props.navigation.navigate('Register', {
+      username: this.state.username,
+      password: this.state.password,
+    });
   };
 
   login = async () => {

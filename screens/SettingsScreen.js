@@ -1,5 +1,4 @@
 import React from 'react';
-import {ExpoConfigView} from '@expo/samples';
 import {SectionList} from 'react-native';
 import {Text} from "react-native-elements";
 

@@ -1,4 +1,3 @@
-// import AsyncStorage from '@react-native-community/async-storage';
 import axio from './Axio';
 import TokenRegister from './TokenRegister';
 
