@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, ScrollView, StyleSheet, FlatList} from 'react-native';
+import {View, ScrollView, StyleSheet, FlatList, ActivityIndicator, ImageBackground} from 'react-native';
 import {Image, Text, Tile} from 'react-native-elements';
 import ImageView from 'react-native-image-view';
 import api from "../../../helpers/Api";
@@ -86,18 +86,36 @@ export default class DetailScreen extends React.PureComponent {
         </View>
 
         <View>
-          <Text>We recommend you to pay attention</Text>
+          <View style={styles.container}>
+            <Text>We recommend you to pay attention</Text>
+          </View>
 
           <FlatList
             horizontal
             data={this.state.similar}
             renderItem={({ item: similar }) => {
               return (
-                <Image
+                <ImageBackground
                   resizeMode='contain'
                   source={getImage(similar, 'thumbs')}
-                  style={{ height: 160, width: 160, margin: 3, borderRadius: 5 }}
-                 />
+                  style={{
+                    overflow: 'hidden',
+                    height: 160,
+                    width: 160,
+                    margin: 5,
+                    borderRadius: 10,
+                    borderColor: '#000',
+                    borderStyle: 'solid',
+                    borderWidth: 1,
+                  }}
+                  PlaceholderContent={<ActivityIndicator />}>
+
+                    <View style={{ backgroundColor: '#f0f0f0' }}>
+                      <Text style={{ marginLeft: 10, marginRight: 10, fontWeight: 'bold' }}>{similar.brand.name}</Text>
+                      <Text style={{ marginLeft: 10, marginRight: 10 }}>{similar.name}</Text>
+                    </View>
+
+                </ImageBackground>
               );
             }}
             keyExtractor={(item, index) => index.toString()}

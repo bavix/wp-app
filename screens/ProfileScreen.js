@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Alert} from 'react-native';
 import api from '../helpers/Api';
-import {Avatar, Icon, Text} from "react-native-elements";
+import {Avatar, Icon, Text, Tile} from "react-native-elements";
 import AuthPureComponent from "../components/AuthPureComponent";
 import TokenRegister from "../helpers/TokenRegister";
 import Colors from "../constants/Colors";
