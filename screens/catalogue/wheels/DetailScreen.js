@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, ScrollView, StyleSheet, ActivityIndicator, ImageBackground} from 'react-native';
-import {Text, Tile} from 'react-native-elements';
+import {View, ScrollView, StyleSheet, ActivityIndicator, ImageBackground, TouchableWithoutFeedback} from 'react-native';
+import {Text, Tile, Image} from 'react-native-elements';
 import TableView from "../../../components/TableView";
+import Colors from "../../../constants/Colors";
 
 export default class DetailScreen extends React.PureComponent {
 
@@ -57,12 +58,14 @@ export default class DetailScreen extends React.PureComponent {
             apiParams={this.state.apiParams}
             onEndReachedThreshold={3}
             renderItem={({ item: similar }) => {
-              console.log(similar);
               return (
-                <ImageBackground
-                  resizeMode='contain'
-                  source={getImage(similar, 'thumbs')}
-                  style={{
+                <TouchableWithoutFeedback onPress={() => this.props.navigation.push('WheelDetailScreen', {
+                  item: similar,
+                  image: getImage(similar, 'normal'),
+                  getImage
+                })}>
+
+                  <View style={{
                     overflow: 'hidden',
                     height: 160,
                     width: 160,
@@ -71,15 +74,29 @@ export default class DetailScreen extends React.PureComponent {
                     borderColor: '#000',
                     borderStyle: 'solid',
                     borderWidth: 1,
-                  }}
-                  PlaceholderContent={<ActivityIndicator />}>
+                  }}>
 
-                    <View style={{ backgroundColor: '#f0f0f0' }}>
+                    <Image
+                      style={{ height: 160, width: 160, }}
+                      resizeMode='contain'
+                      source={getImage(similar, 'thumbs')}
+                      PlaceholderContent={<ActivityIndicator />}>
+                    </Image>
+
+                    <View style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      width: '100%',
+                      backgroundColor: '#ddd'
+                    }}>
+
                       <Text style={{ marginLeft: 10, marginRight: 10, fontWeight: 'bold' }}>{similar.brand.name}</Text>
                       <Text style={{ marginLeft: 10, marginRight: 10 }}>{similar.name}</Text>
                     </View>
 
-                </ImageBackground>
+                  </View>
+
+                </TouchableWithoutFeedback>
               );
             }}
           />

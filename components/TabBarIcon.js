@@ -13,7 +13,7 @@ export default class TabBarIcon extends React.Component {
         raised={this.props.raised}
         reverse={this.props.reverse}
         name={ICON_PREFIX + this.props.name}
-        size={this.props.size ? this.props.size : 26}
+        size={this.props.size ? this.props.size : 30}
         color={this.props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}
       />
     );

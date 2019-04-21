@@ -41,7 +41,6 @@ export default class LoginScreen extends AuthPureComponent {
       this.setState({loading: false});
       this.props.navigation.navigate('App');
     }).catch(({response}) => {
-      console.log(response.data)
       this.setState({
         loading: false,
         message: response.data.hint ?

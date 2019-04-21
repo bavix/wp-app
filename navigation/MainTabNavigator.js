@@ -18,34 +18,34 @@ const AuthStack = createStackNavigator({
   Forgot: ForgotScreen,
 });
 
-const HomeStack = createAppContainer(createSwitchNavigator({
+const FavoritesStack = createAppContainer(createSwitchNavigator({
   ALS: AuthLoadingScreen,
   Auth: AuthStack,
   App: createStackNavigator({HomeScreen}),
 }));
 
-HomeStack.navigationOptions = {
+FavoritesStack.navigationOptions = {
   tabBarLabel: 'Home',
   tabBarIcon: ({focused}) => (
     <TabBarIcon
       focused={focused}
-      name='information-circle-outline'
+      name='star'
     />
   ),
 };
 
-const LinksStack = createAppContainer(createSwitchNavigator({
+const ProfileStack = createAppContainer(createSwitchNavigator({
   ALS: AuthLoadingScreen,
   Auth: AuthStack,
   App: createStackNavigator({ProfileScreen}),
 }));
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+ProfileStack.navigationOptions = {
+  tabBarLabel: 'Profile',
   tabBarIcon: ({focused}) => (
     <TabBarIcon
       focused={focused}
-      name='link'
+      name='contact'
     />
   ),
 };
@@ -56,7 +56,7 @@ const WheelsStack = createStackNavigator({
 });
 
 WheelsStack.navigationOptions = {
-  tabBarLabel: ' ', // 'Catalogue',
+  tabBarLabel: 'Catalogue',
   tabBarIcon: ({focused}) => (
     <TabBarIcon
       raised
@@ -81,27 +81,27 @@ SettingsStack.navigationOptions = {
   ),
 };
 
-const DebugStack = createStackNavigator({
+const LinksStack = createStackNavigator({
   SettingsScreen,
 });
 
-DebugStack.navigationOptions = {
-  tabBarLabel: 'Debug',
+LinksStack.navigationOptions = {
+  tabBarLabel: 'Links',
   tabBarIcon: ({focused}) => (
     <TabBarIcon
       focused={focused}
-      name='bug'
+      name='link'
     />
   ),
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
+  SettingsStack,
   LinksStack,
   WheelsStack,
-  DebugStack,
-  SettingsStack,
+  FavoritesStack,
+  ProfileStack,
 }, {
   initialRouteName: 'WheelsStack',
-  // tabBarOptions: { showLabel: false }
+  tabBarOptions: { showLabel: false }
 });

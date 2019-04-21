@@ -65,9 +65,9 @@ export default class extends React.PureComponent {
             type="clear"
             icon={
               <Icon
-                name={ICON_PREFIX + 'text'}
+                name={ICON_PREFIX + 'chatbubbles'}
                 type='ionicon'
-                color={Colors.tintColor} />
+                color={Colors.tabIconDefault} />
             }
             title={this.props.likes.toString()}
             titleStyle={styles.btnLike}
