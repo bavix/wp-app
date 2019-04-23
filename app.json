@@ -11,7 +11,7 @@
       "android"
     ],
     "ios": {
-      "bundleIdentifier": "ru.wheelpro.app",
+      "bundleIdentifier": "ru.wheelpro",
       "supportsTablet": true
     },
     "android": {
