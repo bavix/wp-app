@@ -61,7 +61,7 @@ export default class DetailScreen extends React.PureComponent {
               return (
                 <TouchableWithoutFeedback onPress={() => this.props.navigation.push('WheelDetailScreen', {
                   item: similar,
-                  image: getImage(similar, 'normal'),
+                  image: getImage(similar, 'm'),
                   getImage
                 })}>
 
@@ -79,7 +79,7 @@ export default class DetailScreen extends React.PureComponent {
                     <Image
                       style={{ height: 160, width: 160, }}
                       resizeMode='contain'
-                      source={getImage(similar, 'thumbs')}
+                      source={getImage(similar, 'xs')}
                       PlaceholderContent={<ActivityIndicator />}>
                     </Image>
 

@@ -61,10 +61,10 @@ export default class WheelsScreen extends React.PureComponent {
       liked={item.liked}
       favorites={item.favorites_count}
       favorited={item.favorited}
-      imageSource={this.getImage(item, 'thumbs')}
+      imageSource={this.getImage(item, 'xs')}
       pressItem={() => this.props.navigation.navigate('WheelDetailScreen', {
         item,
-        image: this.getImage(item, 'normal'),
+        image: this.getImage(item, 'm'),
         getImage: this.getImage,
       })}
     />
