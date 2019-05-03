@@ -48,7 +48,7 @@ export default class HomeScreen extends AuthPureComponent {
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
             <Image
-              source={//{uri: 'https://cdn.wheelpro.ru/avatar/thumbs/0SgNuB/default.png'}}
+              source={
                 __DEV__
                   ? require('../assets/images/robot-dev.png')
                   : require('../assets/images/robot-prod.png')

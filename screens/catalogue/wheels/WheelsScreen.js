@@ -41,7 +41,7 @@ export default class WheelsScreen extends React.PureComponent {
   getImage = (item, type) => {
     if (item.image) {
       return {
-        uri: `https://cdn.wheelpro.ru/wheel/${type}/${item.image.uuid}/default.png`
+        uri: item.image.thumbnails[type]
       }
     }
 
