@@ -1,9 +1,14 @@
 import React from 'react';
 import Colors from '../../../constants/Colors';
-import {Icon} from 'react-native-elements';
+import {Icon, Image} from 'react-native-elements';
 import WheelCell from '../../../components/cells/WheelCell'
 import TableView from "../../../components/TableView";
 import {ICON_PREFIX} from "../../../components/TabBarIcon";
+import CDN, {
+  BUCKET_WHEELS,
+  VIEW_WHEELS_XS,
+  VIEW_WHEELS_M,
+} from "../../../helpers/CDN";
 
 export default class WheelsScreen extends React.PureComponent {
 
@@ -29,23 +34,8 @@ export default class WheelsScreen extends React.PureComponent {
   state = {
     apiUrl: '/api/wheels',
     apiParams: {
-      include: 'image,brand',
+      include: ['image', 'brand'],
     }
-  };
-
-  /**
-   * @param item
-   * @param type
-   * @return {{uri: string}}
-   */
-  getImage = (item, type) => {
-    if (item.image) {
-      return {
-        uri: item.image.thumbnails[type]
-      }
-    }
-
-    return require('../../../assets/images/wheels/placeholder.png');
   };
 
   /**
@@ -61,11 +51,11 @@ export default class WheelsScreen extends React.PureComponent {
       liked={item.liked}
       favorites={item.favorites_count}
       favorited={item.favorited}
-      imageSource={this.getImage(item, 'xs')}
+      imageSource={CDN.getThumbnail(BUCKET_WHEELS, VIEW_WHEELS_XS, item.image)}
+      defaultSource={CDN.getPlaceholder(BUCKET_WHEELS)}
       pressItem={() => this.props.navigation.navigate('WheelDetailScreen', {
         item,
-        image: this.getImage(item, 'm'),
-        getImage: this.getImage,
+        image: CDN.getThumbnail(BUCKET_WHEELS, VIEW_WHEELS_M, item.image),
       })}
     />
   };

@@ -2,7 +2,11 @@ import React from 'react';
 import {View, ScrollView, StyleSheet, ActivityIndicator, ImageBackground, TouchableWithoutFeedback} from 'react-native';
 import {Text, Tile, Image} from 'react-native-elements';
 import TableView from "../../../components/TableView";
-import Colors from "../../../constants/Colors";
+import CDN, {
+  BUCKET_WHEELS,
+  VIEW_WHEELS_M,
+  VIEW_WHEELS_XS,
+} from "../../../helpers/CDN";
 
 export default class DetailScreen extends React.PureComponent {
 
@@ -13,7 +17,7 @@ export default class DetailScreen extends React.PureComponent {
   state = {
     apiUrl: '',
     apiParams: {
-      include: 'image,brand',
+      include: ['image', 'brand'],
     }
   };
 
@@ -25,17 +29,9 @@ export default class DetailScreen extends React.PureComponent {
 
   render() {
     const {navigation} = this.props;
-    const getImage = navigation.getParam('getImage');
 
     return (
       <ScrollView>
-        {/*<ImageView*/}
-        {/*  images={images}*/}
-        {/*  imageIndex={0}*/}
-        {/*  isVisible={this.state.modal}*/}
-        {/*  renderFooter={(currentImage) => (<View><Text>My footer</Text></View>)}*/}
-        {/*/>*/}
-
         <Tile
           imageSrc={navigation.getParam('image')}
           featured
@@ -61,8 +57,7 @@ export default class DetailScreen extends React.PureComponent {
               return (
                 <TouchableWithoutFeedback onPress={() => this.props.navigation.push('WheelDetailScreen', {
                   item: similar,
-                  image: getImage(similar, 'm'),
-                  getImage
+                  image: CDN.getThumbnail(BUCKET_WHEELS, VIEW_WHEELS_M, similar.image),
                 })}>
 
                   <View style={{
@@ -79,7 +74,8 @@ export default class DetailScreen extends React.PureComponent {
                     <Image
                       style={{ height: 160, width: 160, }}
                       resizeMode='contain'
-                      source={getImage(similar, 'xs')}
+                      source={CDN.getThumbnail(BUCKET_WHEELS, VIEW_WHEELS_XS, similar.image)}
+                      defaultSource={CDN.getPlaceholder(BUCKET_WHEELS)}
                       PlaceholderContent={<ActivityIndicator />}>
                     </Image>
 

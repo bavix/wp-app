@@ -8,6 +8,7 @@ import Colors from "../constants/Colors";
 import AuthStatus from "../helpers/AuthStatus";
 import {ICON_PREFIX} from "../components/TabBarIcon";
 import {client} from "../helpers/OAuth";
+import CDN, {BUCKET_USERS, VIEW_USERS_M} from "../helpers/CDN";
 
 export default class ProfileScreen extends AuthPureComponent {
 
@@ -58,13 +59,18 @@ export default class ProfileScreen extends AuthPureComponent {
   };
 
   state = {
+    image: null,
     profile: {},
   };
 
   componentDidMount() {
     super.componentDidMount();
-    api.get('api/profile').then(({data}) => data).then(({data: profile}) => {
-      this.setState({profile})
+    api.get('api/profile', {
+      params: {
+        include: ['image']
+      }
+    }).then(({data}) => data).then(({data: profile}) => {
+      this.setState({profile, image: profile.image})
     }).catch((e) => {
       // todo: check auth... -> logout
     });
@@ -77,6 +83,8 @@ export default class ProfileScreen extends AuthPureComponent {
         title='WP'
         size={160}
         placeholderStyle={{backgroundColor: '#cdc'}}
+        source={CDN.getThumbnail(BUCKET_USERS, VIEW_USERS_M, this.state.image)}
+        defaultSource={CDN.getPlaceholder(BUCKET_USERS)}
         showEditButton
       />
 

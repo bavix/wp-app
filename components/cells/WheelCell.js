@@ -4,6 +4,7 @@ import {TouchableWithoutFeedback} from 'react-native';
 import {Button, Divider, Icon, Image} from 'react-native-elements';
 import Colors from '../../constants/Colors';
 import {ICON_PREFIX} from "../TabBarIcon";
+import CDN, {BUCKET_WHEELS} from "../../helpers/CDN";
 
 export default class extends React.PureComponent {
 
@@ -17,6 +18,7 @@ export default class extends React.PureComponent {
             <View style={styles.cellImage}>
               <Image
                 source={this.props.imageSource}
+                defaultSource={this.props.defaultSource}
                 style={styles.cellImageSize}
                 PlaceholderContent={<ActivityIndicator/>}
                 placeholderStyle={{backgroundColor: 'white'}}
