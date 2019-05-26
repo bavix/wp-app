@@ -47,6 +47,7 @@ export default class WheelsScreen extends React.PureComponent {
       id={item.id}
       title={item.name}
       subtitle={item.brand.name}
+      comments={item.comments_count}
       likes={item.likes_count}
       liked={item.liked}
       favorites={item.favorites_count}

@@ -31,9 +31,9 @@ export default class extends React.PureComponent {
                 <View style={styles.titleContainer}>
                   <Text style={styles.title}>{this.props.title}</Text>
                   <Icon
-                    name={ICON_PREFIX + 'star' + (this.props.favorited ? '' : '-outline')}
+                    name={ICON_PREFIX + 'star'}
                     type='ionicon'
-                    color={Colors.tintColor}
+                    color={this.props.favorited ? Colors.cellFavorited : Colors.cellFavoriteIt}
                     onPress={() => alert(`ID: ${this.props.id}`)}/>
                 </View>
                 <Text style={styles.subtitle}>{this.props.subtitle}</Text>
@@ -54,9 +54,9 @@ export default class extends React.PureComponent {
             type="clear"
             icon={
               <Icon
-                name={ICON_PREFIX + 'heart' + (this.props.liked ? '' : '-empty')}
+                name={ICON_PREFIX + 'heart'}
                 type='ionicon'
-                color={Colors.tintColor} />
+                color={this.props.liked ? Colors.cellLiked : Colors.cellLikeIt} />
             }
             title={this.props.likes.toString()}
             titleStyle={styles.btnLike}
@@ -71,7 +71,7 @@ export default class extends React.PureComponent {
                 type='ionicon'
                 color={Colors.tabIconDefault} />
             }
-            title={this.props.likes.toString()}
+            title={this.props.comments.toString()}
             titleStyle={styles.btnLike}
             onPress={() => alert(`ID: ${this.props.id}`)}
           />

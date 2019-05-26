@@ -9,7 +9,7 @@ export default class AuthLoadingScreen extends React.PureComponent {
     this._bootstrapAsync();
   }
 
-  _bootstrapAsync = () => {
+  _bootstrapAsync = async () => {
     AuthStatus.isUser().then((isUser) => {
       this.props.navigation.navigate(isUser ? 'App' : 'Auth');
     });
