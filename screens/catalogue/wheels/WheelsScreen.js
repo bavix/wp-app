@@ -9,6 +9,7 @@ import CDN, {
   VIEW_WHEELS_XS,
   VIEW_WHEELS_M,
 } from "../../../helpers/CDN";
+import Api from "../../../helpers/Api";
 
 export default class WheelsScreen extends React.PureComponent {
 
@@ -38,6 +39,34 @@ export default class WheelsScreen extends React.PureComponent {
     }
   };
 
+  favorite = async (item) => {
+    if (item.favorited) {
+      return await Api.delete(`/api/wheels/${item.id}/favorite`).then(() => {
+        item.favorites_count = item.favorites_count - 1;
+        item.favorited = false;
+      });
+    }
+
+    await Api.post(`/api/wheels/${item.id}/favorite`).then((res) => {
+      item.favorites_count = res.data.count;
+      item.favorited = true;
+    });
+  };
+
+  like = async (item) => {
+    if (item.liked) {
+      return await Api.delete(`/api/wheels/${item.id}/like`).then(() => {
+        item.likes_count = item.likes_count - 1;
+        item.liked = false;
+      });
+    }
+
+    await Api.post(`/api/wheels/${item.id}/like`).then((res) => {
+      item.likes_count = res.data.count;
+      item.liked = true;
+    });
+  };
+
   /**
    * @param item
    * @return {*}
@@ -45,15 +74,11 @@ export default class WheelsScreen extends React.PureComponent {
   renderItem = (item) => {
     return <WheelCell
       id={item.id}
-      title={item.name}
-      subtitle={item.brand.name}
-      comments={item.comments_count}
-      likes={item.likes_count}
-      liked={item.liked}
-      favorites={item.favorites_count}
-      favorited={item.favorited}
+      item={item}
       imageSource={CDN.getThumbnail(BUCKET_WHEELS, VIEW_WHEELS_XS, item.image)}
       defaultSource={CDN.getPlaceholder(BUCKET_WHEELS)}
+      favoritePress={async () => await this.favorite(item)}
+      likePress={async () => await this.like(item)}
       pressItem={() => this.props.navigation.navigate('WheelDetailScreen', {
         item,
         image: CDN.getThumbnail(BUCKET_WHEELS, VIEW_WHEELS_M, item.image),

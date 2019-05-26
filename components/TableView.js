@@ -47,9 +47,7 @@ export default class TableView extends React.PureComponent {
           ...this.props.apiParams,
           page: this.state.page,
         }
-      })
-        .then(res => res.data)
-        .then(({data, meta}) => {
+      }).then(res => res.data).then(({data, meta}) => {
           let page = null;
           if (this.state.page < meta.last_page) {
             page = this.state.page + 1
@@ -61,16 +59,15 @@ export default class TableView extends React.PureComponent {
           }
 
           this.setState({
-            loading: false,
-            refresh: false,
             dataSource,
             page,
           })
+        }).finally(() => {
+          this.setState({
+            loading: false,
+            refresh: false
+          });
         })
-        .catch(err => {
-          this.setState({loading: false, refresh: false});
-        })
-
     });
   };
 

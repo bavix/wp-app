@@ -4,11 +4,16 @@ import {TouchableWithoutFeedback} from 'react-native';
 import {Button, Divider, Icon, Image} from 'react-native-elements';
 import Colors from '../../constants/Colors';
 import {ICON_PREFIX} from "../TabBarIcon";
-import CDN, {BUCKET_WHEELS} from "../../helpers/CDN";
 
 export default class extends React.PureComponent {
 
+  state = {
+    favoriteLoad: false,
+    likeLoad: false,
+  };
+
   render() {
+    const { item } = this.props;
     return (
       <View style={styles.cell}>
 
@@ -29,14 +34,33 @@ export default class extends React.PureComponent {
             <View style={styles.meta}>
               <View>
                 <View style={styles.titleContainer}>
-                  <Text style={styles.title}>{this.props.title}</Text>
-                  <Icon
-                    name={ICON_PREFIX + 'star'}
-                    type='ionicon'
-                    color={this.props.favorited ? Colors.cellFavorited : Colors.cellFavoriteIt}
-                    onPress={() => alert(`ID: ${this.props.id}`)}/>
+                  <Text style={styles.title}>{item.name}</Text>
+                  <Button
+                    style={{
+                      position: 'absolute',
+                      right: 0,
+                      zIndex: 5,
+                    }}
+                    loading={this.state.favoriteLoad}
+                    disabled={this.state.favoriteLoad}
+                    type="clear"
+                    icon={
+                      <Icon
+                        name={ICON_PREFIX + 'star'}
+                        type='ionicon'
+                        color={item.favorited ? Colors.cellFavorited : Colors.cellFavoriteIt}
+                      />
+                    }
+                    onPress={() => {
+                      this.setState({favoriteLoad: true}, async () => {
+                        await this.props.favoritePress().finally(() => {
+                          this.setState({favoriteLoad: false});
+                        })
+                      });
+                    }}
+                  />
                 </View>
-                <Text style={styles.subtitle}>{this.props.subtitle}</Text>
+                <Text style={styles.subtitle}>{item.brand.name}</Text>
               </View>
 
               <View style={styles.row}>
@@ -51,16 +75,24 @@ export default class extends React.PureComponent {
 
         <View style={[styles.row, styles.cellFooter]}>
           <Button
+            loading={this.state.likeLoad}
+            disabled={this.state.likeLoad}
             type="clear"
             icon={
               <Icon
                 name={ICON_PREFIX + 'heart'}
                 type='ionicon'
-                color={this.props.liked ? Colors.cellLiked : Colors.cellLikeIt} />
+                color={item.liked ? Colors.cellLiked : Colors.cellLikeIt} />
             }
-            title={this.props.likes.toString()}
+            title={item.likes_count.toString()}
             titleStyle={styles.btnLike}
-            onPress={() => alert(`ID: ${this.props.id}`)}
+            onPress={() => {
+              this.setState({likeLoad: true}, async () => {
+                await this.props.likePress().finally(() => {
+                  this.setState({likeLoad: false});
+                })
+              });
+            }}
           />
 
           <Button
@@ -71,9 +103,9 @@ export default class extends React.PureComponent {
                 type='ionicon'
                 color={Colors.tabIconDefault} />
             }
-            title={this.props.comments.toString()}
+            title={item.comments_count.toString()}
             titleStyle={styles.btnLike}
-            onPress={() => alert(`ID: ${this.props.id}`)}
+            onPress={() => alert(`ID: ${item.id}`)}
           />
         </View>
 

@@ -4,7 +4,7 @@ export default {
   cellLikeIt: '#ccc',
   cellLiked: '#ff3447',
   cellFavoriteIt: '#ccc',
-  cellFavorited: '#000',
+  cellFavorited: tintColor,
   tintColor,
   tabIconDefault: '#ccc',
   tabIconSelected: tintColor,
