@@ -11,10 +11,10 @@ import {
 } from 'react-native';
 import {WebBrowser} from 'expo';
 
-import {BASE_URL} from '../constants/Config';
-import TokenRegister from '../helpers/TokenRegister';
+import {config} from '../constants'
+import TokenRegister from '../../helpers/TokenRegister';
 import AuthPureComponent from "../components/AuthPureComponent";
-import AppAuth from '../helpers/OAuth';
+import AppAuth from '../../helpers/OAuth';
 
 export default class HomeScreen extends AuthPureComponent {
   state = {
@@ -47,20 +47,13 @@ export default class HomeScreen extends AuthPureComponent {
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
           <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
+
           </View>
 
           <View style={styles.getStartedContainer}>
             {this._maybeRenderDevelopmentModeWarning()}
 
-            <Text>BASE_URL: {BASE_URL}</Text>
+            <Text>BASE_URL: {config.apiUrl}</Text>
             <Text>Current state is: {this.state.appState}</Text>
             <Text style={styles.getStartedText}>Get started by opening</Text>
 

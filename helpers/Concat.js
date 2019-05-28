@@ -3,6 +3,7 @@
  * @param {Array} dataSource
  * @param {Array} newData
  * @return {Array}
+ * @deprecated
  */
 export default (dataSource, newData) => {
 

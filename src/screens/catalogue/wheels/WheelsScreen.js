@@ -1,6 +1,6 @@
 import React from 'react';
-import Colors from '../../../constants/Colors';
-import {Icon, Image} from 'react-native-elements';
+import Colors from '../../../../constants/Colors';
+import {Icon, Image} from 'react-native-elements/src/index';
 import WheelCell from '../../../components/cells/WheelCell'
 import TableView from "../../../components/TableView";
 import {ICON_PREFIX} from "../../../components/TabBarIcon";
@@ -8,8 +8,8 @@ import CDN, {
   BUCKET_WHEELS,
   VIEW_WHEELS_XS,
   VIEW_WHEELS_M,
-} from "../../../helpers/CDN";
-import Api from "../../../helpers/Api";
+} from "../../../../helpers/CDN";
+import Api from "../../../../helpers/Api";
 
 export default class WheelsScreen extends React.PureComponent {
 

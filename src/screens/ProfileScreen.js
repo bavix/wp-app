@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import {View, Alert} from 'react-native';
-import api from '../helpers/Api';
-import {Avatar, Icon, Text, Tile} from "react-native-elements";
+import api from '../../helpers/Api';
+import {Avatar, Icon, Text, Tile} from "react-native-elements/src/index";
 import AuthPureComponent from "../components/AuthPureComponent";
-import TokenRegister from "../helpers/TokenRegister";
-import Colors from "../constants/Colors";
-import AuthStatus from "../helpers/AuthStatus";
+import TokenRegister from "../../helpers/TokenRegister";
+import Colors from "../../constants/Colors";
+import AuthStatus from "../../helpers/AuthStatus";
 import {ICON_PREFIX} from "../components/TabBarIcon";
-import {client} from "../helpers/OAuth";
-import CDN, {BUCKET_USERS, VIEW_USERS_M} from "../helpers/CDN";
+import {client} from "../../helpers/OAuth";
+import CDN, {BUCKET_USERS, VIEW_USERS_M} from "../../helpers/CDN";
 
 import { ScrollView, Switch, StyleSheet } from 'react-native'
-import { ListItem } from 'react-native-elements'
+import { ListItem } from 'react-native-elements/src/index'
 import PropTypes from 'prop-types'
 
-import { Icon as BaseIcon } from 'react-native-elements'
-import { Icon as Chevron } from 'react-native-elements'
-import { Text as InfoText } from 'react-native-elements'
+import { Icon as BaseIcon } from 'react-native-elements/src/index'
+import { Icon as Chevron } from 'react-native-elements/src/index'
+import { Text as InfoText } from 'react-native-elements/src/index'
 
 
 const styles = StyleSheet.create({

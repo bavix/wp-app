@@ -11,12 +11,14 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@callstack/react-theme-provider": "^3.0.0",
     "axios": "^0.18.0",
     "expo": "^32.0.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-elements": "^1.1.0",
-    "react-navigation": "^3.11.0"
+    "react-navigation": "^3.11.0",
+    "redux-saga": "^1.0.2"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.1",

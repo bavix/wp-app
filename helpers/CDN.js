@@ -15,6 +15,9 @@ export const VIEW_USERS_M = 'm';
 export const VIEW_USERS_XL = 'xl';
 
 export default {
+  /**
+   * @deprecated
+   */
   getThumbnail(bucket, view, image) {
     if (image) {
       return {
@@ -23,6 +26,10 @@ export default {
     }
     return this.getPlaceholder(bucket)
   },
+
+  /**
+   * @deprecated
+   */
   getPlaceholder(bucket) {
     switch (bucket) {
       case BUCKET_WHEELS:

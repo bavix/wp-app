@@ -1,27 +1,48 @@
 import axio from './Axio'
-import {CLIENT_ID, CLIENT_SECRET} from '../constants/Config'
+import {config} from '../src/constants'
 
+/**
+ * @deprecated
+ */
 const post = async (path, config) => {
   return await axio.post(path, {
-    client_id: CLIENT_ID.toString(),
-    client_secret: CLIENT_SECRET.toString(),
+    client_id: config.clientId.toString(),
+    client_secret: config.clientSecret.toString(),
     ...config,
   })
 };
 
+/**
+ * @deprecated
+ */
 export const app = {
+
+  /**
+   * @deprecated
+   */
   async authAsync(options) {
     return await post('oauth/token', {
       grant_type: 'client_credentials',
       ...options,
     })
   },
+
+  /**
+   * @deprecated
+   */
   async revokeAsync(token) {
     // todo
   },
 };
 
+/**
+ * @deprecated
+ */
 export const client = {
+
+  /**
+   * @deprecated
+   */
   async authAsync(username, password, options) {
     return await post('oauth/token', {
       grant_type: 'password',
@@ -30,6 +51,10 @@ export const client = {
       ...options,
     })
   },
+
+  /**
+   * @deprecated
+   */
   async refreshAsync(refresh_token, options) {
     return await post('oauth/token', {
       grant_type: 'refresh_token',
@@ -37,6 +62,10 @@ export const client = {
       ...options,
     })
   },
+
+  /**
+   * @deprecated
+   */
   async revokeAsync(access_token, options) {
     // return await req({
     //   grant_type: 'revoke_token',
@@ -47,4 +76,8 @@ export const client = {
   },
 };
 
+
+/**
+ * @deprecated
+ */
 export default {app, client}

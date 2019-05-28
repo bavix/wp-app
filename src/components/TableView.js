@@ -1,9 +1,12 @@
 import React from 'react';
 import {ActivityIndicator} from 'react-native';
 import {View, FlatList} from 'react-native';
-import concat from '../helpers/Concat';
-import api from '../helpers/Api';
+import concat from '../../helpers/Concat';
+import api from '../../helpers/Api';
 
+/**
+ * @deprecated
+ */
 export default class TableView extends React.PureComponent {
 
   state = {
@@ -13,10 +16,16 @@ export default class TableView extends React.PureComponent {
     page: 1,
   };
 
+  /**
+   * @deprecated
+   */
   componentDidMount() {
     this.handleLoadMore()
   }
 
+  /**
+   * @deprecated
+   */
   loadingComponent = () => {
     if (this.state.loading && !this.state.refresh) {
       return <View style={{paddingVertical: 20}}>
@@ -27,6 +36,9 @@ export default class TableView extends React.PureComponent {
     return null;
   };
 
+  /**
+   * @deprecated
+   */
   handleRefresh = () => {
     if (this.state.refresh) {
       return;
@@ -35,6 +47,9 @@ export default class TableView extends React.PureComponent {
     this.setState({refresh: true, page: 1}, this.handleLoadMore);
   };
 
+  /**
+   * @deprecated
+   */
   handleLoadMore = () => {
     if (this.state.loading || !this.state.page) {
       return;
@@ -71,6 +86,9 @@ export default class TableView extends React.PureComponent {
     });
   };
 
+  /**
+   * @deprecated
+   */
   render() {
     return (
       <FlatList

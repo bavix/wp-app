@@ -1,6 +1,6 @@
 import React from 'react';
 import {ActivityIndicator, View} from 'react-native';
-import AuthStatus from '../helpers/AuthStatus';
+import AuthStatus from '../../helpers/AuthStatus';
 
 export default class AuthLoadingScreen extends React.PureComponent {
 

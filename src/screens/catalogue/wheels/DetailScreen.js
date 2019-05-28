@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, ScrollView, StyleSheet, ActivityIndicator, ImageBackground, TouchableWithoutFeedback} from 'react-native';
-import {Text, Tile, Image} from 'react-native-elements';
+import {Text, Tile, Image} from 'react-native-elements/src/index';
 import TableView from "../../../components/TableView";
 import CDN, {
   BUCKET_WHEELS,
   VIEW_WHEELS_M,
   VIEW_WHEELS_XS,
-} from "../../../helpers/CDN";
+} from "../../../../helpers/CDN";
 
 export default class DetailScreen extends React.PureComponent {
 

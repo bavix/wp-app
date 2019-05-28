@@ -1,6 +1,6 @@
 import React from 'react';
 import {SectionList} from 'react-native';
-import {Text} from "react-native-elements";
+import {Text} from "react-native-elements/src/index";
 
 export default class SettingsScreen extends React.PureComponent {
   static navigationOptions = {

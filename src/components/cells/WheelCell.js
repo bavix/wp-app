@@ -1,10 +1,13 @@
 import React from 'react'
 import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native';
-import {Button, Divider, Icon, Image} from 'react-native-elements';
-import Colors from '../../constants/Colors';
+import {Button, Divider, Icon, Image} from 'react-native-elements/src/index';
+import Colors from '../../../constants/Colors';
 import {ICON_PREFIX} from "../TabBarIcon";
 
+/**
+ * @deprecated
+ */
 export default class extends React.PureComponent {
 
   state = {
@@ -12,6 +15,9 @@ export default class extends React.PureComponent {
     likeLoad: false,
   };
 
+  /**
+   * @deprecated
+   */
   render() {
     const { item } = this.props;
     return (

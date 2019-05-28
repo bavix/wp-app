@@ -1,6 +1,9 @@
-import axios from 'axios';
-import {BASE_URL} from '../constants/Config';
+import axios from 'axios'
+import { config } from '../src/constants'
 
+/**
+ * @deprecated
+ */
 export default axios.create({
-  baseURL: BASE_URL,
+  baseURL: config.apiUrl,
 })

@@ -1,6 +1,9 @@
 import {AsyncStorage} from 'react-native';
 import {app} from './OAuth'
 
+/**
+ * @deprecated
+ */
 const TOKEN = '@token';
 
 export default {
@@ -9,6 +12,7 @@ export default {
    * Получение token из AsyncStorage учитывая expireIn
    *
    * @returns {Promise<void>}
+   * @deprecated
    */
   async getToken() {
     // todo expire
@@ -24,6 +28,7 @@ export default {
    *
    * @param token
    * @returns {Promise<void>}
+   * @deprecated
    */
   async setToken(token) {
     // expires_in
@@ -34,6 +39,7 @@ export default {
    * Удаляем токен
    *
    * @returns {Promise<*>}
+   * @deprecated
    */
   async removeToken() {
     return await AsyncStorage.removeItem(TOKEN);
@@ -44,6 +50,7 @@ export default {
    * Результатом будет App Token или Client Token
    *
    * @returns {Promise<*>}
+   * @deprecated
    */
   async getAccessToken() {
     let token = await this.getToken();
@@ -58,6 +65,7 @@ export default {
    * Refresh Token для обновления Access Token
    *
    * @returns {Promise<null|*>}
+   * @deprecated
    */
   async getRefreshToken() {
     const token = await this.getToken();
