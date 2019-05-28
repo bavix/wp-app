@@ -1,5 +1,4 @@
 import axio from './Axio'
-import {config} from '../src/constants'
 
 /**
  * @deprecated

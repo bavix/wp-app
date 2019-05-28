@@ -1,22 +1,30 @@
-import axios from 'axios';
-import { config } from '../constants';
+import axio from './axioInstance';
+import TokenRegister from './../../helpers/TokenRegister';
 
-export default (params = {}) => {
-  const { url, token } = params;
-  const baseURL = url || config.apiUrl;
+const params = async (args) => {
+  args = args || {};
 
-  const instanceConfig = {
-    baseURL,
-    headers: {
-      'Content-Type': 'application/vnd.api+json',
-      Accept: '*/*',
-      cookie: '',
-    },
-  };
-
-  if (token) {
-    instanceConfig.headers.Authorization = `Bearer ${token}`;
+  if (!args.headers) {
+    args.headers = {}
   }
 
-  return axios.create(instanceConfig);
+  if (!args.headers.Authorization) {
+    const token = await TokenRegister.getAccessToken();
+    args.headers.Authorization = 'Bearer ' + token;
+  }
+
+  console.log(args)
+  return args
 };
+
+export default {
+  async get(url, opts) {
+    return await axio.get(url, await params(opts))
+  },
+  async post(url, data, opts) {
+    return await axio.post(url, data, await params(opts))
+  },
+  async delete(url, opts) {
+    return await axio.delete(url, await params(opts))
+  },
+}
