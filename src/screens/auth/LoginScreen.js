@@ -6,6 +6,7 @@ import {client} from '../../../helpers/OAuth';
 import TokenRegister from '../../../helpers/TokenRegister';
 import AuthStatus from "../../../helpers/AuthStatus";
 import AuthPureComponent from "../../components/AuthPureComponent";
+import {Platform} from 'react-native'
 
 export default class LoginScreen extends AuthPureComponent {
 
@@ -89,6 +90,7 @@ const styles = StyleSheet.create({
   username: {},
   password: {
     paddingTop: 10,
+    paddingBottom: 15,
   },
   login: {
     paddingTop: 10,

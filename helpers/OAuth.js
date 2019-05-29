@@ -1,13 +1,14 @@
 import axio from './Axio'
+import {config} from '../src/constants'
 
 /**
  * @deprecated
  */
-const post = async (path, config) => {
+const post = async (path, params) => {
   return await axio.post(path, {
     client_id: config.clientId.toString(),
     client_secret: config.clientSecret.toString(),
-    ...config,
+    ...params,
   })
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {ActivityIndicator} from 'react-native';
 import {View, FlatList} from 'react-native';
 import concat from '../../helpers/Concat';
-import api from '../../helpers/Api';
+import api from '../helpers/api';
 
 /**
  * @deprecated
