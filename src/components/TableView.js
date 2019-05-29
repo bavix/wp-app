@@ -1,6 +1,5 @@
 import React from 'react';
-import {ActivityIndicator} from 'react-native';
-import {View, FlatList} from 'react-native';
+import {ActivityIndicator, FlatList, View} from 'react-native';
 import concat from '../../helpers/Concat';
 import api from '../helpers/api';
 
@@ -63,26 +62,26 @@ export default class TableView extends React.PureComponent {
           page: this.state.page,
         }
       }).then(res => res.data).then(({data, meta}) => {
-          let page = null;
-          if (this.state.page < meta.last_page) {
-            page = this.state.page + 1
-          }
+        let page = null;
+        if (this.state.page < meta.last_page) {
+          page = this.state.page + 1
+        }
 
-          let dataSource = data;
-          if (!this.state.refresh) {
-            dataSource = concat(this.state.dataSource, data);
-          }
+        let dataSource = data;
+        if (!this.state.refresh) {
+          dataSource = concat(this.state.dataSource, data);
+        }
 
-          this.setState({
-            dataSource,
-            page,
-          })
-        }).finally(() => {
-          this.setState({
-            loading: false,
-            refresh: false
-          });
+        this.setState({
+          dataSource,
+          page,
         })
+      }).finally(() => {
+        this.setState({
+          loading: false,
+          refresh: false
+        });
+      })
     });
   };
 

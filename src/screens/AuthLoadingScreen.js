@@ -18,7 +18,7 @@ export default class AuthLoadingScreen extends React.PureComponent {
   render() {
     return (
       <View>
-        <ActivityIndicator />
+        <ActivityIndicator/>
       </View>
     );
   }

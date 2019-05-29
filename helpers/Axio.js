@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { config } from '../src/constants'
+import {config} from '../src/constants'
 
 /**
  * @deprecated

@@ -1,5 +1,10 @@
 import React from 'react';
-import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
+import {
+  createAppContainer,
+  createBottomTabNavigator,
+  createStackNavigator,
+  createSwitchNavigator
+} from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
 import ProfileScreen from '../screens/ProfileScreen';
 import WheelsScreen from '../screens/catalogue/wheels/WheelsScreen';
@@ -8,7 +13,6 @@ import SettingsScreen from '../screens/SettingsScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
 import HomeScreen from "../screens/HomeScreen";
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
-import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import RegisterScreen from "../screens/auth/RegisterScreen";
 import ForgotScreen from "../screens/auth/ForgotScreen";
 
@@ -103,5 +107,5 @@ export default createBottomTabNavigator({
   ProfileStack,
 }, {
   initialRouteName: 'WheelsStack',
-  tabBarOptions: { showLabel: false }
+  tabBarOptions: {showLabel: false}
 });

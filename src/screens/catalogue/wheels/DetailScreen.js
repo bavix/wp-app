@@ -1,12 +1,8 @@
 import React from 'react';
-import {View, ScrollView, StyleSheet, ActivityIndicator, ImageBackground, TouchableWithoutFeedback} from 'react-native';
-import {Text, Tile, Image} from 'react-native-elements/src/index';
+import {ActivityIndicator, ScrollView, StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
+import {Image, Text, Tile} from 'react-native-elements/src/index';
 import TableView from "../../../components/TableView";
-import CDN, {
-  BUCKET_WHEELS,
-  VIEW_WHEELS_M,
-  VIEW_WHEELS_XS,
-} from "../../../../helpers/CDN";
+import CDN, {BUCKET_WHEELS, VIEW_WHEELS_M, VIEW_WHEELS_XS,} from "../../../../helpers/CDN";
 
 export default class DetailScreen extends React.PureComponent {
 
@@ -53,7 +49,7 @@ export default class DetailScreen extends React.PureComponent {
             apiUrl={this.state.apiUrl}
             apiParams={this.state.apiParams}
             onEndReachedThreshold={3}
-            renderItem={({ item: similar }) => {
+            renderItem={({item: similar}) => {
               return (
                 <TouchableWithoutFeedback onPress={() => this.props.navigation.push('WheelDetailScreen', {
                   item: similar,
@@ -72,11 +68,11 @@ export default class DetailScreen extends React.PureComponent {
                   }}>
 
                     <Image
-                      style={{ height: 160, width: 160, }}
+                      style={{height: 160, width: 160,}}
                       resizeMode='contain'
                       source={CDN.getThumbnail(BUCKET_WHEELS, VIEW_WHEELS_XS, similar.image)}
                       defaultSource={CDN.getPlaceholder(BUCKET_WHEELS)}
-                      PlaceholderContent={<ActivityIndicator />}>
+                      PlaceholderContent={<ActivityIndicator/>}>
                     </Image>
 
                     <View style={{
@@ -86,8 +82,8 @@ export default class DetailScreen extends React.PureComponent {
                       backgroundColor: '#ddd'
                     }}>
 
-                      <Text style={{ marginLeft: 10, marginRight: 10, fontWeight: 'bold' }}>{similar.brand.name}</Text>
-                      <Text style={{ marginLeft: 10, marginRight: 10 }}>{similar.name}</Text>
+                      <Text style={{marginLeft: 10, marginRight: 10, fontWeight: 'bold'}}>{similar.brand.name}</Text>
+                      <Text style={{marginLeft: 10, marginRight: 10}}>{similar.name}</Text>
                     </View>
 
                   </View>

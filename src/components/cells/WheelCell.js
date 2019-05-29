@@ -1,6 +1,5 @@
 import React from 'react'
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native';
+import {ActivityIndicator, StyleSheet, Text, TouchableWithoutFeedback, View} from 'react-native';
 import {Button, Divider, Icon, Image} from 'react-native-elements/src/index';
 import Colors from '../../../constants/Colors';
 import {ICON_PREFIX} from "../TabBarIcon";
@@ -19,7 +18,7 @@ export default class extends React.PureComponent {
    * @deprecated
    */
   render() {
-    const { item } = this.props;
+    const {item} = this.props;
     return (
       <View style={styles.cell}>
 
@@ -71,7 +70,8 @@ export default class extends React.PureComponent {
 
               <View style={styles.row}>
                 <Text style={styles.wrap}>
-                  ADV.1 produces premiere custom-made one-piece, two-piece and three-piece forged aluminum and carbon fiber wheels ...
+                  ADV.1 produces premiere custom-made one-piece, two-piece and three-piece forged aluminum and carbon
+                  fiber wheels ...
                 </Text>
               </View>
             </View>
@@ -88,7 +88,7 @@ export default class extends React.PureComponent {
               <Icon
                 name={ICON_PREFIX + 'heart'}
                 type='ionicon'
-                color={item.liked ? Colors.cellLiked : Colors.cellLikeIt} />
+                color={item.liked ? Colors.cellLiked : Colors.cellLikeIt}/>
             }
             title={item.likes_count.toString()}
             titleStyle={styles.btnLike}
@@ -107,7 +107,7 @@ export default class extends React.PureComponent {
               <Icon
                 name={ICON_PREFIX + 'chatbubbles'}
                 type='ionicon'
-                color={Colors.tabIconDefault} />
+                color={Colors.tabIconDefault}/>
             }
             title={item.comments_count.toString()}
             titleStyle={styles.btnLike}
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
   btnLike: {
     justifyContent: 'center',
-    alignItems:'center',
+    alignItems: 'center',
     paddingLeft: 5,
     color: Colors.tintColor,
   },

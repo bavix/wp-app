@@ -1,7 +1,15 @@
-import React, { Component } from 'react';
-import {View, Alert} from 'react-native';
+import React from 'react';
+import {Alert, ScrollView, StyleSheet, Switch, View} from 'react-native';
 import api from '../../helpers/Api';
-import {Avatar, Icon, Text, Tile} from "react-native-elements/src/index";
+import {
+  Avatar,
+  Icon,
+  Icon as BaseIcon,
+  Icon as Chevron,
+  ListItem,
+  Text,
+  Text as InfoText
+} from "react-native-elements/src/index";
 import AuthPureComponent from "../components/AuthPureComponent";
 import TokenRegister from "../../helpers/TokenRegister";
 import Colors from "../../constants/Colors";
@@ -9,14 +17,6 @@ import AuthStatus from "../../helpers/AuthStatus";
 import {ICON_PREFIX} from "../components/TabBarIcon";
 import {client} from "../../helpers/OAuth";
 import CDN, {BUCKET_USERS, VIEW_USERS_M} from "../../helpers/CDN";
-
-import { ScrollView, Switch, StyleSheet } from 'react-native'
-import { ListItem } from 'react-native-elements/src/index'
-import PropTypes from 'prop-types'
-
-import { Icon as BaseIcon } from 'react-native-elements/src/index'
-import { Icon as Chevron } from 'react-native-elements/src/index'
-import { Text as InfoText } from 'react-native-elements/src/index'
 
 
 const styles = StyleSheet.create({
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 
 export default class ProfileScreen extends AuthPureComponent {
 
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = ({navigation}) => {
     return {
       title: 'Profile',
       headerRight: (
@@ -121,7 +121,7 @@ export default class ProfileScreen extends AuthPureComponent {
             />
           </View>
           <View>
-            <Text style={{ fontSize: 16 }}>{this.state.profile.name}</Text>
+            <Text style={{fontSize: 16}}>{this.state.profile.name}</Text>
             <Text
               style={{
                 color: 'gray',
@@ -132,7 +132,7 @@ export default class ProfileScreen extends AuthPureComponent {
             </Text>
           </View>
         </View>
-        <InfoText text="Account" />
+        <InfoText text="Account"/>
         <View>
           <ListItem
             hideChevron
@@ -160,56 +160,56 @@ export default class ProfileScreen extends AuthPureComponent {
             // chevron
             title="Currency"
             rightTitle="USD"
-            rightTitleStyle={{ fontSize: 15 }}
+            rightTitleStyle={{fontSize: 15}}
             // onPress={() => this.onPressOptions()}
             containerStyle={styles.listItemContainer}
             leftIcon={
               <BaseIcon
-                containerStyle={{ backgroundColor: '#FAD291' }}
+                containerStyle={{backgroundColor: '#FAD291'}}
                 icon={{
                   type: 'font-awesome',
                   name: 'money',
                 }}
               />
             }
-            rightIcon={<Chevron />}
+            rightIcon={<Chevron/>}
           />
           <ListItem
             title="Location"
             rightTitle="New York"
-            rightTitleStyle={{ fontSize: 15 }}
+            rightTitleStyle={{fontSize: 15}}
             // onPress={() => this.onPressOptions()}
             containerStyle={styles.listItemContainer}
             leftIcon={
               <BaseIcon
-                containerStyle={{ backgroundColor: '#57DCE7' }}
+                containerStyle={{backgroundColor: '#57DCE7'}}
                 icon={{
                   type: 'material',
                   name: 'place',
                 }}
               />
             }
-            rightIcon={<Chevron />}
+            rightIcon={<Chevron/>}
           />
           <ListItem
             title="Language"
             rightTitle="English"
-            rightTitleStyle={{ fontSize: 15 }}
+            rightTitleStyle={{fontSize: 15}}
             // onPress={() => this.onPressOptions()}
             containerStyle={styles.listItemContainer}
             leftIcon={
               <BaseIcon
-                containerStyle={{ backgroundColor: '#FEA8A1' }}
+                containerStyle={{backgroundColor: '#FEA8A1'}}
                 icon={{
                   type: 'material',
                   name: 'language',
                 }}
               />
             }
-            rightIcon={<Chevron />}
+            rightIcon={<Chevron/>}
           />
         </View>
-        <InfoText text="More" />
+        <InfoText text="More"/>
         <View>
           <ListItem
             title="About US"
@@ -217,14 +217,14 @@ export default class ProfileScreen extends AuthPureComponent {
             containerStyle={styles.listItemContainer}
             leftIcon={
               <BaseIcon
-                containerStyle={{ backgroundColor: '#A4C8F0' }}
+                containerStyle={{backgroundColor: '#A4C8F0'}}
                 icon={{
                   type: 'ionicon',
                   name: 'md-information-circle',
                 }}
               />
             }
-            rightIcon={<Chevron />}
+            rightIcon={<Chevron/>}
           />
           <ListItem
             title="Terms and Policies"
@@ -232,14 +232,14 @@ export default class ProfileScreen extends AuthPureComponent {
             containerStyle={styles.listItemContainer}
             leftIcon={
               <BaseIcon
-                containerStyle={{ backgroundColor: '#C6C7C6' }}
+                containerStyle={{backgroundColor: '#C6C7C6'}}
                 icon={{
                   type: 'entypo',
                   name: 'light-bulb',
                 }}
               />
             }
-            rightIcon={<Chevron />}
+            rightIcon={<Chevron/>}
           />
           <ListItem
             title="Share our App"
@@ -256,7 +256,7 @@ export default class ProfileScreen extends AuthPureComponent {
                 }}
               />
             }
-            rightIcon={<Chevron />}
+            rightIcon={<Chevron/>}
           />
           <ListItem
             title="Rate Us"
@@ -264,8 +264,8 @@ export default class ProfileScreen extends AuthPureComponent {
             containerStyle={styles.listItemContainer}
             badge={{
               value: 5,
-              textStyle: { color: 'white' },
-              containerStyle: { backgroundColor: 'gray', marginTop: 0 },
+              textStyle: {color: 'white'},
+              containerStyle: {backgroundColor: 'gray', marginTop: 0},
             }}
             leftIcon={
               <BaseIcon
@@ -278,7 +278,7 @@ export default class ProfileScreen extends AuthPureComponent {
                 }}
               />
             }
-            rightIcon={<Chevron />}
+            rightIcon={<Chevron/>}
           />
           <ListItem
             title="Send FeedBack"
@@ -295,7 +295,7 @@ export default class ProfileScreen extends AuthPureComponent {
                 }}
               />
             }
-            rightIcon={<Chevron />}
+            rightIcon={<Chevron/>}
           />
         </View>
       </ScrollView>
