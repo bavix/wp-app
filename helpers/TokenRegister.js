@@ -6,6 +6,13 @@ import {app} from '../src/helpers/oauth'
  */
 const TOKEN = '@token';
 
+const ob = (obj) => {
+  if (typeof obj.toJS === "function") {
+    return obj.toJS();
+  }
+  return obj;
+};
+
 export default {
 
   /**
@@ -32,7 +39,7 @@ export default {
    */
   async setToken(token) {
     // expires_in
-    return await AsyncStorage.setItem(TOKEN, JSON.stringify(token));
+    return await AsyncStorage.setItem(TOKEN, JSON.stringify(ob(token)));
   },
 
   /**

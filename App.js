@@ -7,9 +7,15 @@ import reducers from './src/reducers'
 import rootSaga from './src/sagas'
 import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
+import ReduxSagaExposedPromise from './src/middlewares/ReduxSagaExposedPromise';
 
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(reducers, {}, applyMiddleware(sagaMiddleware));
+const store = createStore(
+  reducers,
+  {},
+  applyMiddleware(ReduxSagaExposedPromise, sagaMiddleware)
+);
+
 sagaMiddleware.run(rootSaga);
 
 export default class App extends React.Component {

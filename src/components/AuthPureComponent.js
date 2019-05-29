@@ -1,10 +1,10 @@
-import {PureComponent} from 'react';
+import {Component} from 'react';
 import AuthStatus from '../../helpers/AuthStatus';
 
 /**
  * @deprecated
  */
-export default class AuthPureComponent extends PureComponent {
+export default class AuthPureComponent extends Component {
 
   _authScreens = [
     'Login', 'Register', 'Forgot'

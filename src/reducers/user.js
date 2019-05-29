@@ -1,41 +1,37 @@
-import userActions from '../actions/user';
+import userActions from '../actions/user'
+import {fromJS} from 'immutable'
+import get from 'lodash/get'
 
 const {signIn, signOut, getUser} = userActions;
 
-const INITIAL_STATE = {
+const INITIAL_STATE = fromJS({
+  token: {},
+  message: '',
   loading: false,
-  token: false,
   auth: false,
-};
+});
 
 export default (state = INITIAL_STATE, action) => {
   const {type, payload} = action;
 
   switch (type) {
-    /**
-     * signIn
-     * */
-    case signIn.TRIGGER: {
-      return state.setIn(['loading', 'auth'], true);
-    }
+    case signIn.TRIGGER:
+      return state
+        .set('loading', true)
+        .set('message', '')
+        .set('auth', false);
 
-    case signIn.SUCCESS: {
-      // const {token} = payload;
-      console.log(payload);
-      return state;
-      // return state.set('token', token);
-    }
+    case signIn.SUCCESS:
+      return state
+        .set('token', fromJS(payload))
+        .set('auth', true);
 
-    // case signIn.FULFILL: {
-      // return state.setIn(['loading', 'auth'], false);
-    // }
+    case signIn.FAILURE:
+      const hint = get(payload, 'hint', payload.message);
+      return state.set('message', hint);
 
-    /**
-     * signOut
-     * */
-    // case signOut.SUCCESS: {
-    //   return state.set('token', '').set('data', fromJS({}));
-    // }
+    case signIn.FULFILL:
+      return state.set('loading', false);
 
     default:
       return state;

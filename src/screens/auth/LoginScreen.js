@@ -6,8 +6,15 @@ import {client} from '../../helpers/oauth'
 import TokenRegister from '../../../helpers/TokenRegister'
 import AuthPureComponent from "../../components/AuthPureComponent"
 import {connect} from 'react-redux'
+import {user} from '../../actions'
 
 class LoginScreen extends AuthPureComponent {
+
+  static mapStateToProps = ({user}) => user.toJS();
+
+  static mapDispatchToProps = {
+    signIn: user.signIn,
+  };
 
   static navigationOptions = {
     title: 'Login'
@@ -16,7 +23,6 @@ class LoginScreen extends AuthPureComponent {
   state = {
     username: '',
     password: '',
-    message: '',
     // loading: false,
   };
 
@@ -34,7 +40,18 @@ class LoginScreen extends AuthPureComponent {
   };
 
   login = async () => {
-
+    const {username, password} = this.state;
+    try {
+      await this.props.signIn({
+        deferred: true,
+        username,
+        password,
+      });
+      await TokenRegister.setToken(this.props.token);
+      await this.props.navigation.navigate('App');
+    } catch (e) {
+      // todo
+    }
 
     // this.setState({loading: true, message: ''});
     // const {username, password} = this.state;
@@ -61,7 +78,7 @@ class LoginScreen extends AuthPureComponent {
       <Input containerStyle={styles.password}
              label='Password'
              secureTextEntry={true}
-             errorMessage={this.state.message}
+             errorMessage={this.props.message}
              errorStyle={styles.error}
              onChangeText={(password) => this.setState({password})}
              rightIcon={<Button
@@ -71,8 +88,8 @@ class LoginScreen extends AuthPureComponent {
                type="clear"/>}/>
 
       <Button style={styles.login} title="Log In"
-              disabled={this.props.user.loading}
-              loading={this.props.user.loading}
+              disabled={this.props.loading}
+              loading={this.props.loading}
               onPress={this.login}/>
 
       <Button titleStyle={styles.btn} title="Register" type="clear" onPress={this.register}/>
@@ -82,9 +99,10 @@ class LoginScreen extends AuthPureComponent {
 
 }
 
-const mapStateToProps = state => state;
-
-export default connect(mapStateToProps)(LoginScreen);
+export default connect(
+  LoginScreen.mapStateToProps,
+  LoginScreen.mapDispatchToProps
+)(LoginScreen);
 
 const styles = StyleSheet.create({
   container: {

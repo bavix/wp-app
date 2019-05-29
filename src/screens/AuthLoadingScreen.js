@@ -1,6 +1,5 @@
 import React from 'react'
 import {ActivityIndicator, View} from 'react-native'
-import AuthStatus from '../../helpers/AuthStatus'
 import {connect} from 'react-redux'
 
 class AuthLoadingScreen extends React.PureComponent {
