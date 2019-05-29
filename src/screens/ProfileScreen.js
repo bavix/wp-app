@@ -15,7 +15,7 @@ import TokenRegister from "../../helpers/TokenRegister";
 import Colors from "../../constants/Colors";
 import AuthStatus from "../../helpers/AuthStatus";
 import {ICON_PREFIX} from "../components/TabBarIcon";
-import {client} from "../../helpers/OAuth";
+import {client} from "../helpers/oauth";
 import CDN, {BUCKET_USERS, VIEW_USERS_M} from "../../helpers/CDN";
 
 
@@ -96,7 +96,7 @@ export default class ProfileScreen extends AuthPureComponent {
 
   componentDidMount() {
     super.componentDidMount();
-    api.get('api/profile', {
+    api.get('axio/profile', {
       params: {
         include: ['image']
       }

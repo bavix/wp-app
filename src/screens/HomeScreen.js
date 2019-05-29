@@ -4,7 +4,7 @@ import {AppState, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View
 import {config} from '../constants'
 import TokenRegister from '../../helpers/TokenRegister';
 import AuthPureComponent from "../components/AuthPureComponent";
-import AppAuth from '../../helpers/OAuth';
+import AppAuth from '../helpers/oauth';
 
 export default class HomeScreen extends AuthPureComponent {
   state = {

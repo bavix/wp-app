@@ -1,12 +1,13 @@
 import React from 'react';
-import {KeyboardAvoidingView, StyleSheet} from 'react-native';
-import {Button, Input} from 'react-native-elements/src/index';
-import Colors from "../../../constants/Colors";
-import {client} from '../../../helpers/OAuth';
-import TokenRegister from '../../../helpers/TokenRegister';
-import AuthPureComponent from "../../components/AuthPureComponent";
+import {KeyboardAvoidingView, StyleSheet} from 'react-native'
+import {Button, Input} from 'react-native-elements'
+import Colors from "../../../constants/Colors"
+import {client} from '../../helpers/oauth'
+import TokenRegister from '../../../helpers/TokenRegister'
+import AuthPureComponent from "../../components/AuthPureComponent"
+import {connect} from 'react-redux'
 
-export default class LoginScreen extends AuthPureComponent {
+class LoginScreen extends AuthPureComponent {
 
   static navigationOptions = {
     title: 'Login'
@@ -16,7 +17,7 @@ export default class LoginScreen extends AuthPureComponent {
     username: '',
     password: '',
     message: '',
-    loading: false,
+    // loading: false,
   };
 
   forgot = () => {
@@ -33,20 +34,22 @@ export default class LoginScreen extends AuthPureComponent {
   };
 
   login = async () => {
-    this.setState({loading: true, message: ''});
-    const {username, password} = this.state;
-    await client.authAsync(username, password).then(({data}) => {
-      TokenRegister.setToken(data);
-      this.setState({loading: false});
-      this.props.navigation.navigate('App');
-    }).catch(({response}) => {
-      this.setState({
-        loading: false,
-        message: response.data.hint ?
-          response.data.hint :
-          response.data.message,
-      });
-    })
+
+
+    // this.setState({loading: true, message: ''});
+    // const {username, password} = this.state;
+    // await client.authAsync(username, password).then(({data}) => {
+    //   TokenRegister.setToken(data);
+    //   this.setState({loading: false});
+    //   this.props.navigation.navigate('App');
+    // }).catch(({response}) => {
+    //   this.setState({
+    //     loading: false,
+    //     message: response.data.hint ?
+    //       response.data.hint :
+    //       response.data.message,
+    //   });
+    // })
   };
 
   render() {
@@ -68,8 +71,8 @@ export default class LoginScreen extends AuthPureComponent {
                type="clear"/>}/>
 
       <Button style={styles.login} title="Log In"
-              disabled={this.state.loading}
-              loading={this.state.loading}
+              disabled={this.props.user.loading}
+              loading={this.props.user.loading}
               onPress={this.login}/>
 
       <Button titleStyle={styles.btn} title="Register" type="clear" onPress={this.register}/>
@@ -78,6 +81,10 @@ export default class LoginScreen extends AuthPureComponent {
   }
 
 }
+
+const mapStateToProps = state => state;
+
+export default connect(mapStateToProps)(LoginScreen);
 
 const styles = StyleSheet.create({
   container: {

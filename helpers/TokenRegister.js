@@ -1,5 +1,5 @@
 import {AsyncStorage} from 'react-native';
-import {app} from './OAuth'
+import {app} from '../src/helpers/oauth'
 
 /**
  * @deprecated
