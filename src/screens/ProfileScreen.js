@@ -1,5 +1,5 @@
-import React from 'react';
-import {Alert, ScrollView, StyleSheet, Switch, View} from 'react-native';
+import React from 'react'
+import {Alert, ScrollView, StyleSheet, Switch, View} from 'react-native'
 import api from '../helpers/api';
 import {
   Avatar,
@@ -9,15 +9,16 @@ import {
   ListItem,
   Text,
   Text as InfoText
-} from "react-native-elements/src/index";
-import AuthPureComponent from "../components/AuthPureComponent";
-import TokenRegister from "../../helpers/TokenRegister";
-import Colors from "../../constants/Colors";
-import AuthStatus from "../../helpers/AuthStatus";
-import {ICON_PREFIX} from "../components/TabBarIcon";
-import {client} from "../helpers/oauth";
-import CDN, {BUCKET_USERS, VIEW_USERS_M} from "../../helpers/CDN";
-
+} from "react-native-elements/src/index"
+import AuthPureComponent from "../components/AuthPureComponent"
+import TokenRegister from "../../helpers/TokenRegister"
+import Colors from "../../constants/Colors"
+import AuthStatus from "../../helpers/AuthStatus"
+import {ICON_PREFIX} from "../components/TabBarIcon"
+import {client} from "../helpers/oauth"
+import CDN, {BUCKET_USERS, VIEW_USERS_M} from "../../helpers/CDN"
+import {connect} from 'react-redux'
+import {user} from "../actions";
 
 const styles = StyleSheet.create({
   scroll: {
@@ -39,59 +40,66 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#ECECEC',
   },
-})
+});
 
-export default class ProfileScreen extends AuthPureComponent {
+class ProfileScreen extends AuthPureComponent {
 
-  static navigationOptions = ({navigation}) => {
-    return {
-      title: 'Profile',
-      headerRight: (
-        <Icon
-          containerStyle={{paddingRight: 15}}
-          name={ICON_PREFIX + 'log-out'}
-          type='ionicon'
-          size={26}
-          color={Colors.tintColor}
-          onPress={() => {
-            AuthStatus.isUser().then((authorized) => {
-              if (!authorized) {
-                return;
-              }
+  static mapStateToProps = ({user}) => user.toJS();
 
-              Alert.alert(
-                'Logout',
-                'Are you sure you want to logout?',
-                [
-                  {
-                    text: 'No',
-                    style: 'cancel',
-                  },
-                  {
-                    text: 'Yes',
-                    style: 'destructive',
-                    onPress: async () => {
-                      const accessToken = await TokenRegister.getAccessToken();
-                      TokenRegister.removeToken().then(async () => {
-                        await client.revokeAsync(accessToken);
-                        navigation.navigate('Auth');
-                      }).catch(() => {
-                        alert('Error!');
-                      });
-                    }
-                  },
-                ]
-              );
-            });
-          }}
-        />
-      ),
-    }
+  static mapDispatchToProps = {
+    signOut: user.signOut,
   };
 
   state = {
     image: null,
     profile: {},
+  };
+
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: 'Profile',
+      // headerRight: ({state}) =>(
+      //   <Icon
+      //     containerStyle={{paddingRight: 15}}
+      //     name={ICON_PREFIX + 'log-out'}
+      //     type='ionicon'
+      //     size={26}
+      //     color={Colors.tintColor}
+      //     onPress={() => {
+      //       if (state.params.auth) {
+      //         Alert.alert(
+      //           'Logout',
+      //           'Are you sure you want to logout?',
+      //           [
+      //             {
+      //               text: 'No',
+      //               style: 'cancel',
+      //             },
+      //             {
+      //               text: 'Yes',
+      //               style: 'destructive',
+      //               onPress: async () => {
+      //                 try {
+      //                   const accessToken = await TokenRegister.getAccessToken();
+      //                   await state.params.signOut({
+      //                     deferred: true,
+      //                     token: accessToken,
+      //                   });
+      //
+      //                   await TokenRegister.removeToken();
+      //                   await navigation.navigate('Auth');
+      //                 } catch (e) {
+      //                   alert('Error!');
+      //                 }
+      //               }
+      //             },
+      //           ]
+      //         );
+      //       }
+      //     }}
+      //   />
+      //),
+    }
   };
 
   componentDidMount() {
@@ -162,6 +170,21 @@ export default class ProfileScreen extends AuthPureComponent {
             rightTitle="USD"
             rightTitleStyle={{fontSize: 15}}
             // onPress={() => this.onPressOptions()}
+            onPress={async () => {
+              try {
+                const accessToken = await TokenRegister.getAccessToken();
+                await this.params.signOut({
+                  token: accessToken,
+                  deferred: true,
+                });
+
+                await TokenRegister.removeToken();
+                await this.props.navigation.navigate('Auth');
+              } catch (e) {
+                console.log(e);
+                alert('Error!');
+              }
+            }}
             containerStyle={styles.listItemContainer}
             leftIcon={
               <BaseIcon
@@ -303,3 +326,8 @@ export default class ProfileScreen extends AuthPureComponent {
   }
 
 }
+
+export default connect(
+  ProfileScreen.mapStateToProps,
+  ProfileScreen.mapDispatchToProps,
+)(ProfileScreen);

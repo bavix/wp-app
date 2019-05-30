@@ -15,6 +15,7 @@ export default (state = INITIAL_STATE, action) => {
   const {type, payload} = action;
 
   switch (type) {
+    // singIn
     case signIn.TRIGGER:
       return state
         .set('loading', true)
@@ -27,10 +28,26 @@ export default (state = INITIAL_STATE, action) => {
         .set('auth', true);
 
     case signIn.FAILURE:
-      const hint = get(payload, 'hint', payload.message);
-      return state.set('message', hint);
+      return state.set('message', get(payload, 'hint', payload.message));
 
     case signIn.FULFILL:
+      return state.set('loading', false);
+
+    // signOut
+    case signOut.TRIGGER:
+      return state
+        .set('loading', true)
+        .set('message', '');
+
+    case signOut.SUCCESS:
+      return state
+        .set('token', fromJS({}))
+        .set('auth', false);
+
+    case signOut.FAILURE:
+      return state.set('message', get(payload, 'hint', payload.message));
+
+    case signOut.FULFILL:
       return state.set('loading', false);
 
     default:
