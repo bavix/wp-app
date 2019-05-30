@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {KeyboardAvoidingView, StyleSheet} from 'react-native'
 import {Button, Input} from 'react-native-elements'
 import Colors from "../../../constants/Colors"
@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 import {user} from '../../actions'
 import { bindActionCreators } from 'redux'
 
-class LoginScreen extends AuthPureComponent {
+class LoginScreen extends Component {
 
   static mapStateToProps = ({user}) => user.toJS();
 

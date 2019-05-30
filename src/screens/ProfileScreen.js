@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {Alert, ScrollView, StyleSheet, Switch, View} from 'react-native'
 import api from '../helpers/api';
 import {
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class ProfileScreen extends AuthPureComponent {
+class ProfileScreen extends Component {
 
   static mapStateToProps = ({user}) => user.toJS();
 
@@ -101,7 +101,7 @@ class ProfileScreen extends AuthPureComponent {
   };
 
   componentDidMount() {
-    super.componentDidMount();
+    // super.componentDidMount();
     api.get('axio/profile', {
       params: {
         include: ['image']

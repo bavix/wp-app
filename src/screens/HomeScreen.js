@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {AppState, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
 import {config} from '../constants'
 import TokenRegister from '../../helpers/TokenRegister';
@@ -6,7 +6,7 @@ import AuthPureComponent from "../components/AuthPureComponent";
 import AppAuth from '../api/oauth';
 import {connect} from 'react-redux'
 
-class HomeScreen extends AuthPureComponent {
+class HomeScreen extends Component {
 
   state = {
     counter: 0,
@@ -14,7 +14,7 @@ class HomeScreen extends AuthPureComponent {
   };
 
   componentDidMount() {
-    super.componentDidMount();
+    // super.componentDidMount();
     AppState.addEventListener('change', this._handleAppStateChange);
   }
 
