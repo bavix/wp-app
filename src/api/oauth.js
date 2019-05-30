@@ -1,4 +1,4 @@
-import axio from './axioInstance'
+import axio from '../helpers/axioInstance'
 import {config} from '../constants'
 
 const post = (path, params) => {

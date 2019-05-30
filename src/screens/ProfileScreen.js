@@ -12,13 +12,10 @@ import {
 } from "react-native-elements/src/index"
 import AuthPureComponent from "../components/AuthPureComponent"
 import TokenRegister from "../../helpers/TokenRegister"
-import Colors from "../../constants/Colors"
-import AuthStatus from "../../helpers/AuthStatus"
-import {ICON_PREFIX} from "../components/TabBarIcon"
-import {client} from "../helpers/oauth"
 import CDN, {BUCKET_USERS, VIEW_USERS_M} from "../../helpers/CDN"
 import {connect} from 'react-redux'
 import {user} from "../actions";
+import {bindActionCreators} from "redux";
 
 const styles = StyleSheet.create({
   scroll: {
@@ -46,9 +43,10 @@ class ProfileScreen extends AuthPureComponent {
 
   static mapStateToProps = ({user}) => user.toJS();
 
-  static mapDispatchToProps = {
-    signOut: user.signOut,
-  };
+  static mapDispatchToProps = dispatch => bindActionCreators(
+    {signOut: user.signOut},
+    dispatch,
+  );
 
   state = {
     image: null,
@@ -173,7 +171,7 @@ class ProfileScreen extends AuthPureComponent {
             onPress={async () => {
               try {
                 const accessToken = await TokenRegister.getAccessToken();
-                await this.params.signOut({
+                await this.props.signOut({
                   token: accessToken,
                   deferred: true,
                 });

@@ -1,6 +1,7 @@
 import React from 'react'
 import {ActivityIndicator, View} from 'react-native'
 import {connect} from 'react-redux'
+import {isUser} from "../helpers/tokenizer";
 
 class AuthLoadingScreen extends React.PureComponent {
 
@@ -12,7 +13,7 @@ class AuthLoadingScreen extends React.PureComponent {
   }
 
   _bootstrapAsync = () => {
-    if (this.props.auth) {
+    if (isUser(this.props.token)) {
       return this.props.navigation.navigate('App')
     }
 

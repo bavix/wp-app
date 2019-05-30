@@ -2,19 +2,20 @@ import React from 'react';
 import {KeyboardAvoidingView, StyleSheet} from 'react-native'
 import {Button, Input} from 'react-native-elements'
 import Colors from "../../../constants/Colors"
-import {client} from '../../helpers/oauth'
 import TokenRegister from '../../../helpers/TokenRegister'
 import AuthPureComponent from "../../components/AuthPureComponent"
 import {connect} from 'react-redux'
 import {user} from '../../actions'
+import { bindActionCreators } from 'redux'
 
 class LoginScreen extends AuthPureComponent {
 
   static mapStateToProps = ({user}) => user.toJS();
 
-  static mapDispatchToProps = {
-    signIn: user.signIn,
-  };
+  static mapDispatchToProps = dispatch => bindActionCreators(
+    {signIn: user.signIn},
+    dispatch,
+  );
 
   static navigationOptions = {
     title: 'Login'

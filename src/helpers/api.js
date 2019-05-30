@@ -10,7 +10,7 @@ const params = async (args) => {
 
   if (!args.headers.Authorization) {
     const token = await TokenRegister.getAccessToken();
-    args.headers.Authorization = 'Bearer ' + token;
+    args.headers.Authorization = `Bearer ${token}`;
   }
 
   console.log(args)

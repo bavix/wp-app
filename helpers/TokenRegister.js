@@ -1,11 +1,14 @@
 import {AsyncStorage} from 'react-native';
-import {app} from '../src/helpers/oauth'
+import {app} from '../src/api/oauth'
 
 /**
  * @deprecated
  */
 const TOKEN = '@token';
 
+/**
+ * @deprecated
+ */
 const ob = (obj) => {
   if (typeof obj.toJS === "function") {
     return obj.toJS();
@@ -13,6 +16,9 @@ const ob = (obj) => {
   return obj;
 };
 
+/**
+ * @deprecated
+ */
 export default {
 
   /**

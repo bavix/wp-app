@@ -1,12 +1,13 @@
 import React from 'react';
 import {AppState, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
-
 import {config} from '../constants'
 import TokenRegister from '../../helpers/TokenRegister';
 import AuthPureComponent from "../components/AuthPureComponent";
-import AppAuth from '../helpers/oauth';
+import AppAuth from '../api/oauth';
+import {connect} from 'react-redux'
 
-export default class HomeScreen extends AuthPureComponent {
+class HomeScreen extends AuthPureComponent {
+
   state = {
     counter: 0,
     appState: AppState.currentState
@@ -203,3 +204,7 @@ const styles = StyleSheet.create({
     color: '#2e78b7',
   },
 });
+
+export default connect(
+  HomeScreen.mapStateToProps,
+)(HomeScreen);
