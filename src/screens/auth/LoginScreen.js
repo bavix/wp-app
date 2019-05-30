@@ -52,21 +52,6 @@ class LoginScreen extends AuthPureComponent {
     } catch (e) {
       // todo
     }
-
-    // this.setState({loading: true, message: ''});
-    // const {username, password} = this.state;
-    // await client.authAsync(username, password).then(({data}) => {
-    //   TokenRegister.setToken(data);
-    //   this.setState({loading: false});
-    //   this.props.navigation.navigate('App');
-    // }).catch(({response}) => {
-    //   this.setState({
-    //     loading: false,
-    //     message: response.data.hint ?
-    //       response.data.hint :
-    //       response.data.message,
-    //   });
-    // })
   };
 
   render() {

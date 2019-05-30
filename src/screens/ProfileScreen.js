@@ -1,6 +1,6 @@
 import React from 'react';
 import {Alert, ScrollView, StyleSheet, Switch, View} from 'react-native';
-import api from '../../helpers/Api';
+import api from '../helpers/api';
 import {
   Avatar,
   Icon,

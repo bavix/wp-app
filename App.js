@@ -3,20 +3,32 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native'
 import { AppLoading, Asset, Font, Icon } from 'expo'
 import AppNavigator from './src/navigation/AppNavigator'
 import createSagaMiddleware from 'redux-saga'
-import reducers from './src/reducers'
 import rootSaga from './src/sagas'
 import { applyMiddleware, createStore } from 'redux'
 import { Provider } from 'react-redux'
 import ReduxSagaExposedPromise from './src/middlewares/ReduxSagaExposedPromise';
+import immutableTransform from 'redux-persist-transform-immutable';
+import { persistStore, persistReducer } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import {AsyncStorage} from 'react-native';
+import rootReducer from './src/reducers'
+
+const persist = {
+  transforms: [immutableTransform()],
+  key: 'ru.wheelpro.app',
+  storage: AsyncStorage,
+  whitelist: ['user', 'localSettings'],
+};
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
-  reducers,
-  {},
+  persistReducer(persist, rootReducer),
   applyMiddleware(ReduxSagaExposedPromise, sagaMiddleware)
 );
 
 sagaMiddleware.run(rootSaga);
+
+const persistor = persistStore(store);
 
 export default class App extends React.Component {
   state = {
@@ -36,10 +48,12 @@ export default class App extends React.Component {
 
     return (
       <Provider store={store}>
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator />
-        </View>
+        <PersistGate persistor={persistor} loading={null}>
+          <View style={styles.container}>
+            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+            <AppNavigator />
+          </View>
+        </PersistGate>
       </Provider>
     );
   }

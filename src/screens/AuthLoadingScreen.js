@@ -4,13 +4,15 @@ import {connect} from 'react-redux'
 
 class AuthLoadingScreen extends React.PureComponent {
 
+  static mapStateToProps = ({user}) => user.toJS();
+
   constructor(props) {
     super(props);
     this._bootstrapAsync();
   }
 
   _bootstrapAsync = () => {
-    if (this.props.user.auth) {
+    if (this.props.auth) {
       return this.props.navigation.navigate('App')
     }
 
@@ -27,6 +29,4 @@ class AuthLoadingScreen extends React.PureComponent {
 
 }
 
-const mapStateToProps = state => state;
-
-export default connect(mapStateToProps)(AuthLoadingScreen);
+export default connect(AuthLoadingScreen.mapStateToProps)(AuthLoadingScreen);

@@ -1,25 +1,25 @@
-import {Component} from 'react';
-import AuthStatus from '../../helpers/AuthStatus';
+import {PureComponent as Component} from 'react'
+import {connect} from 'react-redux'
 
 /**
  * @deprecated
  */
-export default class AuthPureComponent extends Component {
+class AuthPureComponent extends Component {
+
+  static mapStateToProps = ({user}) => user.toJS();
 
   _authScreens = [
     'Login', 'Register', 'Forgot'
   ];
 
   _bootstrapAsync = (payload) => {
-    AuthStatus.isUser().then(isUser => {
-      if (this._authScreens.includes(payload.state.routeName)) {
-        if (isUser) {
-          this.props.navigation.navigate('App');
-        }
-      } else if (!isUser) {
-        this.props.navigation.navigate('Auth');
+    if (this._authScreens.includes(payload.state.routeName)) {
+      if (this.props.auth) {
+        this.props.navigation.navigate('App');
       }
-    });
+    } else if (!this.props.auth) {
+      this.props.navigation.navigate('Auth');
+    }
   };
 
   componentDidMount() {
@@ -30,3 +30,5 @@ export default class AuthPureComponent extends Component {
   }
 
 }
+
+export default connect(AuthPureComponent.mapStateToProps)(AuthPureComponent)
