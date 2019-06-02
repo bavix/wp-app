@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import {AppState, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View,} from 'react-native';
 import {config} from '../constants'
 import TokenRegister from '../../helpers/TokenRegister';
-import AuthPureComponent from "../components/AuthPureComponent";
-import AppAuth from '../api/oauth';
+import AppAuth from '../api/oauth'
+import AuthPure from "../components/AuthPure";
 import {connect} from 'react-redux'
 
-class HomeScreen extends Component {
+class HomePage extends AuthPure {
+
+  static mapStateToProps = ({user}) => user.toJS();
 
   state = {
     counter: 0,
@@ -14,7 +16,7 @@ class HomeScreen extends Component {
   };
 
   componentDidMount() {
-    // super.componentDidMount();
+    super.componentDidMount();
     AppState.addEventListener('change', this._handleAppStateChange);
   }
 
@@ -206,5 +208,5 @@ const styles = StyleSheet.create({
 });
 
 export default connect(
-  HomeScreen.mapStateToProps,
-)(HomeScreen);
+  HomePage.mapStateToProps,
+)(HomePage);

@@ -6,26 +6,26 @@ import {
   createSwitchNavigator
 } from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
-import ProfileScreen from '../screens/ProfileScreen';
-import WheelsScreen from '../screens/catalogue/wheels/WheelsScreen';
-import WheelDetailScreen from '../screens/catalogue/wheels/DetailScreen';
-import SettingsScreen from '../screens/SettingsScreen';
-import LoginScreen from '../screens/auth/LoginScreen';
-import HomeScreen from "../screens/HomeScreen";
-import AuthLoadingScreen from '../screens/AuthLoadingScreen';
-import RegisterScreen from "../screens/auth/RegisterScreen";
-import ForgotScreen from "../screens/auth/ForgotScreen";
+import ProfileScreen from '../screens/Profile';
+import List from '../screens/catalogue/wheels/List';
+import WheelDetailScreen from '../screens/catalogue/wheels/Detail';
+import Info from '../screens/Info';
+import LoginScreen from '../screens/auth/SignIn';
+import HomePage from "../screens/HomePage";
+import Switcher from '../screens/AuthLoading';
+import SignUp from "../screens/auth/SignUp";
+import Forgot from "../screens/auth/Forgot";
 
 const AuthStack = createStackNavigator({
   Login: LoginScreen,
-  Register: RegisterScreen,
-  Forgot: ForgotScreen,
+  Register: SignUp,
+  Forgot: Forgot,
 });
 
 const FavoritesStack = createAppContainer(createSwitchNavigator({
-  ALS: AuthLoadingScreen,
+  ALS: Switcher,
   Auth: AuthStack,
-  App: createStackNavigator({HomeScreen}),
+  App: createStackNavigator({HomeScreen: HomePage}),
 }));
 
 FavoritesStack.navigationOptions = {
@@ -39,7 +39,7 @@ FavoritesStack.navigationOptions = {
 };
 
 const ProfileStack = createAppContainer(createSwitchNavigator({
-  ALS: AuthLoadingScreen,
+  ALS: Switcher,
   Auth: AuthStack,
   App: createStackNavigator({ProfileScreen}),
 }));
@@ -55,7 +55,7 @@ ProfileStack.navigationOptions = {
 };
 
 const WheelsStack = createStackNavigator({
-  WheelsScreen,
+  WheelsScreen: List,
   WheelDetailScreen,
 });
 
@@ -72,7 +72,7 @@ WheelsStack.navigationOptions = {
 };
 
 const SettingsStack = createStackNavigator({
-  SettingsScreen,
+  SettingsScreen: Info,
 });
 
 SettingsStack.navigationOptions = {
@@ -86,7 +86,7 @@ SettingsStack.navigationOptions = {
 };
 
 const LinksStack = createStackNavigator({
-  SettingsScreen,
+  SettingsScreen: Info,
 });
 
 LinksStack.navigationOptions = {
@@ -107,5 +107,5 @@ export default createBottomTabNavigator({
   ProfileStack,
 }, {
   initialRouteName: 'WheelsStack',
-  tabBarOptions: {showLabel: false}
+  tabBarOptions: {showLabel: false},
 });

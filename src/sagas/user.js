@@ -4,9 +4,10 @@ import oauth, {client} from "../api/oauth";
 import {refreshToken} from "../helpers/tokenizer";
 
 export function* signIn(action) {
-  const { success, failure, fulfill } = userActions.signIn;
+  const { request, success, failure, fulfill } = userActions.signIn;
   const { username, password, deferred } = action.payload;
   try {
+    yield put(request());
     const response = yield call(oauth.client.authAsync, username, password);
     yield put(success(response.data));
     if (deferred) {
@@ -23,9 +24,10 @@ export function* signIn(action) {
 }
 
 export function* signOut(action) {
-  const { success, failure, fulfill } = userActions.signOut;
+  const { request, success, failure, fulfill } = userActions.signOut;
   const { token, deferred } = action.payload;
   try {
+    yield put(request());
     yield call(client.revokeAsync, token);
     yield put(success());
     if (deferred) {
@@ -53,9 +55,10 @@ export function* getUser() {
 }
 
 export function* refresh() {
-  const { success, failure, fulfill } = userActions.refresh;
+  const { request, success, failure, fulfill } = userActions.refresh;
   const { token, deferred } = action.payload;
   try {
+    yield put(request());
     const data = refreshToken(token);
     const response = yield call(oauth.client.refreshAsync, data);
     yield put(success(response.data));

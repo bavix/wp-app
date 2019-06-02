@@ -2,7 +2,7 @@ import React from 'react';
 import {SectionList} from 'react-native';
 import {Text} from "react-native-elements/src/index";
 
-export default class SettingsScreen extends React.PureComponent {
+export default class Info extends React.PureComponent {
   static navigationOptions = {
     title: 'app.json',
   };

@@ -1,13 +1,14 @@
-import React from 'react';
+import React from 'react'
 import Colors from '../../../../constants/Colors';
 import {Icon} from 'react-native-elements/src/index';
 import WheelCell from '../../../components/cells/WheelCell'
 import TableView from "../../../components/TableView";
 import {ICON_PREFIX} from "../../../components/TabBarIcon";
 import CDN, {BUCKET_WHEELS, VIEW_WHEELS_M, VIEW_WHEELS_XS,} from "../../../../helpers/CDN";
-import Api from "../../../../helpers/Api";
+import api from '../../../helpers/api'
+import {AsyncStorage} from "react-native"
 
-export default class WheelsScreen extends React.PureComponent {
+export default class List extends React.PureComponent {
 
   /**
    * @param navigation
@@ -23,7 +24,10 @@ export default class WheelsScreen extends React.PureComponent {
           type='ionicon'
           size={26}
           color={Colors.tintColor}
-          onPress={() => alert('Hello World!')}/>
+          onPress={async () => {
+            await AsyncStorage.clear();
+            alert('Hello World!')
+          }}/>
       ),
     }
   };
@@ -37,13 +41,13 @@ export default class WheelsScreen extends React.PureComponent {
 
   favorite = async (item) => {
     if (item.favorited) {
-      return await Api.delete(`/api/wheels/${item.id}/favorite`).then(() => {
+      return await api.delete(`/api/wheels/${item.id}/favorite`).then(() => {
         item.favorites_count = item.favorites_count - 1;
         item.favorited = false;
       });
     }
 
-    await Api.post(`/api/wheels/${item.id}/favorite`).then((res) => {
+    await api.post(`/api/wheels/${item.id}/favorite`).then((res) => {
       item.favorites_count = res.data.count;
       item.favorited = true;
     });
@@ -51,13 +55,13 @@ export default class WheelsScreen extends React.PureComponent {
 
   like = async (item) => {
     if (item.liked) {
-      return await Api.delete(`/api/wheels/${item.id}/like`).then(() => {
+      return await api.delete(`/api/wheels/${item.id}/like`).then(() => {
         item.likes_count = item.likes_count - 1;
         item.liked = false;
       });
     }
 
-    await Api.post(`/api/wheels/${item.id}/like`).then((res) => {
+    await api.post(`/api/wheels/${item.id}/like`).then((res) => {
       item.likes_count = res.data.count;
       item.liked = true;
     });

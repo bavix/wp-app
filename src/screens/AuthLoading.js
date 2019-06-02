@@ -1,9 +1,21 @@
 import React from 'react'
-import {ActivityIndicator, View} from 'react-native'
+import {ActivityIndicator, View, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
 import {isUser} from "../helpers/tokenizer";
 
-class AuthLoadingScreen extends React.PureComponent {
+const styles = StyleSheet.create({
+  loading: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+});
+
+class AuthLoading extends React.PureComponent {
 
   static mapStateToProps = ({user}) => user.toJS();
 
@@ -22,12 +34,12 @@ class AuthLoadingScreen extends React.PureComponent {
 
   render() {
     return (
-      <View>
-        <ActivityIndicator/>
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" />
       </View>
     );
   }
 
 }
 
-export default connect(AuthLoadingScreen.mapStateToProps)(AuthLoadingScreen);
+export default connect(AuthLoading.mapStateToProps)(AuthLoading);

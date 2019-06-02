@@ -3,19 +3,17 @@ import {KeyboardAvoidingView, StyleSheet} from 'react-native'
 import {Button, Input} from 'react-native-elements'
 import Colors from "../../../constants/Colors"
 import TokenRegister from '../../../helpers/TokenRegister'
-import AuthPureComponent from "../../components/AuthPureComponent"
 import {connect} from 'react-redux'
 import {user} from '../../actions'
-import { bindActionCreators } from 'redux'
+import AuthPure from "../../components/AuthPure";
 
-class LoginScreen extends Component {
+class SignIn extends AuthPure {
 
   static mapStateToProps = ({user}) => user.toJS();
 
-  static mapDispatchToProps = dispatch => bindActionCreators(
-    {signIn: user.signIn},
-    dispatch,
-  );
+  static mapDispatchToProps = {
+    signIn: user.signIn,
+  };
 
   static navigationOptions = {
     title: 'Login'
@@ -51,6 +49,7 @@ class LoginScreen extends Component {
       await TokenRegister.setToken(this.props.token);
       await this.props.navigation.navigate('App');
     } catch (e) {
+      console.log(e.message)
       // todo
     }
   };
@@ -86,9 +85,9 @@ class LoginScreen extends Component {
 }
 
 export default connect(
-  LoginScreen.mapStateToProps,
-  LoginScreen.mapDispatchToProps
-)(LoginScreen);
+  SignIn.mapStateToProps,
+  SignIn.mapDispatchToProps
+)(SignIn);
 
 const styles = StyleSheet.create({
   container: {

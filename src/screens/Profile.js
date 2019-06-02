@@ -10,12 +10,14 @@ import {
   Text,
   Text as InfoText
 } from "react-native-elements/src/index"
-import AuthPureComponent from "../components/AuthPureComponent"
 import TokenRegister from "../../helpers/TokenRegister"
 import CDN, {BUCKET_USERS, VIEW_USERS_M} from "../../helpers/CDN"
 import {connect} from 'react-redux'
-import {user} from "../actions";
-import {bindActionCreators} from "redux";
+import {user} from "../actions"
+import {bindActionCreators} from "redux"
+import {ICON_PREFIX} from "../components/TabBarIcon"
+import Colors from "../../constants/Colors";
+import AuthPure from "../components/AuthPure";
 
 const styles = StyleSheet.create({
   scroll: {
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class ProfileScreen extends Component {
+class Profile extends AuthPure {
 
   static mapStateToProps = ({user}) => user.toJS();
 
@@ -56,6 +58,17 @@ class ProfileScreen extends Component {
   static navigationOptions = ({navigation}) => {
     return {
       title: 'Profile',
+      topBar: {
+        rightButtons: {
+          id: 'buttonOne',
+          icon: <Icon
+            containerStyle={{paddingRight: 15}}
+            name={ICON_PREFIX + 'log-out'}
+            type='ionicon'
+            size={26}
+            color={Colors.tintColor}/>
+        }
+      },
       // headerRight: ({state}) =>(
       //   <Icon
       //     containerStyle={{paddingRight: 15}}
@@ -63,46 +76,46 @@ class ProfileScreen extends Component {
       //     type='ionicon'
       //     size={26}
       //     color={Colors.tintColor}
-      //     onPress={() => {
-      //       if (state.params.auth) {
-      //         Alert.alert(
-      //           'Logout',
-      //           'Are you sure you want to logout?',
-      //           [
-      //             {
-      //               text: 'No',
-      //               style: 'cancel',
-      //             },
-      //             {
-      //               text: 'Yes',
-      //               style: 'destructive',
-      //               onPress: async () => {
-      //                 try {
-      //                   const accessToken = await TokenRegister.getAccessToken();
-      //                   await state.params.signOut({
-      //                     deferred: true,
-      //                     token: accessToken,
-      //                   });
-      //
-      //                   await TokenRegister.removeToken();
-      //                   await navigation.navigate('Auth');
-      //                 } catch (e) {
-      //                   alert('Error!');
-      //                 }
-      //               }
-      //             },
-      //           ]
-      //         );
-      //       }
-      //     }}
+      //     // onPress={() => {
+      //     //   if (state.params.auth) {
+      //     //     Alert.alert(
+      //     //       'Logout',
+      //     //       'Are you sure you want to logout?',
+      //     //       [
+      //     //         {
+      //     //           text: 'No',
+      //     //           style: 'cancel',
+      //     //         },
+      //     //         {
+      //     //           text: 'Yes',
+      //     //           style: 'destructive',
+      //     //           onPress: async () => {
+      //     //             try {
+      //     //               const accessToken = await TokenRegister.getAccessToken();
+      //     //               await state.params.signOut({
+      //     //                 deferred: true,
+      //     //                 token: accessToken,
+      //     //               });
+      //     //
+      //     //               await TokenRegister.removeToken();
+      //     //               await navigation.navigate('Auth');
+      //     //             } catch (e) {
+      //     //               alert('Error!');
+      //     //             }
+      //     //           }
+      //     //         },
+      //     //       ]
+      //     //     );
+      //     //   }
+      //     // }}
       //   />
-      //),
+      // ),
     }
   };
 
   componentDidMount() {
-    // super.componentDidMount();
-    api.get('axio/profile', {
+    super.componentDidMount();
+    api.get('api/profile', {
       params: {
         include: ['image']
       }
@@ -326,6 +339,6 @@ class ProfileScreen extends Component {
 }
 
 export default connect(
-  ProfileScreen.mapStateToProps,
-  ProfileScreen.mapDispatchToProps,
-)(ProfileScreen);
+  Profile.mapStateToProps,
+  Profile.mapDispatchToProps,
+)(Profile);

@@ -4,7 +4,7 @@ import {Image, Text, Tile} from 'react-native-elements/src/index';
 import TableView from "../../../components/TableView";
 import CDN, {BUCKET_WHEELS, VIEW_WHEELS_M, VIEW_WHEELS_XS,} from "../../../../helpers/CDN";
 
-export default class DetailScreen extends React.PureComponent {
+export default class Detail extends React.PureComponent {
 
   static navigationOptions = {
     title: 'Wheel Detail',

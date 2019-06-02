@@ -1,5 +1,4 @@
 import get from 'lodash/get'
-import has from 'lodash/has'
 
 /**
  * @param {Object} payload
@@ -19,7 +18,7 @@ export function refreshToken(payload) {
  * @param {Object} payload
  */
 export function isUser(payload) {
-  return has(payload, 'refresh_token')
+  return refreshToken(payload) !== null
 }
 
 /**
@@ -36,5 +35,5 @@ export function addIssuer(payload) {
  * @param {Object} payload
  */
 export function isExpired({issued_at, expires_in}) {
-  return +new Date() <= (issued_at + expires_in)
+  return (new Date() / 1e3 | 0) <= (issued_at + expires_in)
 }

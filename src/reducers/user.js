@@ -55,7 +55,7 @@ export default (state = INITIAL_STATE, action) => {
 
     case signOut.SUCCESS:
       return state
-        .set('token', {});
+        .set('token', fromJS({}));
 
     case signOut.FAILURE:
       return state.set('message', get(payload, 'hint', payload.message));
