@@ -19,7 +19,7 @@ export default {
   /**
    * @deprecated
    */
-  cellFavorited: tintColor,
+  cellFavorited: '#a3bc49',
   /**
    * @deprecated
    */

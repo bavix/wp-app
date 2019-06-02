@@ -51,7 +51,7 @@ export default class extends React.PureComponent {
                     type="clear"
                     icon={
                       <Icon
-                        name={ICON_PREFIX + 'star'}
+                        name={ICON_PREFIX + 'bookmark'}
                         type='ionicon'
                         color={item.favorited ? Colors.cellFavorited : Colors.cellFavoriteIt}
                       />

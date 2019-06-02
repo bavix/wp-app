@@ -33,7 +33,7 @@ FavoritesStack.navigationOptions = {
   tabBarIcon: ({focused}) => (
     <TabBarIcon
       focused={focused}
-      name='star'
+      name='bookmark'
     />
   ),
 };
