@@ -1,6 +1,6 @@
 import React from 'react'
 import Colors from '../../../../constants/Colors';
-import {Icon} from 'react-native-elements/src/index';
+import {Divider, Icon} from 'react-native-elements/src/index';
 import WheelCell from '../../../components/cells/WheelCell'
 import TableView from "../../../components/TableView";
 import {ICON_PREFIX} from "../../../components/TabBarIcon";
@@ -9,6 +9,14 @@ import api from '../../../helpers/api'
 import {AsyncStorage, View} from "react-native"
 import Modalize from 'react-native-modalize'
 import {Text, Button, Card} from 'react-native-elements'
+import PickerModal from 'react-native-picker-modal-view';
+
+const list = [
+  {Id: 1, Name: 'Test1 Name', Value: 'Test1 Value'},
+  {Id: 2, Name: 'Test2 Name', Value: 'Test2 Value'},
+  {Id: 3, Name: 'Test3 Name', Value: 'Test3 Value'},
+  {Id: 4, Name: 'Test4 Name', Value: 'Test4 Value'}
+]
 
 export default class List extends React.PureComponent {
 
@@ -48,6 +56,7 @@ export default class List extends React.PureComponent {
   }
 
   state = {
+    selectedItem: {},
     apiUrl: '/api/wheels',
     apiParams: {
       include: ['image', 'brand'],
@@ -101,6 +110,19 @@ export default class List extends React.PureComponent {
     />
   };
 
+  onClosed() {
+    console.log('close key pressed');
+  }
+
+  onSelected(selected) {
+    this.setState({ selectedItem: selected });
+    return selected;
+  }
+
+  onBackButtonPressed() {
+    console.log('back key pressed');
+  }
+
   /**
    * @return {*}
    */
@@ -113,6 +135,26 @@ export default class List extends React.PureComponent {
             <Text style={{marginBottom: 10}}>
               The idea with React Native Elements is more about component structure than actual design.
             </Text>
+
+            <PickerModal
+              // renderSelectView={(disabled, selected, showModal) =>
+              //   <Button disabled={disabled} title={'Show me!'} onPress={showModal} />
+              // }
+              onSelected={this.onSelected.bind(this)}
+              onClosed={this.onClosed.bind(this)}
+              onBackButtonPressed={this.onBackButtonPressed.bind(this)}
+              items={list}
+              sortingLanguage={'tr'}
+              showToTopButton={true}
+              selected={this.state.selectedItem}
+              autoGenerateAlphabeticalIndex={true}
+              selectPlaceholderText={'Choose one...'}
+              onEndReached={() => console.log('list ended...')}
+              searchPlaceholderText={'Search...'}
+              requireSelection={false}
+              autoSort={false}
+            />
+
             <Button
               icon={<Icon name='code' color='#ffffff' />}
               backgroundColor='#03A9F4'

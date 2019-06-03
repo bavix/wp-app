@@ -95,6 +95,7 @@ export default class TableView extends React.PureComponent {
         extraData={this.state}
         data={this.state.dataSource}
         keyExtractor={(item, index) => item.id.toString()}
+        ListEmptyComponent={this.props.listEmpty}
         ListFooterComponent={this.loadingComponent}
         onEndReached={this.handleLoadMore}
         renderItem={this.props.renderItem}

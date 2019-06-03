@@ -115,7 +115,7 @@ class Profile extends AuthPure {
 
   componentDidMount() {
     super.componentDidMount();
-    api.get('api/profile', {
+    api.get('/api/profile', {
       params: {
         include: ['image']
       }
