@@ -26,7 +26,7 @@ export function isUser(payload) {
  */
 export function addIssuer(payload) {
   return {
-    issued_at: +new Date(),
+    issued_at: now(),
     ...payload
   };
 }
@@ -35,5 +35,9 @@ export function addIssuer(payload) {
  * @param {Object} payload
  */
 export function isExpired({issued_at, expires_in}) {
-  return (new Date() / 1e3 | 0) <= (issued_at + expires_in)
+  return now() >= (issued_at + expires_in)
+}
+
+export function now() {
+  return (new Date() / 1e3 | 0)
 }

@@ -1,5 +1,6 @@
 import {AsyncStorage} from 'react-native';
-import {app} from '../src/api/oauth'
+import {app, client} from '../src/api/oauth'
+import {addIssuer, isExpired, isUser} from "../src/helpers/tokenizer";
 
 /**
  * @deprecated
@@ -45,7 +46,7 @@ export default {
    */
   async setToken(token) {
     // expires_in
-    return await AsyncStorage.setItem(TOKEN, JSON.stringify(ob(token)));
+    return await AsyncStorage.setItem(TOKEN, JSON.stringify(addIssuer(ob(token))));
   },
 
   /**
@@ -69,6 +70,12 @@ export default {
     let token = await this.getToken();
     if (token === null) {
       token = await app.authAsync().then(({data}) => data);
+      await this.setToken(token)
+    }
+    if (isUser(token) && isExpired(token)) {
+      token = await client.refreshAsync(token.refresh_token)
+        .then(({data}) => data);
+
       await this.setToken(token)
     }
     return token.access_token
