@@ -6,7 +6,9 @@ import TableView from "../../../components/TableView";
 import {ICON_PREFIX} from "../../../components/TabBarIcon";
 import CDN, {BUCKET_WHEELS, VIEW_WHEELS_M, VIEW_WHEELS_XS,} from "../../../../helpers/CDN";
 import api from '../../../helpers/api'
-import {AsyncStorage} from "react-native"
+import {AsyncStorage, View} from "react-native"
+import Modalize from 'react-native-modalize'
+import {Text, Button, Card} from 'react-native-elements'
 
 export default class List extends React.PureComponent {
 
@@ -15,6 +17,7 @@ export default class List extends React.PureComponent {
    * @return {{headerRight: *, title: string}}
    */
   static navigationOptions = ({navigation}) => {
+    const {state} = navigation;
     return {
       title: 'Wheels',
       headerRight: (
@@ -25,12 +28,24 @@ export default class List extends React.PureComponent {
           size={26}
           color={Colors.tintColor}
           onPress={async () => {
-            await AsyncStorage.clear();
-            alert('Hello World!')
+            state.params.handleModal();
+            // alert('Hello World!')
           }}/>
       ),
     }
   };
+
+  modal = React.createRef();
+
+  onOpen = () => {
+    if (this.modal.current) {
+      this.modal.current.open();
+    }
+  }
+
+  componentDidMount() {
+    this.props.navigation.setParams({ handleModal: () => this.onOpen() })
+  }
 
   state = {
     apiUrl: '/api/wheels',
@@ -91,11 +106,27 @@ export default class List extends React.PureComponent {
    */
   render() {
     return (
-      <TableView
-        apiUrl={this.state.apiUrl}
-        apiParams={this.state.apiParams}
-        renderItem={({item}) => this.renderItem(item)}
-        onEndReachedThreshold={3}/>
+      <View>
+        <Modalize ref={this.modal} adjustToContentHeight={true}>
+          <Card
+            title='HELLO WORLD'>
+            <Text style={{marginBottom: 10}}>
+              The idea with React Native Elements is more about component structure than actual design.
+            </Text>
+            <Button
+              icon={<Icon name='code' color='#ffffff' />}
+              backgroundColor='#03A9F4'
+              buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+              title='VIEW NOW' />
+          </Card>
+        </Modalize>
+
+        <TableView
+          apiUrl={this.state.apiUrl}
+          apiParams={this.state.apiParams}
+          renderItem={({item}) => this.renderItem(item)}
+          onEndReachedThreshold={3}/>
+      </View>
     );
   }
 
