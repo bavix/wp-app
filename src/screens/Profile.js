@@ -56,65 +56,57 @@ class Profile extends AuthPure {
   };
 
   static navigationOptions = ({navigation}) => {
+    const {state} = navigation;
     return {
       title: 'Profile',
-      topBar: {
-        rightButtons: {
-          id: 'buttonOne',
-          icon: <Icon
-            containerStyle={{paddingRight: 15}}
-            name={ICON_PREFIX + 'log-out'}
-            type='ionicon'
-            size={26}
-            color={Colors.tintColor}/>
-        }
-      },
-      // headerRight: ({state}) =>(
-      //   <Icon
-      //     containerStyle={{paddingRight: 15}}
-      //     name={ICON_PREFIX + 'log-out'}
-      //     type='ionicon'
-      //     size={26}
-      //     color={Colors.tintColor}
-      //     // onPress={() => {
-      //     //   if (state.params.auth) {
-      //     //     Alert.alert(
-      //     //       'Logout',
-      //     //       'Are you sure you want to logout?',
-      //     //       [
-      //     //         {
-      //     //           text: 'No',
-      //     //           style: 'cancel',
-      //     //         },
-      //     //         {
-      //     //           text: 'Yes',
-      //     //           style: 'destructive',
-      //     //           onPress: async () => {
-      //     //             try {
-      //     //               const accessToken = await TokenRegister.getAccessToken();
-      //     //               await state.params.signOut({
-      //     //                 deferred: true,
-      //     //                 token: accessToken,
-      //     //               });
-      //     //
-      //     //               await TokenRegister.removeToken();
-      //     //               await navigation.navigate('Auth');
-      //     //             } catch (e) {
-      //     //               alert('Error!');
-      //     //             }
-      //     //           }
-      //     //         },
-      //     //       ]
-      //     //     );
-      //     //   }
-      //     // }}
-      //   />
-      // ),
+      headerRight: (
+        <Icon
+          containerStyle={{paddingRight: 15}}
+          name={ICON_PREFIX + 'log-out'}
+          type='ionicon'
+          size={26}
+          color={Colors.tintColor}
+          onPress={() => {
+              Alert.alert(
+                'Logout',
+                'Are you sure you want to logout?',
+                [
+                  {
+                    text: 'No',
+                    style: 'cancel',
+                  },
+                  {
+                    text: 'Yes',
+                    style: 'destructive',
+                    onPress: state.params.handleSignOut
+                  },
+                ]
+              );
+          }}
+        />
+      ),
     }
   };
 
+  async logout() {
+    try {
+      const accessToken = await TokenRegister.getAccessToken();
+      await this.props.signOut({
+        token: accessToken,
+        deferred: true,
+      });
+
+      await TokenRegister.removeToken();
+      await this.props.navigation.navigate('Auth');
+    } catch (e) {
+      console.log(e);
+      alert('Error!');
+    }
+  }
+
   componentDidMount() {
     super.componentDidMount();
+    this.props.navigation.setParams({ handleSignOut: () => this.logout() })
     api.get('/api/profile', {
       params: {
         include: ['image']
@@ -181,21 +173,6 @@ class Profile extends AuthPure {
             rightTitle="USD"
             rightTitleStyle={{fontSize: 15}}
             // onPress={() => this.onPressOptions()}
-            onPress={async () => {
-              try {
-                const accessToken = await TokenRegister.getAccessToken();
-                await this.props.signOut({
-                  token: accessToken,
-                  deferred: true,
-                });
-
-                await TokenRegister.removeToken();
-                await this.props.navigation.navigate('Auth');
-              } catch (e) {
-                console.log(e);
-                alert('Error!');
-              }
-            }}
             containerStyle={styles.listItemContainer}
             leftIcon={
               <BaseIcon
