@@ -4,12 +4,13 @@ import {Divider, Icon} from 'react-native-elements/src/index';
 import WheelCell from '../../../components/cells/WheelCell'
 import TableView from "../../../components/TableView";
 import {ICON_PREFIX} from "../../../components/TabBarIcon";
-import CDN, {BUCKET_WHEELS, VIEW_WHEELS_M, VIEW_WHEELS_XS,} from "../../../../helpers/CDN";
 import api from '../../../helpers/api'
 import {AsyncStorage, View} from "react-native"
 import Modalize from 'react-native-modalize'
 import {Text, Button, Card} from 'react-native-elements'
 import PickerModal from 'react-native-picker-modal-view';
+import {getPlaceholder, getThumbnail} from "../../../helpers/cdn";
+import {buckets, thumbnails} from "../../../constants";
 
 const list = [
   {Id: 1, Name: 'Test1 Name', Value: 'Test1 Value'},
@@ -99,13 +100,13 @@ export default class List extends React.PureComponent {
     return <WheelCell
       id={item.id}
       item={item}
-      imageSource={CDN.getThumbnail(BUCKET_WHEELS, VIEW_WHEELS_XS, item.image)}
-      defaultSource={CDN.getPlaceholder(BUCKET_WHEELS)}
+      imageSource={getThumbnail(thumbnails.wheelsXs, item.image)}
+      defaultSource={getPlaceholder(buckets.wheels)}
       favoritePress={async () => await this.favorite(item)}
       likePress={async () => await this.like(item)}
       pressItem={() => this.props.navigation.navigate('WheelDetailScreen', {
         item,
-        image: CDN.getThumbnail(BUCKET_WHEELS, VIEW_WHEELS_M, item.image),
+        image: getThumbnail(thumbnails.wheelsM, item.image),
       })}
     />
   };

@@ -2,7 +2,8 @@ import React from 'react';
 import {ActivityIndicator, ScrollView, StyleSheet, TouchableWithoutFeedback, View} from 'react-native';
 import {Image, Text, Tile} from 'react-native-elements/src/index';
 import TableView from "../../../components/TableView";
-import CDN, {BUCKET_WHEELS, VIEW_WHEELS_M, VIEW_WHEELS_XS,} from "../../../../helpers/CDN";
+import {getThumbnail, getPlaceholder} from "../../../helpers/cdn";
+import {buckets, thumbnails} from "../../../constants";
 
 export default class Detail extends React.PureComponent {
 
@@ -53,7 +54,7 @@ export default class Detail extends React.PureComponent {
               return (
                 <TouchableWithoutFeedback onPress={() => this.props.navigation.push('WheelDetailScreen', {
                   item: similar,
-                  image: CDN.getThumbnail(BUCKET_WHEELS, VIEW_WHEELS_M, similar.image),
+                  image: getThumbnail(thumbnails.wheelsM, similar.image),
                 })}>
 
                   <View style={{
@@ -70,8 +71,8 @@ export default class Detail extends React.PureComponent {
                     <Image
                       style={{height: 160, width: 160,}}
                       resizeMode='contain'
-                      source={CDN.getThumbnail(BUCKET_WHEELS, VIEW_WHEELS_XS, similar.image)}
-                      defaultSource={CDN.getPlaceholder(BUCKET_WHEELS)}
+                      source={getThumbnail(thumbnails.wheelsXs, similar.image)}
+                      defaultSource={getPlaceholder(buckets.wheels)}
                       PlaceholderContent={<ActivityIndicator/>}>
                     </Image>
 

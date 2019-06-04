@@ -11,13 +11,14 @@ import {
   Text as InfoText
 } from "react-native-elements/src/index"
 import TokenRegister from "../../helpers/TokenRegister"
-import CDN, {BUCKET_USERS, VIEW_USERS_M} from "../../helpers/CDN"
 import {connect} from 'react-redux'
 import {user} from "../actions"
 import {bindActionCreators} from "redux"
 import {ICON_PREFIX} from "../components/TabBarIcon"
 import Colors from "../../constants/Colors";
 import AuthPure from "../components/AuthPure";
+import {getThumbnail} from '../helpers/cdn'
+import {thumbnails} from '../constants'
 
 const styles = StyleSheet.create({
   scroll: {
@@ -119,7 +120,7 @@ class Profile extends AuthPure {
   }
 
   render() {
-    const avatar = CDN.getThumbnail(BUCKET_USERS, VIEW_USERS_M, this.state.image);
+    const avatar = getThumbnail(thumbnails.usersM, this.state.image);
     return (
 
       <ScrollView style={styles.scroll}>
