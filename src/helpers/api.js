@@ -1,5 +1,6 @@
 import axio from './axioInstance';
 import TokenRegister from './../../helpers/TokenRegister';
+import * as Localization from 'expo-localization'
 
 const params = async (args) => {
   args = args || {};
@@ -12,6 +13,9 @@ const params = async (args) => {
     const token = await TokenRegister.getAccessToken();
     args.headers.Authorization = `Bearer ${token}`;
   }
+
+  const {locale} = await Localization.getLocalizationAsync();
+  args.headers['Accept-Language'] = locale;
 
   console.log(args)
   return args

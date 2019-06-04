@@ -15,6 +15,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import {AsyncStorage} from 'react-native';
 import rootReducer from './src/reducers'
+import {FontAwesome5} from "@expo/vector-icons";
 
 const persist = {
   transforms: [immutableTransform()],

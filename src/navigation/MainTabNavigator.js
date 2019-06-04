@@ -15,6 +15,7 @@ import HomePage from "../screens/HomePage";
 import Switcher from '../screens/AuthLoading';
 import SignUp from "../screens/auth/SignUp";
 import Forgot from "../screens/auth/Forgot";
+import WheelsTour from "../screens/WheelsTour";
 
 const AuthStack = createStackNavigator({
   Login: LoginScreen,
@@ -72,7 +73,7 @@ WheelsStack.navigationOptions = {
 };
 
 const SettingsStack = createStackNavigator({
-  SettingsScreen: Info,
+  SettingsScreen: WheelsTour,
 });
 
 SettingsStack.navigationOptions = {

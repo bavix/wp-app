@@ -41,7 +41,7 @@ class Info extends PureComponent {
     return (
       <ScrollView style={styles.scroll}>
 
-        <InfoText text="More"/>
+        {/*<InfoText text="More"/>*/}
         <View>
           <ListItem
             title="About US"
