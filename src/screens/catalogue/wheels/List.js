@@ -61,6 +61,7 @@ export default class List extends React.PureComponent {
     apiUrl: '/api/wheels',
     apiParams: {
       include: ['image', 'brand'],
+      filter: [],
     }
   };
 
@@ -131,8 +132,7 @@ export default class List extends React.PureComponent {
     return (
       <View>
         <Modalize ref={this.modal} adjustToContentHeight={true}>
-          <Card
-            title='HELLO WORLD'>
+          <View style={{padding: 15}}>
             <Text style={{marginBottom: 10}}>
               The idea with React Native Elements is more about component structure than actual design.
             </Text>
@@ -145,11 +145,11 @@ export default class List extends React.PureComponent {
               onClosed={this.onClosed.bind(this)}
               onBackButtonPressed={this.onBackButtonPressed.bind(this)}
               items={list}
-              sortingLanguage={'tr'}
-              showToTopButton={true}
+              // sortingLanguage={'tr'}
+              // showToTopButton={true}
               selected={this.state.selectedItem}
               autoGenerateAlphabeticalIndex={true}
-              selectPlaceholderText={'Choose one...'}
+              selectPlaceholderText={'Choose brand...'}
               onEndReached={() => console.log('list ended...')}
               searchPlaceholderText={'Search...'}
               requireSelection={false}
@@ -157,11 +157,9 @@ export default class List extends React.PureComponent {
             />
 
             <Button
-              icon={<Icon name='code' color='#ffffff' />}
-              backgroundColor='#03A9F4'
-              buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-              title='VIEW NOW' />
-          </Card>
+              buttonStyle={{backgroundColor: '#000'}}
+              title='Apply' />
+          </View>
         </Modalize>
 
         <TableView

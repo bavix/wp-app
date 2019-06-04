@@ -86,25 +86,25 @@ SettingsStack.navigationOptions = {
   ),
 };
 
-const LinksStack = createStackNavigator({
-  SettingsScreen: Info,
+const InfoStack = createStackNavigator({
+  Info,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+InfoStack.navigationOptions = {
+  tabBarLabel: 'Info',
   tabBarIcon: ({focused}) => (
     <TabBarIcon
       focused={focused}
-      name='link'
+      name='information-circle-outline'
     />
   ),
 };
 
 export default createBottomTabNavigator({
   SettingsStack,
-  LinksStack,
-  WheelsStack,
   FavoritesStack,
+  WheelsStack,
+  InfoStack,
   ProfileStack,
 }, {
   initialRouteName: 'WheelsStack',
