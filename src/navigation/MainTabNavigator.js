@@ -18,8 +18,8 @@ import Forgot from "../screens/auth/Forgot";
 import WheelsTour from "../screens/WheelsTour";
 
 const AuthStack = createStackNavigator({
-  Login: LoginScreen,
-  Register: SignUp,
+  SignIn: LoginScreen,
+  SignUp: SignUp,
   Forgot: Forgot,
 });
 

@@ -16,7 +16,7 @@ class SignIn extends AuthPure {
   };
 
   static navigationOptions = {
-    title: 'Login'
+    title: 'Sign In'
   };
 
   state = {
@@ -32,7 +32,7 @@ class SignIn extends AuthPure {
   };
 
   register = () => {
-    this.props.navigation.navigate('Register', {
+    this.props.navigation.navigate('SignUp', {
       username: this.state.username,
       password: this.state.password,
     });
@@ -72,12 +72,12 @@ class SignIn extends AuthPure {
                onPress={this.forgot}
                type="clear"/>}/>
 
-      <Button style={styles.login} title="Log In"
+      <Button style={styles.login} title="Sign In"
               disabled={this.props.loading}
               loading={this.props.loading}
               onPress={this.login}/>
 
-      <Button titleStyle={styles.btn} title="Register" type="clear" onPress={this.register}/>
+      <Button titleStyle={styles.btn} title="Sign Up" type="clear" onPress={this.register}/>
 
     </KeyboardAvoidingView>
   }

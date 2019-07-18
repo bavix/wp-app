@@ -1,7 +1,28 @@
 import {call, put, takeLatest} from 'redux-saga/effects'
 import userActions from '../actions/user'
 import oauth, {client} from "../api/oauth";
+import users from "../api/users";
 import {refreshToken} from "../helpers/tokenizer";
+
+export function* signUp(action) {
+  const { request, success, failure, fulfill } = userActions.signUp;
+  const { username, email, password, deferred } = action.payload;
+  try {
+    yield put(request());
+    const response = yield call(users.signUp, username, email, password);
+    yield put(success(response.data));
+    if (deferred) {
+      deferred.resolve();
+    }
+  } catch ({response}) {
+    yield put(failure(response.data));
+    if (deferred) {
+      deferred.reject(response.data);
+    }
+  } finally {
+    yield put(fulfill());
+  }
+}
 
 export function* signIn(action) {
   const { request, success, failure, fulfill } = userActions.signIn;
@@ -76,6 +97,7 @@ export function* refresh() {
 }
 
 export default function* watcherSaga() {
+  yield takeLatest(userActions.signUp.TRIGGER, signUp);
   yield takeLatest(userActions.signIn.TRIGGER, signIn);
   yield takeLatest(userActions.signOut.TRIGGER, signOut);
   yield takeLatest(userActions.getUser.TRIGGER, getUser);
