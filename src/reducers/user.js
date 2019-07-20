@@ -3,7 +3,7 @@ import {fromJS} from 'immutable'
 import get from 'lodash/get'
 import {addIssuer} from "../helpers/tokenizer";
 
-const {signUp, signIn, signOut, getUser, refresh} = userActions;
+const {forgot, signUp, signIn, signOut, getUser, refresh} = userActions;
 
 const INITIAL_STATE = fromJS({
   profile: {},
@@ -16,6 +16,21 @@ export default (state = INITIAL_STATE, action) => {
   const {type, payload} = action;
 
   switch (type) {
+    // forgot
+    case forgot.TRIGGER:
+      return state
+        .set('loading', true)
+        .set('message', '');
+
+    case forgot.SUCCESS:
+      return state;
+
+    case forgot.FAILURE:
+      return state.set('message', get(payload, 'hint', payload.message));
+
+    case forgot.FULFILL:
+      return state.set('loading', false);
+
     // singUp
     case signUp.TRIGGER:
       return state
