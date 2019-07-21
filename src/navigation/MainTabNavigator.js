@@ -101,10 +101,10 @@ InfoStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  SettingsStack,
-  FavoritesStack,
-  WheelsStack,
+  // SettingsStack,
+  // FavoritesStack,
   InfoStack,
+  WheelsStack,
   ProfileStack,
 }, {
   initialRouteName: 'WheelsStack',

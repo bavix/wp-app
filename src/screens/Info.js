@@ -1,11 +1,13 @@
 import React, {PureComponent} from 'react'
-import {ScrollView, StyleSheet, View} from 'react-native'
+import {ScrollView, StyleSheet, View, Alert} from 'react-native'
 import {
   Icon as BaseIcon,
   Icon as Chevron,
   ListItem,
   Text as InfoText
 } from "react-native-elements/src/index"
+
+import email from 'react-native-email'
 
 const styles = StyleSheet.create({
   scroll: {
@@ -36,6 +38,12 @@ class Info extends PureComponent {
       title: 'Info',
     }
   };
+
+  static async sendEmail() {
+    await email(['feedback@wheelpro.ru']).catch(() => {
+      Alert.alert('Sending email is not supported...', 'Contact us manually: feedback@wheelpro.ru')
+    })
+  }
 
   render() {
     return (
@@ -114,7 +122,7 @@ class Info extends PureComponent {
           />
           <ListItem
             title="Send FeedBack"
-            // onPress={() => this.onPressOptions()}
+            onPress={() => Info.sendEmail()}
             containerStyle={styles.listItemContainer}
             leftIcon={
               <BaseIcon

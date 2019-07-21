@@ -133,7 +133,7 @@ class Profile extends AuthPure {
             />
           </View>
           <View>
-            <Text style={{fontSize: 16}}>{this.state.profile.name}</Text>
+            <Text style={{fontSize: 16}}>{this.state.profile.name ? this.state.profile.name : 'Unknown'}</Text>
             <Text
               style={{
                 color: 'gray',
@@ -146,63 +146,63 @@ class Profile extends AuthPure {
         </View>
         <InfoText text="Account"/>
         <View>
-          <ListItem
-            hideChevron
-            title="Push Notifications"
-            containerStyle={styles.listItemContainer}
-            rightElement={
-              <Switch
-                // onValueChange={this.onChangePushNotifications}
-                value={false}
-              />
-            }
-            leftIcon={
-              <BaseIcon
-                containerStyle={{
-                  backgroundColor: '#FFADF2',
-                }}
-                icon={{
-                  type: 'material',
-                  name: 'notifications',
-                }}
-              />
-            }
-          />
-          <ListItem
-            // chevron
-            title="Currency"
-            rightTitle="USD"
-            rightTitleStyle={{fontSize: 15}}
-            // onPress={() => this.onPressOptions()}
-            containerStyle={styles.listItemContainer}
-            leftIcon={
-              <BaseIcon
-                containerStyle={{backgroundColor: '#FAD291'}}
-                icon={{
-                  type: 'font-awesome',
-                  name: 'money',
-                }}
-              />
-            }
-            rightIcon={<Chevron/>}
-          />
-          <ListItem
-            title="Location"
-            rightTitle="New York"
-            rightTitleStyle={{fontSize: 15}}
-            // onPress={() => this.onPressOptions()}
-            containerStyle={styles.listItemContainer}
-            leftIcon={
-              <BaseIcon
-                containerStyle={{backgroundColor: '#57DCE7'}}
-                icon={{
-                  type: 'material',
-                  name: 'place',
-                }}
-              />
-            }
-            rightIcon={<Chevron/>}
-          />
+          {/*<ListItem*/}
+          {/*  hideChevron*/}
+          {/*  title="Push Notifications"*/}
+          {/*  containerStyle={styles.listItemContainer}*/}
+          {/*  rightElement={*/}
+          {/*    <Switch*/}
+          {/*      // onValueChange={this.onChangePushNotifications}*/}
+          {/*      value={false}*/}
+          {/*    />*/}
+          {/*  }*/}
+          {/*  leftIcon={*/}
+          {/*    <BaseIcon*/}
+          {/*      containerStyle={{*/}
+          {/*        backgroundColor: '#FFADF2',*/}
+          {/*      }}*/}
+          {/*      icon={{*/}
+          {/*        type: 'material',*/}
+          {/*        name: 'notifications',*/}
+          {/*      }}*/}
+          {/*    />*/}
+          {/*  }*/}
+          {/*/>*/}
+          {/*<ListItem*/}
+          {/*  // chevron*/}
+          {/*  title="Currency"*/}
+          {/*  rightTitle="USD"*/}
+          {/*  rightTitleStyle={{fontSize: 15}}*/}
+          {/*  // onPress={() => this.onPressOptions()}*/}
+          {/*  containerStyle={styles.listItemContainer}*/}
+          {/*  leftIcon={*/}
+          {/*    <BaseIcon*/}
+          {/*      containerStyle={{backgroundColor: '#FAD291'}}*/}
+          {/*      icon={{*/}
+          {/*        type: 'font-awesome',*/}
+          {/*        name: 'money',*/}
+          {/*      }}*/}
+          {/*    />*/}
+          {/*  }*/}
+          {/*  rightIcon={<Chevron/>}*/}
+          {/*/>*/}
+          {/*<ListItem*/}
+          {/*  title="Location"*/}
+          {/*  rightTitle="New York"*/}
+          {/*  rightTitleStyle={{fontSize: 15}}*/}
+          {/*  // onPress={() => this.onPressOptions()}*/}
+          {/*  containerStyle={styles.listItemContainer}*/}
+          {/*  leftIcon={*/}
+          {/*    <BaseIcon*/}
+          {/*      containerStyle={{backgroundColor: '#57DCE7'}}*/}
+          {/*      icon={{*/}
+          {/*        type: 'material',*/}
+          {/*        name: 'place',*/}
+          {/*      }}*/}
+          {/*    />*/}
+          {/*  }*/}
+          {/*  rightIcon={<Chevron/>}*/}
+          {/*/>*/}
           <ListItem
             title="Language"
             rightTitle="English"

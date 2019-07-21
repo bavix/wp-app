@@ -23,10 +23,10 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-actionsheet": "^2.4.2",
     "react-native-elements": "^1.1.0",
-    "react-native-modalize": "^1.0.0-alpha.23",
-    "react-native-picker-modal-view": "^1.2.2",
-    "react-native-timed-slideshow": "^1.1.1",
-    "react-navigation": "^3.11.0",
+    "react-native-modalize": "^1.1.1",
+    "react-native-picker-modal-view": "^1.2.6",
+    "react-native-timed-slideshow": "^1.2.1",
+    "react-navigation": "^3.11.1",
     "react-redux": "^7.0.3",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
@@ -37,7 +37,8 @@
   },
   "devDependencies": {
     "babel-preset-expo": "^5.1.1",
-    "jest-expo": "^33.0.1"
+    "jest-expo": "^33.0.1",
+    "react-native-email": "^1.0.2"
   },
   "private": true
 }
