@@ -51,75 +51,75 @@ class Info extends PureComponent {
 
         {/*<InfoText text="More"/>*/}
         <View>
-          <ListItem
-            title="About US"
-            // onPress={() => this.onPressOptions()}
-            containerStyle={styles.listItemContainer}
-            leftIcon={
-              <BaseIcon
-                containerStyle={{backgroundColor: '#A4C8F0'}}
-                icon={{
-                  type: 'ionicon',
-                  name: 'md-information-circle',
-                }}
-              />
-            }
-            rightIcon={<Chevron/>}
-          />
-          <ListItem
-            title="Terms and Policies"
-            // onPress={() => this.onPressOptions()}
-            containerStyle={styles.listItemContainer}
-            leftIcon={
-              <BaseIcon
-                containerStyle={{backgroundColor: '#C6C7C6'}}
-                icon={{
-                  type: 'entypo',
-                  name: 'light-bulb',
-                }}
-              />
-            }
-            rightIcon={<Chevron/>}
-          />
-          <ListItem
-            title="Share our App"
-            // onPress={() => this.onPressOptions()}
-            containerStyle={styles.listItemContainer}
-            leftIcon={
-              <BaseIcon
-                containerStyle={{
-                  backgroundColor: '#C47EFF',
-                }}
-                icon={{
-                  type: 'entypo',
-                  name: 'share',
-                }}
-              />
-            }
-            rightIcon={<Chevron/>}
-          />
-          <ListItem
-            title="Rate Us"
-            // onPress={() => this.onPressOptions()}
-            containerStyle={styles.listItemContainer}
-            badge={{
-              value: 5,
-              textStyle: {color: 'white'},
-              containerStyle: {backgroundColor: 'gray', marginTop: 0},
-            }}
-            leftIcon={
-              <BaseIcon
-                containerStyle={{
-                  backgroundColor: '#FECE44',
-                }}
-                icon={{
-                  type: 'entypo',
-                  name: 'star',
-                }}
-              />
-            }
-            rightIcon={<Chevron/>}
-          />
+          {/*<ListItem*/}
+          {/*  title="About US"*/}
+          {/*  // onPress={() => this.onPressOptions()}*/}
+          {/*  containerStyle={styles.listItemContainer}*/}
+          {/*  leftIcon={*/}
+          {/*    <BaseIcon*/}
+          {/*      containerStyle={{backgroundColor: '#A4C8F0'}}*/}
+          {/*      icon={{*/}
+          {/*        type: 'ionicon',*/}
+          {/*        name: 'md-information-circle',*/}
+          {/*      }}*/}
+          {/*    />*/}
+          {/*  }*/}
+          {/*  rightIcon={<Chevron/>}*/}
+          {/*/>*/}
+          {/*<ListItem*/}
+          {/*  title="Terms and Policies"*/}
+          {/*  // onPress={() => this.onPressOptions()}*/}
+          {/*  containerStyle={styles.listItemContainer}*/}
+          {/*  leftIcon={*/}
+          {/*    <BaseIcon*/}
+          {/*      containerStyle={{backgroundColor: '#C6C7C6'}}*/}
+          {/*      icon={{*/}
+          {/*        type: 'entypo',*/}
+          {/*        name: 'light-bulb',*/}
+          {/*      }}*/}
+          {/*    />*/}
+          {/*  }*/}
+          {/*  rightIcon={<Chevron/>}*/}
+          {/*/>*/}
+          {/*<ListItem*/}
+          {/*  title="Share our App"*/}
+          {/*  // onPress={() => this.onPressOptions()}*/}
+          {/*  containerStyle={styles.listItemContainer}*/}
+          {/*  leftIcon={*/}
+          {/*    <BaseIcon*/}
+          {/*      containerStyle={{*/}
+          {/*        backgroundColor: '#C47EFF',*/}
+          {/*      }}*/}
+          {/*      icon={{*/}
+          {/*        type: 'entypo',*/}
+          {/*        name: 'share',*/}
+          {/*      }}*/}
+          {/*    />*/}
+          {/*  }*/}
+          {/*  rightIcon={<Chevron/>}*/}
+          {/*/>*/}
+          {/*<ListItem*/}
+          {/*  title="Rate Us"*/}
+          {/*  // onPress={() => this.onPressOptions()}*/}
+          {/*  containerStyle={styles.listItemContainer}*/}
+          {/*  badge={{*/}
+          {/*    value: 5,*/}
+          {/*    textStyle: {color: 'white'},*/}
+          {/*    containerStyle: {backgroundColor: 'gray', marginTop: 0},*/}
+          {/*  }}*/}
+          {/*  leftIcon={*/}
+          {/*    <BaseIcon*/}
+          {/*      containerStyle={{*/}
+          {/*        backgroundColor: '#FECE44',*/}
+          {/*      }}*/}
+          {/*      icon={{*/}
+          {/*        type: 'entypo',*/}
+          {/*        name: 'star',*/}
+          {/*      }}*/}
+          {/*    />*/}
+          {/*  }*/}
+          {/*  rightIcon={<Chevron/>}*/}
+          {/*/>*/}
           <ListItem
             title="Send FeedBack"
             onPress={() => Info.sendEmail()}

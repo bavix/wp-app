@@ -101,18 +101,18 @@ export default class extends React.PureComponent {
             }}
           />
 
-          <Button
-            type="clear"
-            icon={
-              <Icon
-                name={ICON_PREFIX + 'chatbubbles'}
-                type='ionicon'
-                color={Colors.tabIconDefault}/>
-            }
-            title={item.comments_count.toString()}
-            titleStyle={styles.btnLike}
-            onPress={() => alert(`ID: ${item.id}`)}
-          />
+          {/*<Button*/}
+          {/*  type="clear"*/}
+          {/*  icon={*/}
+          {/*    <Icon*/}
+          {/*      name={ICON_PREFIX + 'chatbubbles'}*/}
+          {/*      type='ionicon'*/}
+          {/*      color={Colors.tabIconDefault}/>*/}
+          {/*  }*/}
+          {/*  title={item.comments_count.toString()}*/}
+          {/*  titleStyle={styles.btnLike}*/}
+          {/*  onPress={() => alert(`ID: ${item.id}`)}*/}
+          {/*/>*/}
         </View>
 
         <Divider style={styles.divider}/>

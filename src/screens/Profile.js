@@ -133,7 +133,11 @@ class Profile extends AuthPure {
             />
           </View>
           <View>
-            <Text style={{fontSize: 16}}>{this.state.profile.name ? this.state.profile.name : 'Unknown'}</Text>
+            <Text style={{fontSize: 16}}>{
+              this.state.profile.name ?
+                this.state.profile.name :
+                (this.state.profile.login ? this.state.profile.login : 'Unknown')
+            }</Text>
             <Text
               style={{
                 color: 'gray',
