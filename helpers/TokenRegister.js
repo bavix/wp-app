@@ -70,14 +70,23 @@ export default {
     let token = await this.getToken();
     if (isUser(token) && isExpired(token)) {
       token = await client.refreshAsync(token.refresh_token)
-        .then(({data}) => data);
+        .then(({data}) => data)
+        .catch(({response}) => {
+          if (response.status === 401) {
+            return null
+          }
+        })
 
-      await this.setToken(token)
+      if (token) {
+        await this.setToken(token)
+      }
     }
+
     if (token === null || isExpired(token)) {
       token = await app.authAsync().then(({data}) => data);
       await this.setToken(token)
     }
+
     return token.access_token
   },
 
