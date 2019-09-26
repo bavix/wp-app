@@ -15,7 +15,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import {AsyncStorage} from 'react-native';
 import rootReducer from './src/reducers'
-import {FontAwesome5} from "@expo/vector-icons";
+import { AppearanceProvider } from 'react-native-appearance';
 
 const persist = {
   transforms: [immutableTransform()],
@@ -53,10 +53,10 @@ export default class App extends React.Component {
     return (
       <Provider store={store}>
         <PersistGate persistor={persistor} loading={null}>
-          <View style={styles.container}>
-            {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-            <AppNavigator />
-          </View>
+          <AppearanceProvider style={styles.container}>
+              {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+              <AppNavigator />
+          </AppearanceProvider>
         </PersistGate>
       </Provider>
     );
