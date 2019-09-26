@@ -5,7 +5,7 @@
     "slug": "wheelpro-mobile",
     "description": "",
     "privacy": "public",
-    "sdkVersion": "34.0.0",
+    "sdkVersion": "35.0.0",
     "platforms": [
       "ios",
       "android"

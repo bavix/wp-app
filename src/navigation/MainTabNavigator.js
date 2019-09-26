@@ -1,10 +1,10 @@
 import React from 'react';
 import {
   createAppContainer,
-  createBottomTabNavigator,
-  createStackNavigator,
   createSwitchNavigator
 } from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack'
+import {createBottomTabNavigator} from 'react-navigation-tabs'
 import TabBarIcon from '../components/TabBarIcon';
 import ProfileScreen from '../screens/Profile';
 import List from '../screens/catalogue/wheels/List';
