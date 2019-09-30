@@ -42,7 +42,7 @@ export default class Detail extends React.PureComponent {
 
         <View>
           <View style={styles.container}>
-            <Text>We recommend you to pay attention</Text>
+            {/*<Text>We recommend you to pay attention</Text>*/}
           </View>
 
           <TableView
@@ -97,8 +97,8 @@ export default class Detail extends React.PureComponent {
         </View>
 
         <View>
-          <Text>More of what you like</Text>
-          <Text>Auth block</Text>
+          {/*<Text>More of what you like</Text>*/}
+          {/*<Text>Auth block</Text>*/}
         </View>
 
       </ScrollView>

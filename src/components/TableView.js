@@ -77,7 +77,7 @@ export default class TableView extends React.PureComponent {
           dataSource,
           page,
         })
-      }).finally(() => {
+      }).catch().finally(() => {
         this.setState({
           loading: false,
           refresh: false
