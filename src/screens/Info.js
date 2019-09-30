@@ -1,13 +1,14 @@
 import React, {PureComponent} from 'react'
 import {ScrollView, StyleSheet, View, Alert} from 'react-native'
 import {
-  Icon as BaseIcon,
+  Icon,
   Icon as Chevron,
   ListItem,
-  Text as InfoText
 } from "react-native-elements/src/index"
+import {ICON_PREFIX} from "../components/TabBarIcon";
 
 import email from 'react-native-email'
+import {Linking} from "expo";
 
 const styles = StyleSheet.create({
   scroll: {
@@ -39,9 +40,15 @@ class Info extends PureComponent {
     }
   };
 
-  static async sendEmail() {
-    await email(['feedback@wheelpro.ru']).catch(() => {
+  static sendEmail() {
+    return email(['feedback@wheelpro.ru']).catch(() => {
       Alert.alert('Sending email is not supported...', 'Contact us manually: feedback@wheelpro.ru')
+    })
+  }
+
+  static gotoInstagram() {
+    return Linking.openURL('https://www.instagram.com/whlpro/').catch(() => {
+      Alert.alert('Opening a browser is not supported....', 'Open manually: https://www.instagram.com/whlpro/')
     })
   }
 
@@ -49,93 +56,34 @@ class Info extends PureComponent {
     return (
       <ScrollView style={styles.scroll}>
 
-        {/*<InfoText text="More"/>*/}
         <View>
-          {/*<ListItem*/}
-          {/*  title="About US"*/}
-          {/*  // onPress={() => this.onPressOptions()}*/}
-          {/*  containerStyle={styles.listItemContainer}*/}
-          {/*  leftIcon={*/}
-          {/*    <BaseIcon*/}
-          {/*      containerStyle={{backgroundColor: '#A4C8F0'}}*/}
-          {/*      icon={{*/}
-          {/*        type: 'ionicon',*/}
-          {/*        name: 'md-information-circle',*/}
-          {/*      }}*/}
-          {/*    />*/}
-          {/*  }*/}
-          {/*  rightIcon={<Chevron/>}*/}
-          {/*/>*/}
-          {/*<ListItem*/}
-          {/*  title="Terms and Policies"*/}
-          {/*  // onPress={() => this.onPressOptions()}*/}
-          {/*  containerStyle={styles.listItemContainer}*/}
-          {/*  leftIcon={*/}
-          {/*    <BaseIcon*/}
-          {/*      containerStyle={{backgroundColor: '#C6C7C6'}}*/}
-          {/*      icon={{*/}
-          {/*        type: 'entypo',*/}
-          {/*        name: 'light-bulb',*/}
-          {/*      }}*/}
-          {/*    />*/}
-          {/*  }*/}
-          {/*  rightIcon={<Chevron/>}*/}
-          {/*/>*/}
-          {/*<ListItem*/}
-          {/*  title="Share our App"*/}
-          {/*  // onPress={() => this.onPressOptions()}*/}
-          {/*  containerStyle={styles.listItemContainer}*/}
-          {/*  leftIcon={*/}
-          {/*    <BaseIcon*/}
-          {/*      containerStyle={{*/}
-          {/*        backgroundColor: '#C47EFF',*/}
-          {/*      }}*/}
-          {/*      icon={{*/}
-          {/*        type: 'entypo',*/}
-          {/*        name: 'share',*/}
-          {/*      }}*/}
-          {/*    />*/}
-          {/*  }*/}
-          {/*  rightIcon={<Chevron/>}*/}
-          {/*/>*/}
-          {/*<ListItem*/}
-          {/*  title="Rate Us"*/}
-          {/*  // onPress={() => this.onPressOptions()}*/}
-          {/*  containerStyle={styles.listItemContainer}*/}
-          {/*  badge={{*/}
-          {/*    value: 5,*/}
-          {/*    textStyle: {color: 'white'},*/}
-          {/*    containerStyle: {backgroundColor: 'gray', marginTop: 0},*/}
-          {/*  }}*/}
-          {/*  leftIcon={*/}
-          {/*    <BaseIcon*/}
-          {/*      containerStyle={{*/}
-          {/*        backgroundColor: '#FECE44',*/}
-          {/*      }}*/}
-          {/*      icon={{*/}
-          {/*        type: 'entypo',*/}
-          {/*        name: 'star',*/}
-          {/*      }}*/}
-          {/*    />*/}
-          {/*  }*/}
-          {/*  rightIcon={<Chevron/>}*/}
-          {/*/>*/}
           <ListItem
-            title="Send FeedBack"
+            title="FeedBack"
             onPress={() => Info.sendEmail()}
             containerStyle={styles.listItemContainer}
             leftIcon={
-              <BaseIcon
-                containerStyle={{
-                  backgroundColor: '#00C001',
-                }}
-                icon={{
-                  type: 'materialicon',
-                  name: 'feedback',
-                }}
+              <Icon
+                type='ionicon'
+                name={ICON_PREFIX + 'send'}
               />
             }
-            rightIcon={<Chevron/>}
+            rightIcon={
+              <Icon type='ionicon' name={ICON_PREFIX + 'arrow-dropright'} />
+            }
+          />
+          <ListItem
+            title="Instagram"
+            onPress={() => Info.gotoInstagram()}
+            containerStyle={styles.listItemContainer}
+            leftIcon={
+              <Icon
+                type='ionicon'
+                name={'logo-instagram'}
+              />
+            }
+            rightIcon={
+              <Icon type='ionicon' name={ICON_PREFIX + 'arrow-dropright'} />
+            }
           />
         </View>
       </ScrollView>
